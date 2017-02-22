@@ -1,0 +1,124 @@
+<html>
+	<head>
+		<script>
+			function send()
+			{
+				var str = "hello world";
+				var text = document.getElementsByName("fname")[0];		//靠, 返回一组数组
+				//var text = document.getElementById("kao");
+				log(str + text.value)
+    			console.log('Error: ' + str);
+				return false;	/*如果没有返回, 会一闪而过*/
+			}
+			function print()
+			{
+				var text = document.getElementById("kao");
+				alert(text.value)
+			}
+			function log(text)
+			{
+				var li = document.createElement('li')
+				li.appendChild(document.createTextNode(text));
+				document.getElementById('log').appendChild(li)
+				return false;
+			}
+			var global_data = "abc"
+		</script>
+	</head>
+<body>
+	<form id="main_form" onsubmit="return send();">
+		<button type="submit">send</button>
+		<button type="button" onclick="print()">send2</button>
+		<input type="text" id="kao" name="fname" value="abc"/>
+		<label for="female">Female</label>
+		<input type="text" id="female"/>
+		<br>
+		<input type="text" />
+	</form>
+	<input type="file" id="filechooser" />
+	<img alt="Image Previewer" id="previewer"  height="100" width="100" >
+
+	<script>
+		function create_texts()
+		{
+			var fm = document.getElementById('main_form')
+			texts =["BMW","Volvo","Saab","Ford", "eee"];
+			for (var i=0;i<texts.length;i++)
+			{
+				var label = document.createElement("label")
+				var text = document.createElement("input")
+				text.id = text + i.toString()
+				text.type = "text"
+				label.for = text.id
+				label.innerHTML = texts[i] + ":"
+				fm.appendChild(label)
+				fm.appendChild(text)
+				fm.appendChild(document.createElement("br"))
+			}
+		}
+		create_texts();
+		var filechooser = document.getElementById('filechooser');
+		var previewer = document.getElementById('previewer');
+		// 200 KB 对应的字节数
+		var maxsize = 200 * 1024;
+		filechooser.onchange = function() {
+			var files = this.files;
+			var file = files[0];
+
+			// 接受 jpeg, jpg, png 类型的图片
+			if (!/\/(?:jpeg|jpg|png)/i.test(file.type)) return;
+
+			var reader = new FileReader();
+			reader.onload = function() {
+				var result = this.result;
+				var img = new Image();
+
+				// 如果图片小于 200kb，不压缩
+				if (result.length <= maxsize) {
+					toPreviewer(result);
+					return;
+				}
+
+				img.onload = function() {
+					var compressedDataUrl = compress(img, file.type);
+					toPreviewer(compressedDataUrl);
+					img = null;
+				};
+
+				img.src = result;
+			};
+
+			reader.readAsDataURL(file);
+		};
+
+		function toPreviewer(dataUrl) {
+			previewer.src = dataUrl;
+			filechooser.value = '';
+		}
+
+		function compress(img, fileType) {
+			var canvas = document.createElement("canvas");
+			var ctx = canvas.getContext('2d');
+
+			var width = img.width;
+			var height = img.height;
+
+			canvas.width = width;
+			canvas.height = height;
+
+			ctx.fillStyle = "#fff";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(img, 0, 0, width, height);
+
+			// 压缩
+			var base64data = canvas.toDataURL(fileType, 0.75);
+			canvas = ctx = null;
+
+			return base64data;
+		}
+
+	</script>
+
+	<ol id="log"></ol>
+</body>
+</html>
