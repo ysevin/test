@@ -1,19 +1,138 @@
 <html>
 	<head>
 		<script>
+			var websocket_channel_addr = "ws://192.168.244.130:8080/my_main";
+			var websocket_channel = null;
+			var text_controls ={
+				nationality:"¹ú¼®",
+				area:"ËùÔÚµØÇø",
+				birthday:"³öÉúÈÕÆÚ",
+				gender:"ĞÔ±ğ", 
+				entry:"Èë¾³Ê±¼ä", 
+				company:"¾ÍÒµµ¥Î»", 
+				phone:"ÁªÏµ·½Ê½", 
+				remark:"±¸×¢"};
+			var image_controls = {
+				photo:"ÕÕÆ¬",
+				fingerprint:"Ö¸ÎÆ"};
+			var structure_num = 1;
+
+			function connect() 
+			{
+				if (websocket_channel !== null ) 
+					return log('already connected');
+				websocket_channel = new WebSocket(websocket_channel_addr );
+				websocket_channel.onopen = function () 
+				{
+					log('connected ' + websocket_channel_addr);
+				};
+				websocket_channel.onerror = function (error) 
+				{
+					log(error);
+				};
+				websocket_channel.onmessage = function (e) 
+				{
+					log('recv: ' + e.data);
+					recv(e.data)
+				};
+				websocket_channel.onclose = function () 
+				{
+					log('disconnected ' + websocket_channel_addr);
+					websocket_channel = null;
+				};
+				return false;
+			}
+			function disconnect() 
+			{
+				if (websocket_channel === null ) 
+					return log('already disconnected');
+				websocket_channel.close();
+				log("request disconnect");
+				return false;
+			}
 			function send()
 			{
-				var str = "hello world";
-				var text = document.getElementsByName("fname")[0];		//é , è¿”å›ä¸€ç»„æ•°ç»„
-				//var text = document.getElementById("kao");
-				log(str + text.value)
-    			console.log('Error: ' + str);
-				return false;	/*å¦‚æœæ²¡æœ‰è¿”å›, ä¼šä¸€é—ªè€Œè¿‡*/
+				if (websocket_channel === null) 
+					return log('please connect first');
+				var str = '{ "websocket_cmd":"upload", '
+				for (var k in text_controls)
+				{
+					var text = document.getElementById(k)
+					str += '"' + k + '":"' + text.value + '",'
+				}
+				str = str.substring(0, str.length-1)
+				for (var k in image_controls)
+				{
+					var image = document.getElementById(k)
+					str += ', "' + k + '":"' + image.src + '"'
+				}
+				str += "}"
+
+				log('send: ' + websocket_channel_addr + ", str: " + str);
+				websocket_channel.send(str);
+				return false;
 			}
-			function print()
+			function recv(str)
 			{
-				var text = document.getElementById("kao");
-				alert(text.value)
+				var obj = JSON.parse(str);
+				for(var idx in obj.person_info_list)
+				{
+					var info = obj.person_info_list[idx]
+					for(var id in info) 
+					{
+						var ele = document.getElementById(id)
+						if(ele && image_controls[id])
+							ele.src = info[id]
+						else if(ele)
+							ele.value = info[id]
+					}
+				}
+			}
+			function query(msg)
+			{
+				if (websocket_channel === null) 
+					return log('please connect first');
+				var str = '{ "websocket_cmd":"query", "query_dict":{'
+				for (var k in text_controls)
+				{
+					var text = document.getElementById(k)
+					if(text.value != "")
+					{
+						str += '"' + k + '":"' + text.value + '",'
+					}
+				}
+				str = str.substring(0, str.length-1)
+				str += "}}"
+				log('query: ' + websocket_channel_addr + ", str: " + str);
+				websocket_channel.send(str);
+			}
+			function empty()
+			{
+				for (var k in text_controls)
+				{
+					var text = document.getElementById(k)
+					text.value = ""
+				}
+			}
+			function structure()
+			{
+				document.getElementById("nationality").value = "usa" + structure_num
+				document.getElementById("area").value = "tianhe" + structure_num
+				document.getElementById("birthday").value = "1990-01-01"
+				document.getElementById("gender").value = "female"
+				document.getElementById("entry").value = "2000-02-02"
+				document.getElementById("company").value = "netease" + structure_num
+				document.getElementById("phone").value = "1380000000"
+				document.getElementById("remark").value = structure_num
+
+				structure_num += 1
+			}
+			function test()
+			{
+				//var text = document.getElementsByName("fname")[0];		//¿¿, ·µ»ØÒ»×éÊı×é
+    			//console.log('Error: ' + str);
+				//alert(text.value)
+				//return false;	/*Èç¹ûÃ»ÓĞ·µ»Ø, »áÒ»ÉÁ¶ø¹ı*/
 			}
 			function log(text)
 			{
@@ -22,100 +141,134 @@
 				document.getElementById('log').appendChild(li)
 				return false;
 			}
-			var global_data = "abc"
+			function create_text_control()
+			{
+				var di = document.getElementById('main_form')
+				for (var k in text_controls) 
+				{
+					var label = document.createElement("label")
+					var text = document.createElement("input")
+					text.id = k
+					text.type = "text"
+					//label.for = "label" + text.id
+					label.innerHTML = text_controls[k] + ":"
+					di.appendChild(label)
+					di.appendChild(text)
+					di.appendChild(document.createElement("br"))
+				}
+			}
+			function create_image_control()
+			{
+				var di = document.getElementById('main_form')
+				for (var k in image_controls) 
+				{
+					var img = document.createElement("img")
+					var input = document.createElement("input")
+
+					img.alt = image_controls[k]
+					img.id = k
+					img.width = "100"
+					img.height = "100"
+					input.type = "file"
+					input.id= k + "_file"
+					if(k == "photo")
+						input.onchange =  function() {read_file("photo_file", "photo")}
+					else
+						input.onchange =  function() {read_file("fingerprint_file", "fingerprint")}
+
+					di.appendChild(img)
+					di.appendChild(input)
+					di.appendChild(document.createElement("br"))
+				}
+			}
+			function read_photo_file()
+			{
+				read_file("photo_file", "photo")
+			}
+			function read_fingerprint_file()
+			{
+				read_file("fingerprint_file", "fingerprint")
+			}
+
+			function read_file(file_id, img_id)
+			{
+				var files = document.getElementById(file_id).files
+				var file = files[0];
+				var maxsize = 64 * 1024;
+
+				// ½ÓÊÜ jpeg, jpg, png ÀàĞÍµÄÍ¼Æ¬
+				if (!/\/(?:jpeg|jpg|png)/i.test(file.type)) return;
+
+				var reader = new FileReader();
+				reader.onload = function() {
+					var result = this.result;
+					var img = new Image();
+
+					// Èç¹ûÍ¼Æ¬Ğ¡ÓÚ 64kb£¬²»Ñ¹Ëõ
+					if (result.length <= maxsize) {
+						to_previewer(file_id, img_id, result)
+						return;
+					}
+
+					img.onload = function() {
+						var compressedDataUrl = compress(img, file.type);
+						to_previewer(file_id, img_id, compressedDataUrl)
+						img = null;
+					};
+
+					img.src = result;
+				};
+
+				reader.readAsDataURL(file);
+			}
+
+			function to_previewer(file_id, img_id, dataUrl) {
+				var file = document.getElementById(file_id);
+				var img = document.getElementById(img_id);
+				img.src = dataUrl;
+				file.value = '';
+			}
+
+			function compress(img, fileType) {
+				var canvas = document.createElement("canvas");
+				var ctx = canvas.getContext('2d');
+
+				var width = img.width;
+				var height = img.height;
+
+				canvas.width = width;
+				canvas.height = height;
+
+				ctx.fillStyle = "#fff";
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ctx.drawImage(img, 0, 0, width, height);
+
+				// Ñ¹Ëõ
+				var base64data = canvas.toDataURL(fileType, 0.1);
+				canvas = ctx = null;
+
+				return base64data;
+			}
+
 		</script>
 	</head>
 <body>
-	<form id="main_form" onsubmit="return send();">
-		<button type="submit">send</button>
-		<button type="button" onclick="print()">send2</button>
-		<input type="text" id="kao" name="fname" value="abc"/>
-		<label for="female">Female</label>
-		<input type="text" id="female"/>
+	<form id="main_form">
+		<script> create_text_control() </script>
+		<script> create_image_control() </script>
+		<!--<img id="photo" width="100" height="100" />
+		<input type="file" id="photo_file" onchange="read_photo_file()"/>-->
+
 		<br>
-		<input type="text" />
+		<button type="button" onclick="connect()">µÇÂ¼</button>
+		<button type="button" onclick="disconnect()">×¢Ïú</button>
+		<button type="button" onclick="send()">ÉÏ´«</button>
+		<button type="button" onclick="query()">²éÑ¯</button>
+		<button type="button" onclick="empty()">Çå¿Õ</button>
+		<button type="button" onclick="structure()">¹¹ÔìÊı¾İ</button>
 	</form>
-	<input type="file" id="filechooser" />
-	<img alt="Image Previewer" id="previewer"  height="100" width="100" >
 
 	<script>
-		function create_texts()
-		{
-			var fm = document.getElementById('main_form')
-			texts =["BMW","Volvo","Saab","Ford", "eee"];
-			for (var i=0;i<texts.length;i++)
-			{
-				var label = document.createElement("label")
-				var text = document.createElement("input")
-				text.id = text + i.toString()
-				text.type = "text"
-				label.for = text.id
-				label.innerHTML = texts[i] + ":"
-				fm.appendChild(label)
-				fm.appendChild(text)
-				fm.appendChild(document.createElement("br"))
-			}
-		}
-		create_texts();
-		var filechooser = document.getElementById('filechooser');
-		var previewer = document.getElementById('previewer');
-		// 200 KB å¯¹åº”çš„å­—èŠ‚æ•°
-		var maxsize = 200 * 1024;
-		filechooser.onchange = function() {
-			var files = this.files;
-			var file = files[0];
-
-			// æ¥å— jpeg, jpg, png ç±»å‹çš„å›¾ç‰‡
-			if (!/\/(?:jpeg|jpg|png)/i.test(file.type)) return;
-
-			var reader = new FileReader();
-			reader.onload = function() {
-				var result = this.result;
-				var img = new Image();
-
-				// å¦‚æœå›¾ç‰‡å°äº 200kbï¼Œä¸å‹ç¼©
-				if (result.length <= maxsize) {
-					toPreviewer(result);
-					return;
-				}
-
-				img.onload = function() {
-					var compressedDataUrl = compress(img, file.type);
-					toPreviewer(compressedDataUrl);
-					img = null;
-				};
-
-				img.src = result;
-			};
-
-			reader.readAsDataURL(file);
-		};
-
-		function toPreviewer(dataUrl) {
-			previewer.src = dataUrl;
-			filechooser.value = '';
-		}
-
-		function compress(img, fileType) {
-			var canvas = document.createElement("canvas");
-			var ctx = canvas.getContext('2d');
-
-			var width = img.width;
-			var height = img.height;
-
-			canvas.width = width;
-			canvas.height = height;
-
-			ctx.fillStyle = "#fff";
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			ctx.drawImage(img, 0, 0, width, height);
-
-			// å‹ç¼©
-			var base64data = canvas.toDataURL(fileType, 0.75);
-			canvas = ctx = null;
-
-			return base64data;
-		}
 
 	</script>
 
