@@ -11,6 +11,8 @@ g_table_struct = g_table_struct or {
     fashion_cls = { "fashion_id", "fashion_name" },
     fashion_content = { "fashion_id", "content_id" },
     recommend_content = { "recommend_id", "content_list", "event_start_sec", "event_finish_sec" },
+
+    persons = { "nationality", "area", "birthday", "gender", "entry", "company", "phone", "fingerprint", "photo", "remark"},
 }
 
 -- 字段类型： 数字填1, 字符串填0
@@ -27,6 +29,7 @@ g_table_field_type = g_table_field_type or {
     fashion_cls = { fashion_id = 1, fashion_name = 0 },
     fashion_content = { fashion_id = 1, content_id =1 },
     recommend_content = { recommend_id = 1, content_list = 0, event_start_sec = 1, event_finish_sec = 1 },
+    persons = { nationality = 0, area = 0, birthday = 0, gender = 0, entry = 0, company = 0, phone = 1, fingerprint = 2, photo = 2, remark = 0},
 }
 
 
@@ -80,8 +83,10 @@ function mysql_client.delete_condition(self, _tbl_name, _condition_dict)
         if not first_value then condition_sql = string.format("%s and", condition_sql) end
         if field_value_type == 1 then
             condition_sql = string.format("%s %s=%d", condition_sql, field_name, field_value)
-        else
+        elseif field_value_type == 0 then
             condition_sql = string.format("%s %s=%q", condition_sql, field_name, field_value)
+		else
+            condition_sql = string.format("%s %s=null", condition_sql, field_name)
         end
         first_value = false
     end
@@ -304,7 +309,7 @@ function mysql_client.insert(self, _tbl_name, _data_dict)
         local field_value = _data_dict[field_name]
         if not field_value then
             self.last_error_ = string.format("[insert] %s not exist %s field value", _tbl_name, field_name)
-            return
+			return
         end
         if tbl_field_type[field_name] == 1 then --数字
             insert_sql = string.format("%s %d%s", insert_sql, field_value, field_index == tbl_size and ");" or ",")
