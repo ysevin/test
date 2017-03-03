@@ -13,3 +13,5 @@ sudo ./sbin/nginx
 
 user_register_cmd的smsg_code必须是123456, 要不注册不了
 测试每一条cmd都要先disconnent
+
+git reset --hard FETCH_HEAD
