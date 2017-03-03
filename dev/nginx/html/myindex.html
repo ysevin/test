@@ -143,7 +143,7 @@
 			}
 			function create_text_control()
 			{
-				var di = document.getElementById('main_form')
+				var fo = document.getElementById('main_form')
 				for (var k in text_controls) 
 				{
 					var label = document.createElement("label")
@@ -152,9 +152,9 @@
 					text.type = "text"
 					//label.for = "label" + text.id
 					label.innerHTML = text_controls[k] + ":"
-					di.appendChild(label)
-					di.appendChild(text)
-					di.appendChild(document.createElement("br"))
+					fo.appendChild(label)
+					fo.appendChild(text)
+					fo.appendChild(document.createElement("br"))
 				}
 			}
 			function create_image_control()
@@ -249,13 +249,103 @@
 
 				return base64data;
 			}
+			function create_my_element(str)
+			{
+				var strs = new Array();
+				strs = str.split(",");
+				var ele = null
+				if(strs[0] == "i")
+				{
+					ele = document.createElement("input")
+					ele.id = strs[1]
+					ele.type = "text"
+				}
+				else if(strs[0] == "t")
+				{
+					ele = document.createElement("input")
+					ele.id = strs[1]
+					ele.type = "date"
+				}
+				else
+				{
+					ele = document.createElement("label")
+					ele.innerHTML = strs[1]
+				}
+				return ele
+			}
+			function create_text_control2()
+			{
+				var tb_ar = [
+					[4,    6, 4, 6, 4,       20, 4,    10],
+					[4,    6, 4, 6, 4, 10, 4,    10, 4, 6],
+					[4, 4, 2, 4, 6, 4, 10, 4, 6, 4,     10],
+					]
+				var text_ar = [
+					["l,中文姓名", "i,chinese_name","l,性别","i,gender","l,就业处所","i,company_address","l,联系方式","i,phone"],
+					["l,外文姓名", "i,foreign_name","l,民族","i,nation","l,入境证件","i,enter_certificates","l,号码","i,certificates_id", "l,有效期至", "t,validity_time"],
+					["l,身高", "i,height","l,血型","i,blood","l,入境地点","i,enter_place","l,时间","t,enter_date", "l,申请事由", "i,enter_reason"],
+					["l,出生日期", "i,birthday","l,文化程度","i,education", "l,居留地点","i,address"],
+					["l,出生地", "i,homeplace","l,宗教信仰","i,religion","l,车辆种类","i,car_type","l,车牌号","t,car_number", "l,所属派出所", "i,police"],
+					["l,国籍", "i,nationality","l,职业","i,job","l,居留期限自","i,residence_from","l,期限至","t,residence_end", "l,居然证编号", "i,residence_num"],
+					["l,国外证件", "i,foreign_certificates","l,号码","i,id","l,处所负责人","i,content_name","l,身份证号码","t,content_id"],
+					["l,国外住址", "i,foreign_adress","l,负责人住址","i,content_address","l,联系方式","i,content_phone"],
+					["l,备注", "i,remark"],
+					]
+					var fo = document.getElementById('main_form')
+					fo.appendChild(document.createElement("br"))
+					for(var i=0; i<text_ar.length; i++)
+					{
+						for(var j=0; j<text_ar[i].length; j++)
+						{
+							var ele = create_my_element(text_ar[i][j])
+							fo.appendChild(ele)
+						}
+						fo.appendChild(document.createElement("br"))
+					}
+			}
+			function create_table()
+			{
+				var title = "同行人员"
+				var text_ar = [
+					["l,姓名", "l,居留证号码", "l,联系方式", "l,关系"],
+					["i,friend_name_1", "i,friend_id_1", "i,friend_phone_1", "i,friend_relation_1"],
+					["i,friend_name_2", "i,friend_id_2", "i,friend_phone_2", "i,friend_relation_2"],
+					["i,friend_name_3", "i,friend_id_3", "i,friend_phone_3", "i,friend_relation_3"],
+				]
+				var fo = document.getElementById('main_form')
+				var tb = document.createElement("table")
+				tb.border = 1
+				var la = null
+				for(var i=0; i<text_ar.length; i++)
+				{
+					var tr = document.createElement("tr")
+					if(la == null)
+					{
+						var th = document.createElement("th")
+						th.rowSpan = 4		//在javascript中访问属性是大小写区分的。
+						la = document.createElement("label")
+						la.innerHTML = title
+						th.appendChild(la)
+						tr.appendChild(th)
+					}
+					for(var j=0; j<text_ar[i].length; j++)
+					{
+						var td = document.createElement("td")
+						var ele = create_my_element(text_ar[i][j])
+						td.appendChild(ele)
+						tr.appendChild(td)
+					}
+					tb.appendChild(tr)
+				}
+				fo.appendChild(tb)
+			}
 
 		</script>
 	</head>
 <body>
 	<form id="main_form">
-		<script> create_text_control() </script>
-		<script> create_image_control() </script>
+		<!--<script> create_text_control() </script>-->
+		<!--<<script> create_image_control() </script>-->
 		<!--<img id="photo" width="100" height="100" />
 		<input type="file" id="photo_file" onchange="read_photo_file()"/>-->
 
@@ -267,11 +357,8 @@
 		<button type="button" onclick="empty()">清空</button>
 		<button type="button" onclick="structure()">构造数据</button>
 	</form>
-
-	<script>
-
-	</script>
-
+		<script> create_table() </script>
+		<br/>  
 	<ol id="log"></ol>
 </body>
 </html>
