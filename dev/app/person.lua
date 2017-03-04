@@ -14,16 +14,24 @@ end
 
 function person_handler.upload_info(_peer_ctx, _msg)
     local insert_data = { }
+	local tb_struct = {
+		photo1 = "MediumBlob",
+		photo2 = "MediumBlob",
+		photo3 = "MediumBlob",
+		fingerprint1= "MediumBlob",
+		fingerprint2 = "MediumBlob",
+		fingerprint3 = "MediumBlob",
+	}
 	for key, val in pairs(_msg) do
-		if key == "phone" then
-			val = tonumber(val)
+		if key ~= "websocket_cmd" then
+			if val == "" then
+				val = "0"
+			end
+			insert_data[key] = val
 		end
-		insert_data[key] = val
 	end
-	insert_data["fingerprint"] = insert_data["fingerprint"] or "NULL"
-	insert_data["photo"] = insert_data["photo"] or "NULL"
     
-    local insert_res = mysql_client:insert("persons", insert_data)
+    local insert_res = mysql_client:insert_not_check("person", insert_data, tb_struct)
     local ack_upload_info_dict = { }
     ack_upload_info_dict.user_result = -1
     ack_upload_info_dict.user_error = mysql_client.last_error_
@@ -37,7 +45,21 @@ function person_handler.upload_info(_peer_ctx, _msg)
 end
 
 function person_handler.query_info(_peer_ctx, _msg)
-    local get_res = mysql_client:read_condition("persons", _msg.query_dict)
+    local get_res = mysql_client:read_condition_not_check("person", _msg.query_dict)
+    local ack_get_info_dict = { }
+    ack_get_info_dict.user_result = -1
+    ack_get_info_dict.user_error = mysql_client.last_error_
+    if get_res then
+        ack_get_info_dict.user_result = 0
+        ack_get_info_dict.person_info_list = get_res
+    end
+
+    person_handler.send_data(_peer_ctx, ack_get_info_dict)
+    return true
+end
+
+function person_handler.login(_peer_ctx, _msg)
+    local get_res = mysql_client:read_condition_not_check("user", _msg.query_dict)
     local ack_get_info_dict = { }
     ack_get_info_dict.user_result = -1
     ack_get_info_dict.user_error = mysql_client.last_error_

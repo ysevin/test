@@ -39,7 +39,7 @@ local cjson = require "cjson"
 local mysql_client = { }
 mysql_client._VERSION = '1.0'
 
-function mysql_client.query_mysql(self, _sql)
+function mysql_client.query_mysql(self, _sql, _db)
     local query_res, query_err, query_errno, query_state
     local mysql_client, mysql_err = mysql:new()
     if not mysql_client then
@@ -49,7 +49,7 @@ function mysql_client.query_mysql(self, _sql)
     query_res, query_err, query_errno, query_state = mysql_client:connect({
         host = "127.0.0.1",
         port = 3306,
-        database = "troy",
+        database = _db or "troy",
         user = "root",
         password = "root",
         max_packet_size = 1024 * 1024 
@@ -323,6 +323,53 @@ function mysql_client.insert(self, _tbl_name, _data_dict)
         return
     end
     return insert_res
+end
+
+function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct)
+	local create_sql = string.format("create table if not exists %s (id bigint primary key auto_increment,", _tbl_name)
+
+	local _data_struct = _data_struct or {}
+	local str_name, str_value = "", ""
+	for field_name, field_value in pairs(_data_dict) do
+		create_sql = string.format("%s %s %s,", create_sql, field_name, _data_struct[field_name] or "varchar(255) default ''")
+		str_name = string.format("%s%s,", str_name, field_name)
+		str_value = string.format("%s%q,", str_value, tostring(field_value))
+	end
+
+	create_sql = string.sub(create_sql, 1, -2)
+	create_sql = create_sql..");"
+
+	str_name = string.sub(str_name, 1, -2)
+	str_value = string.sub(str_value, 1, -2)
+	local insert_sql = string.format("insert into %s(%s) value(%s);", _tbl_name, str_name, str_value)
+
+    local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_sql, "person")
+    if not insert_res or insert_res.affected_rows ~= 1 then
+        self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
+        --return
+    end
+
+    local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(insert_sql, "person")
+    if not insert_res or insert_res.affected_rows ~= 1 then
+        self.last_error_ = string.format("[insert] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
+        return
+    end
+    return insert_res
+end
+
+function mysql_client.read_condition_not_check(self, _tbl_name, _condition_dict)
+    self.last_error_ = ""
+    local condition_sql = ""
+    for field_name, field_value in pairs(_condition_dict) do
+        condition_sql = string.format("%s %s=%q", condition_sql, field_name, field_value)
+    end
+    local read_sql = string.format("select * from %s where %s;", _tbl_name, condition_sql)
+    local get_res, get_err, get_errno, get_state = self:query_mysql(read_sql, "person")
+    if not get_res then
+        self.last_error_ = string.format("[read] mysql query err: %s, sql: %s", get_err, read_sql)
+        return
+    end
+    return get_res
 end
 
 return mysql_client
