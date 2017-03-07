@@ -6,6 +6,8 @@ local cache_client = require "cache_client"
 local person_handler = { }
 person_handler._VERSION = '1.0'
 
+person_handler.baidu_voice_token = ""
+
 function person_handler.send_data(_peer_ctx, _data)
     local send_str = cjson.encode(_data)
     local websocket_send_bytes, websocket_send_err = _peer_ctx.websocket_peer_:send_text(send_str)
@@ -71,6 +73,59 @@ function person_handler.login(_peer_ctx, _msg)
     person_handler.send_data(_peer_ctx, ack_get_info_dict)
     return true
 end
+
+function person_handler.upload_voice(_peer_ctx, _msg)
+    local http_client = http.new()
+	local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
+	local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
+    local http_res, http_err = http_client:request_uri(string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret))
+    if http_res.status ~= ngx.HTTP_OK then return false end
+    local body_data = json.decode(http_res.body)
+    if not body_data then 
+		return false 
+	end
+	person_handler.baidu_voice_token = ""
+
+
+	buffer["format"]  = "pcm";
+	buffer["rate"]    = 8000;
+	buffer["channel"] = 1;
+	buffer["token"]   = token.c_str();
+	buffer["cuid"]    = cuid;
+	buffer["speech"]  = decode_data;
+	buffer["len"]     = content_len;
+	
+
+	local request_body = string.format("login=user&password=123")
+	local response_body = {}
+
+	local res, code, response_headers = http.request{
+	url = "http://vop.baidu.com/server_api",
+	method = "POST",
+	headers =
+	{
+		["Content-Type"] = "application/json; charset=utf-8";
+		["Content-Length"] = #request_body;
+		},
+		source = ltn12.source.string(request_body),
+		sink = ltn12.sink.table(response_body),
+	}
+																							  
+	print(res)
+	print(code)
+	if type(response_headers) == "table" then
+		for k, v in pairs(response_headers) do
+			print(k, v)
+		end
+	end
+	print("Response body:")
+	if type(response_body) == "table" then
+		print(table.concat(response_body))
+	else
+		print("Not a table:", type(response_body))
+	end
+end
+
 
 return person_handler
 
