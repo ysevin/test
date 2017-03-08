@@ -86,17 +86,18 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 	end
 	person_handler.baidu_voice_token = ""
 
-
+	--[[
 	buffer["format"]  = "pcm";
 	buffer["rate"]    = 8000;
 	buffer["channel"] = 1;
 	buffer["token"]   = token.c_str();
-	buffer["cuid"]    = cuid;
+	buffer["cuid"]    = "00:0c:29:5c:c9:56";
 	buffer["speech"]  = decode_data;
 	buffer["len"]     = content_len;
-	
+	--]]
 
-	local request_body = string.format("login=user&password=123")
+	local request_body = string.format("format=%s&rate=%d&channel=%d&token=%s%cuid=%s&speech=%s&len=%s",
+	"pcm", 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", "xxx", string.len(xxx))
 	local response_body = {}
 
 	local res, code, response_headers = http.request{
