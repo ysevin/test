@@ -75,38 +75,24 @@ function person_handler.login(_peer_ctx, _msg)
 end
 
 function person_handler.upload_voice(_peer_ctx, _msg)
-	if person_handler.baidu_voice_token == "" then
-		local httpc = http.new()
-		local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
-		local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
-		local url = string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret)
-		local res, err = httpc:request_uri(url,{
-			ssl_verify = false,		--https的要写这个
-			})
-		--local res, err = httpc:request_uri("http://www.baidu.com")
-		if res.status ~= ngx.HTTP_OK then 
-			return
-		end
-		local body_data = cjson.decode(res.body)
-		if not body_data then 
-			return false 
-		end
-		person_handler.baidu_voice_token = body_data.access_token
+	local httpc = http.new()
+	local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
+	local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
+	local url = string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret)
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,		--https的要写这个
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return
 	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return false 
+	end
+	person_handler.baidu_voice_token = body_data.access_token
 
-	--[[
-	buffer["format"]  = "pcm";
-	buffer["rate"]    = 8000;
-	buffer["channel"] = 1;
-	buffer["token"]   = token.c_str();
-	buffer["cuid"]    = "00:0c:29:5c:c9:56";
-	buffer["speech"]  = decode_data;
-	buffer["len"]     = content_len;
-	--]]
-
-	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s"}',
-	"pcm", 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"])
-	print(request_body)
+	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s", "len":%d}',
+	"pcm", 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
 
     local httpc = http.new()
 	local res, err = httpc:request_uri("http://vop.baidu.com/server_api",{
@@ -119,6 +105,81 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 	})
 	print(res.body)
 
+    local ack_upload_dict = { }
+    ack_upload_dict.user_result = -1
+    ack_upload_dict.user_error = "request error"
+    if res.body then
+        ack_upload_dict.user_result = 0
+        ack_upload_dict.text_info_list = res.body
+    end
+
+    person_handler.send_data(_peer_ctx, ack_upload_dict)
+    return true
+
+end
+
+function person_handler.down_voice(_peer_ctx, _msg)
+	local httpc = http.new()
+	local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
+	local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
+	local url = string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret)
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,		--https的要写这个
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return false 
+	end
+	person_handler.baidu_voice_token = body_data.access_token
+	local baike_info = person_handler.get_baike_info(_msg["text"])
+	local url = string.format("http://tsn.baidu.com/text2audio?tex=%s&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=%s", baike_info, person_handler.baidu_voice_token)
+	print(url)
+
+	--[[
+	local request_body = string.format('{"tex":"%s","lan":"zh","tok":"%s","cuid":"%s","ctp":2}',
+	_msg["text"], person_handler.baidu_voice_token, "00:0c:29:5c:c9:56")
+	print(request_body)
+
+    local httpc = http.new()
+	local res, err = httpc:request_uri("http://tsn.baidu.com/text2audio",{
+		method = "POST",
+		headers = {
+			["Content-Type"] = "application/json; charset=utf-8";
+			["Content-Length"] = #request_body;
+			},
+		body = request_body, --需要用json格式
+	})
+	print(res.body)
+	--]]
+    local ack_down_dict = { }
+    ack_down_dict.user_result = -1
+    ack_down_dict.user_error = ""
+    if res.body then
+        ack_down_dict.user_result = 0
+        ack_down_dict.voice_info_list = url
+    end
+
+    person_handler.send_data(_peer_ctx, ack_down_dict)
+    return true
+end
+
+function person_handler.get_baike_info(_text)
+	local url = string.format("http://baike.baidu.com/api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=%s&bk_length=600", _text)
+	local httpc = http.new()
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,		--https的要写这个
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return false 
+	end
+	return body_data.abstract or "无返回"
 end
 
 
