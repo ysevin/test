@@ -1,0 +1,34 @@
+<html>
+	<head>
+	</head>
+<body>
+	<form id="main_form">
+		<script type="text/javascript" src="common.js"></script>
+		<script>
+			var websocket_channel_addr = "ws://localhost:8080/my_main";
+			function upload()
+			{
+				if (websocket_channel === null) 
+					return log('please connect first');
+				var str = '{ "websocket_cmd":"upload_voice", "query_dict":{'
+
+				str += '"' + "id" + '":"' + "xxx" + '",'
+
+				str = str.substring(0, str.length-1)
+				str += "}}"
+				log('query: ' + websocket_channel_addr + ", str: " + str);
+				websocket_channel.send(str);
+				window.event.returnValue=false;  
+			}
+
+			var text_ar = [
+				["b,upload,upload"],
+			]
+			create_text_control("main_form", text_ar)
+			connect()
+		</script>
+	</form>
+	<br/>  
+	<ol id="log"></ol>
+</body>
+</html>

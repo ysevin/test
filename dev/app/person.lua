@@ -6,7 +6,7 @@ local cache_client = require "cache_client"
 local person_handler = { }
 person_handler._VERSION = '1.0'
 
-person_handler.baidu_voice_token = ""
+person_handler.baidu_voice_token = person_handler.baidu_voice_token or ""
 
 function person_handler.send_data(_peer_ctx, _data)
     local send_str = cjson.encode(_data)
@@ -75,16 +75,24 @@ function person_handler.login(_peer_ctx, _msg)
 end
 
 function person_handler.upload_voice(_peer_ctx, _msg)
-    local http_client = http.new()
-	local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
-	local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
-    local http_res, http_err = http_client:request_uri(string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret))
-    if http_res.status ~= ngx.HTTP_OK then return false end
-    local body_data = json.decode(http_res.body)
-    if not body_data then 
-		return false 
+	if person_handler.baidu_voice_token == "" then
+		local httpc = http.new()
+		local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
+		local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
+		local url = string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret)
+		local res, err = httpc:request_uri(url,{
+			ssl_verify = false,		--https的要写这个
+			})
+		--local res, err = httpc:request_uri("http://www.baidu.com")
+		if res.status ~= ngx.HTTP_OK then 
+			return
+		end
+		local body_data = cjson.decode(res.body)
+		if not body_data then 
+			return false 
+		end
+		person_handler.baidu_voice_token = body_data.access_token
 	end
-	person_handler.baidu_voice_token = ""
 
 	--[[
 	buffer["format"]  = "pcm";
@@ -96,35 +104,21 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 	buffer["len"]     = content_len;
 	--]]
 
-	local request_body = string.format("format=%s&rate=%d&channel=%d&token=%s%cuid=%s&speech=%s&len=%s",
-	"pcm", 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", "xxx", string.len(xxx))
-	local response_body = {}
+	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s"}',
+	"pcm", 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"])
+	print(request_body)
 
-	local res, code, response_headers = http.request{
-	url = "http://vop.baidu.com/server_api",
-	method = "POST",
-	headers =
-	{
-		["Content-Type"] = "application/json; charset=utf-8";
-		["Content-Length"] = #request_body;
-		},
-		source = ltn12.source.string(request_body),
-		sink = ltn12.sink.table(response_body),
-	}
-																							  
-	print(res)
-	print(code)
-	if type(response_headers) == "table" then
-		for k, v in pairs(response_headers) do
-			print(k, v)
-		end
-	end
-	print("Response body:")
-	if type(response_body) == "table" then
-		print(table.concat(response_body))
-	else
-		print("Not a table:", type(response_body))
-	end
+    local httpc = http.new()
+	local res, err = httpc:request_uri("http://vop.baidu.com/server_api",{
+		method = "POST",
+		headers = {
+			["Content-Type"] = "application/json; charset=utf-8";
+			["Content-Length"] = #request_body;
+			},
+		body = request_body, --需要用json格式
+	})
+	print(res.body)
+
 end
 
 
