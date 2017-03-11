@@ -198,11 +198,21 @@ function recv(str)
 	fo = document.getElementById("voice_form")
 	if(fo)
 	{
-		var voice = obj.voice_info_list
-		var text_ar = [
-			["v,"+voice],
-		]
-		create_text_control("voice_form", text_ar)
+		console.log("+++", obj)
+		if(obj.text_info_list)
+		{
+			var jv = JSON.parse(obj.text_info_list)
+			var te = document.getElementById("voice_text")
+			te.value = jv.result[0]
+		}
+		else
+		{
+			var voice = obj.voice_info_list
+			var text_ar = [
+				["v,"+voice],
+			]
+			create_text_control("voice_form", text_ar)
+		}
 		window.event.returnValue=false;  
 		return
 	}
@@ -491,7 +501,6 @@ function create_my_element(str)
 		so.type = "audio/mpeg"
 		au.appendChild(so)
 		ele = au
-		console.log("====", encodeURI(strs[1]))
 	}
 	else
 	{
