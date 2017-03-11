@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+	<script>
+		function doSave(value, type, name) {  
+			var blob;  
+			if (typeof window.Blob == "function") {  
+				blob = new Blob([value], {type: type});  
+			} else {  
+				var BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder;  
+				var bb = new BlobBuilder();  
+				bb.append(value);  
+				blob = bb.getBlob(type);  
+			}  
+			var URL = window.URL || window.webkitURL;  
+			var bloburl = URL.createObjectURL(blob);  
+			var anchor = document.createElement("a");  
+			if ('download' in anchor) {  
+				anchor.style.visibility = "hidden";  
+				anchor.href = bloburl;  
+				anchor.download = name;  
+				document.body.appendChild(anchor);  
+				var evt = document.createEvent("MouseEvents");  
+				evt.initEvent("click", true, true);  
+				anchor.dispatchEvent(evt);  
+				document.body.removeChild(anchor);  
+			} else if (navigator.msSaveBlob) {  
+				navigator.msSaveBlob(blob, name);  
+			} else {  
+				location.href = bloburl;  
+			}  
+		}  
+	  
+		function Save(){  
+			doSave("hello world!", "", "hello.txt");   
+		}  
+	</script>
+
+	<!--<audio controls="controls">-->
+<audio controls="controls" autoplay>
+  <!--<source src="trust you.ogg" type="audio/ogg">
+  <source src="trust you.mp3" type="audio/mpeg">-->
+  <source src="http://tsn.baidu.com/text2audio?tex=%E4%BD%A0%E5%A5%BD%E5%95%8A&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+<input type="button" id="savetext" value="Save" onclick="Save()"/>
+
+</body>
+</html>

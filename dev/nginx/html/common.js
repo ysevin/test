@@ -14,6 +14,7 @@ var image_controls = {
 	fingerprint:"指纹"};
 var structure_num = 1;
 var voice_content = "xxx"
+var voice_len = 0
 
 var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 var base64DecodeChars = new Array(
@@ -194,9 +195,14 @@ function recv(str)
 		window.event.returnValue=false;  
 		return
 	}
-	fo = document.getElementById("user_form")
+	fo = document.getElementById("voice_form")
 	if(fo)
 	{
+		var voice = obj.voice_info_list
+		var text_ar = [
+			["v,"+voice],
+		]
+		create_text_control("voice_form", text_ar)
 		window.event.returnValue=false;  
 		return
 	}
@@ -289,17 +295,49 @@ function log(text)
 	document.getElementById('log').appendChild(li)
 	return false;
 }
-function test_voice()
+function upload_voice()
 {
 	if (websocket_channel === null) 
 		return log('please connect first');
 	var str = '{ "websocket_cmd":"upload_voice",'
 
 	str += '"' + "file" + '":"' + voice_content + '",'
+	str += '"' + "file_len" + '":' + voice_len + ','
 
 	str = str.substring(0, str.length-1)
 	str += "}"
-	log('upload: ' + websocket_channel_addr + ", str: " + str);
+	log('upload_voice: ' + websocket_channel_addr + ", str: " + str);
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
+function down_voice()
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"down_voice",'
+
+	var in_text = document.getElementById("voice_text");
+	str += '"' + "text" + '":"' + in_text.value + '",'
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('down_voice: ' + websocket_channel_addr + ", str: " + str);
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+	//http://tsn.baidu.com/text2audio?tex=你好啊&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747
+}
+function play_voice()
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"down_voice",'
+
+	var in_text = document.getElementById("voice_text");
+	str += '"' + "text" + '":"' + in_text.value + '",'
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('play_voice: ' + websocket_channel_addr + ", str: " + str);
 	websocket_channel.send(str);
 	window.event.returnValue=false;  
 }
@@ -311,6 +349,7 @@ function read_voice_file(file_id)
     var reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onload = function() {
+		voice_len = this.result.length
 		voice_content = base64encode(this.result)
 		log('voice: ' +  voice_content);
     }
@@ -374,6 +413,15 @@ function compress(img, fileType) {
 
 	return base64data;
 }
+function download_file(fileName, content){
+    var aLink = document.createElement('a');
+    var blob = new Blob([content]);
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错
+    aLink.download = fileName;
+    aLink.href = URL.createObjectURL(blob);
+    aLink.dispatchEvent(evt);
+}
 function create_my_element(str)
 {
 	var strs = new Array();
@@ -391,14 +439,14 @@ function create_my_element(str)
 		ele.id = strs[1]
 		ele.type = "date"
 	}
-	else if(str[0] == "b")
+	else if(strs[0] == "b")
 	{
 		ele = document.createElement("button")
 		var t = document.createTextNode(strs[1]);
 		ele.appendChild(t);  
 		ele.onclick = function(){eval(strs[2]+"()")}
 	}
-	else if(str[0] == "p")
+	else if(strs[0] == "p")
 	{
 		var img = document.createElement("img")
 		img.alt = strs[1]
@@ -408,7 +456,7 @@ function create_my_element(str)
 		img.type = "img"
 		ele = img
 	}
-	else if(str[0] == "f")
+	else if(strs[0] == "f")
 	{
 		var input = document.createElement("input")
 		input.type = "file"
@@ -416,13 +464,34 @@ function create_my_element(str)
 		input.onchange =  function() {read_file(input.id, strs[1])}
 		ele = input
 	}
-	else if(str[0] == "v")
+	else if(strs[0] == "vf")
 	{
 		var input = document.createElement("input")
 		input.type = "file"
 		input.id = strs[1] + "_file"
 		input.onchange =  function() {read_voice_file(input.id)}
 		ele = input
+	}
+	else if(strs[0] == "v")
+	{
+		/*
+		<audio controls="controls" autoplay>
+		  <!--<source src="trust you.ogg" type="audio/ogg">-->
+		  <source src="trust you.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+		</audio>
+		*/
+		var kao = "http://tsn.baidu.com/text2audio?lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747&tex=你好啊"
+  		//var kao="http://tsn.baidu.com/text2audio?tex=%E4%BD%A0%E5%A5%BD%E5%95%8A&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747"
+		var au = document.createElement("audio")
+		au.controls = "controls"		//是否显示播放器
+		au.autoplay = 1
+		var so = document.createElement("source")
+		so.src = encodeURI(strs[1])
+		so.type = "audio/mpeg"
+		au.appendChild(so)
+		ele = au
+		console.log("====", encodeURI(strs[1]))
 	}
 	else
 	{
@@ -566,4 +635,21 @@ function create_person_form(parent_id)
 	create_table()
 	create_image()
 	create_button()
+}
+function create_voice_form(parent_id)
+{
+	var text_ar = [
+		["b,上传,upload_voice"],
+		["vf,打开,read_voice_file"],
+		["i,voice_text"],
+		["b,播放,down_voice"],
+		//["v,trust you.mp3"],
+	]
+	var fo = document.getElementById(parent_id)
+	var lfo = document.createElement("form")
+	lfo.id = "voice_form"
+	fo.appendChild(lfo)
+	create_table_control(lfo.id, null, text_ar)
+
+	connect()
 }
