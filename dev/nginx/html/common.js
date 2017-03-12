@@ -1,4 +1,4 @@
-var websocket_channel_addr = "ws://10.251.121.12:8080/my_main";
+var websocket_channel_addr = "ws://localhost:8080/my_main";
 var websocket_channel = null;
 var text_controls ={
 	nationality:"¹ú¼®",

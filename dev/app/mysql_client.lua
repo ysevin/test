@@ -325,7 +325,7 @@ function mysql_client.insert(self, _tbl_name, _data_dict)
     return insert_res
 end
 
-function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct)
+function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct, _update_key)
 	local create_sql = string.format("create table if not exists %s (id bigint primary key auto_increment,", _tbl_name)
 
 	local _data_struct = _data_struct or {}
@@ -334,6 +334,7 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 		create_sql = string.format("%s %s %s,", create_sql, field_name, _data_struct[field_name] or "varchar(255) default ''")
 		str_name = string.format("%s%s,", str_name, field_name)
 		str_value = string.format("%s%q,", str_value, tostring(field_value))
+		update_sql = string.format("%s %s=%s", update_sql, field_name, tostring(field_value))
 	end
 
 	create_sql = string.sub(create_sql, 1, -2)
@@ -343,13 +344,35 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 	str_value = string.sub(str_value, 1, -2)
 	local insert_sql = string.format("insert into %s(%s) value(%s);", _tbl_name, str_name, str_value)
 
+	--如果没表, 先创建
     local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_sql, "person")
     if not insert_res or insert_res.affected_rows ~= 1 then
         self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
-        --return
     end
 
-    local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(insert_sql, "person")
+	--插入新字段
+	for field_name, field_value in pairs(_data_dict) do
+		local alter_sql = string.format("alter table %s add %s %s,", _tbl_name, field_name, _data_struct[field_name] or "varchar(255) default ''")
+    	local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(alter_sql, "person")
+	end
+
+	--是否是更新数据
+	_update_key = _update_key or {}
+	local update_sql = string.format("update %s set ", _tbl_name)
+	update_sql = string.format("%s where", update_sql)
+	local is_empty = true
+	for field_name, field_value in pairs(_update_key) do
+		update_sql = string.format("%s %s=%s", update_sql, field_name, tostring(field_value))
+		is_empty = false
+	end
+	update_sql = update_sql..";"
+	local insert_res, insert_err, insert_errno, insert_state
+	if not is_empty then
+		insert_res, insert_err, insert_errno, insert_state = self:query_mysql(update_sql, "person")
+	else
+    	insert_res, insert_err, insert_errno, insert_state = self:query_mysql(insert_sql, "person")
+	end
+
     if not insert_res or insert_res.affected_rows ~= 1 then
         self.last_error_ = string.format("[insert] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
         return
