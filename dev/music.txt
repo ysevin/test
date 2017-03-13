@@ -1,0 +1,8 @@
+http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.search.catalogSug&format=json&query=小苹果
+
+http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.song.downWeb&format=json&songid=129552034&bit=24
+
+
+http://www.tuicool.com/articles/fUbUZz3
+
+http://www.jianshu.com/p/a6718b11fdf1
