@@ -120,8 +120,12 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 end
 
 function person_handler.down_voice(_peer_ctx, _msg)
+	--local song = person_handler.get_baidu_music(_msg["text"])
+	--local ret_info = {}
+	--ret_info.voice_info_list = song
+    --person_handler.send_data(_peer_ctx, ret_info)
+
 	person_handler.search_info(_peer_ctx, _msg["text"])
-	--print("=====", utf8len("我223爱中华人民共和图"))
 
 	--[[
 	local insert_dict = {word="我想听刻舟求剑", key_word = "刻舟求剑",search_num = 0, weight = 0}
@@ -190,23 +194,74 @@ function person_handler.get_baike_info(_word)
 	local len = utf8len(_word)
 	for i=1, len do
 		local word = utf8sub(_word, i, len)
-		local url = string.format("http://baike.baidu.com/api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=%s&bk_length=600", word)
-		local httpc = http.new()
-		local res, err = httpc:request_uri(url,{
-			ssl_verify = false,
-			})
-		if res.status ~= ngx.HTTP_OK then 
-			return nil
-		end
-		local body_data = cjson.decode(res.body)
-		if not body_data then 
-			return nil
-		end
-		if body_data.abstract then
-			return word, body_data.abstract
+		local info = person_handler.get_baike_info_one(word)
+		if info then
+			return word, info
 		end
 	end
 	return nil
+end
+
+function person_handler.get_baike_info_one(_word)
+	local url = string.format("http://baike.baidu.com/api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=%s&bk_length=600", _word)
+	local httpc = http.new()
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return nil
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return nil
+	end
+	if body_data.abstract then
+		return body_data.abstract
+	end
+	return nil
+end
+
+function person_handler.get_baidu_music(_word)
+	local url = string.format("http://tingapi.ting.baidu.com/v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=%s", _word)
+	local httpc = http.new()
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return nil
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return nil
+	end
+	if not body_data.song then
+		return nil
+	end
+
+	if not body_data.song[1]then
+		return nil
+	end
+	local songid = body_data.song[1].songid
+
+	local url = string.format("http://tingapi.ting.baidu.com/v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=%d", songid)
+	local httpc = http.new()
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return nil
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return nil
+	end
+
+	if not body_data.bitrate then
+		return nil
+	end
+
+	local song_url = body_data.bitrate.show_link
+	return song_url
 end
 
 function person_handler.get_key_word(_word)
@@ -229,7 +284,7 @@ function person_handler.get_key_word(_word)
 		if ret and ret[1] then
 			local find = ret[1]
 			--插入到index库
-			local insert_dict = {word = _word, key_work = word}
+			local insert_dict = {word = _word, key_word = word}
 			ret = mysql_client:insert_not_check("tory_info_index", insert_dict)
 
 			return word
@@ -245,13 +300,20 @@ function person_handler.search_info(_peer_ctx, _word)
 	local info = {}
 	if not key_word then
 		--2, 如果没条目, 查百科
-		local key_word, text_info = person_handler.get_baike_info(_word)
-		if text_info then
+		local key_word = _word
+		local url_info = person_handler.get_baidu_music(_word)
+		local info_type = "voice"
+		if not url_info then
+			info_type = "text"
+			key_word, url_info = person_handler.get_baike_info(_word)
+		end
+		ss(url_info)
+		if url_info then
 			--3, 入库
-			local info_insert_dict = {key_word=key_word, info = text_info, type = is_voice and "voice" or "text"}	--后期加入语音数据
+			local info_insert_dict = {key_word=key_word, info = url_info, type = info_type }
 			ret = mysql_client:insert_not_check("tory_info", info_insert_dict, {info="MediumBlob"})
 
-			info = {info = text_info, type = "text"}
+			info = {info = url_info, type = info_type}
 		end
 		local insert_dict = {word = _word, key_word=key_word, categroy = "百科", search_num = search_num, weight = 0}
 		local ret = mysql_client:insert_not_check("tory_info_index", insert_dict)
@@ -268,6 +330,8 @@ function person_handler.search_info(_peer_ctx, _word)
     local ret = mysql_client:read_condition_not_check("tory_info_index", query_dict)
 	if ret and ret[1] then
 		local find = ret[1]
+		find.search_num = find.search_num or ""
+		find.search_num = tonumber(find.search_num) or 0
 		local insert_data = {search_num = find.search_num+1}
 		ret = mysql_client:insert_not_check("tory_info_index", insert_data, nil, query_dict)
 	end
