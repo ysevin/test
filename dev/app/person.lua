@@ -92,8 +92,10 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 	end
 	person_handler.baidu_voice_token = body_data.access_token
 
+
+	print("====", _msg["file_ext"], _msg["file_len"])
 	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s", "len":%d}',
-	"pcm", 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
+	 _msg["file_ext"], 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
 
     local httpc = http.new()
 	local res, err = httpc:request_uri("http://vop.baidu.com/server_api",{
