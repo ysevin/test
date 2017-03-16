@@ -352,8 +352,9 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 
 	--插入新字段
 	for field_name, field_value in pairs(_data_dict) do
-		local alter_sql = string.format("alter table %s add %s %s,", _tbl_name, field_name, _data_struct[field_name] or "varchar(255) default ''")
+		local alter_sql = string.format("alter table %s add %s %s;", _tbl_name, field_name, _data_struct[field_name] or "varchar(255) default ''")
     	local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(alter_sql, "person")
+        self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
 	end
 
 	--是否是更新数据

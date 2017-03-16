@@ -15,6 +15,7 @@ var image_controls = {
 var structure_num = 1;
 var voice_content = "xxx"
 var voice_len = 0
+var voice_ext = "mp3"
 
 var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 var base64DecodeChars = new Array(
@@ -198,12 +199,15 @@ function recv(str)
 	fo = document.getElementById("voice_form")
 	if(fo)
 	{
-		console.log("+++", obj)
 		if(obj.text_info_list)
 		{
 			var jv = JSON.parse(obj.text_info_list)
 			var te = document.getElementById("voice_text")
 			te.value = jv.result[0]
+		}
+		else if(obj.voice_data)
+		{
+			download_file("temp.mp3", voice_data)
 		}
 		else
 		{
@@ -312,6 +316,7 @@ function upload_voice()
 	var str = '{ "websocket_cmd":"upload_voice",'
 
 	str += '"' + "file" + '":"' + voice_content + '",'
+	str += '"' + "file_ext" + '":"' + voice_ext + '",'
 	str += '"' + "file_len" + '":' + voice_len + ','
 
 	str = str.substring(0, str.length-1)
@@ -357,6 +362,8 @@ function read_voice_file(file_id)
 	var files = document.getElementById(file_id).files
 	var file = files[0];
     var reader = new FileReader();
+	var strs = file.name.split(".");
+	voice_ext = strs[strs.length - 1]
     reader.readAsBinaryString(file);
     reader.onload = function() {
 		voice_len = this.result.length
@@ -424,6 +431,10 @@ function compress(img, fileType) {
 	return base64data;
 }
 function download_file(fileName, content){
+	if(!fileName)
+		fileName = "temp.txt"
+	if(!content)
+		content = "hello world"
     var aLink = document.createElement('a');
     var blob = new Blob([content]);
     var evt = document.createEvent("HTMLEvents");
@@ -652,7 +663,9 @@ function create_voice_form(parent_id)
 		["vf,打开,read_voice_file"],
 		["i,voice_text"],
 		["b,播放,down_voice"],
-		//["v,trust you.mp3"],
+		["b,保存,download_file"],
+		//["v,http://yinyueshiting.baidu.com/data2/music/42822293/42822293.mp3?xcode=eebbad91d880eee286c86b4d2d72cc37"],
+		//["v,http://zhangmenshiting.baidu.com/data2/music/43099977/43099977.mp3?xcode=43797767930a4416aca186416cbdae39"],
 	]
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")
