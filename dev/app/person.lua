@@ -12,7 +12,7 @@ person_handler.baidu_voice_token = ""
 function person_handler.send_data(_peer_ctx, _data)
     local send_str = cjson.encode(_data)
     local websocket_send_bytes, websocket_send_err = _peer_ctx.websocket_peer_:send_text(send_str)
-    if not websocket_send_bytes then ngx.log(ngx.ERR, "send %s failed(%s)", send_str, websocket_send_err) end
+    if not websocket_send_bytes then ngx.log(ngx.ERR, "send %s failed(%s)",send_str, websocket_send_err) end
 end
 
 function person_handler.upload_info(_peer_ctx, _msg)
@@ -122,12 +122,13 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 end
 
 function person_handler.down_voice(_peer_ctx, _msg)
+	person_handler.download_music(_peer_ctx, _msg)
 	--local song = person_handler.get_baidu_music(_msg["text"])
 	--local ret_info = {}
 	--ret_info.voice_info_list = song
     --person_handler.send_data(_peer_ctx, ret_info)
 
-	person_handler.search_info(_peer_ctx, _msg["text"])
+	--person_handler.search_info(_peer_ctx, _msg["text"])
 
 	--[[
 	local insert_dict = {word="我想听刻舟求剑", key_word = "刻舟求剑",search_num = 0, weight = 0}
@@ -264,6 +265,21 @@ function person_handler.get_baidu_music(_word)
 
 	local song_url = body_data.bitrate.show_link
 	return song_url
+end
+
+function person_handler.download_music(_peer_ctx, _msg)
+	local url = _msg["text"] or "http://zhangmenshiting.baidu.com/data2/music/ebf299c153c9cfcc14a1d877daf58cba/64022196/64022196.mp3?xcode=43b5a8c7b760a89926d7084657a59bf4"
+	local httpc = http.new()
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return nil
+	end
+
+	local ret_info = {}
+	ret_info.voice_data = res.body
+    person_handler.send_data(_peer_ctx, ret_info)
 end
 
 function person_handler.get_key_word(_word)
