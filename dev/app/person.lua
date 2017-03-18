@@ -93,9 +93,8 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 	person_handler.baidu_voice_token = body_data.access_token
 
 
-	print("====", _msg["file_ext"], _msg["file_len"])
 	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s", "len":%d}',
-	 _msg["file_ext"], 8000, 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
+	 _msg["file_ext"],tonumber(_msg["file_rate"]), 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
 
     local httpc = http.new()
 	local res, err = httpc:request_uri("http://vop.baidu.com/server_api",{
@@ -122,19 +121,19 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 end
 
 function person_handler.down_voice(_peer_ctx, _msg)
-	person_handler.download_music(_peer_ctx, _msg)
+	--person_handler.download_music(_peer_ctx, _msg)
 	--local song = person_handler.get_baidu_music(_msg["text"])
 	--local ret_info = {}
 	--ret_info.voice_info_list = song
     --person_handler.send_data(_peer_ctx, ret_info)
 
-	--person_handler.search_info(_peer_ctx, _msg["text"])
+	person_handler.search_info(_peer_ctx, _msg["text"])
 
 	--[[
 	local insert_dict = {word="我想听刻舟求剑", key_word = "刻舟求剑",search_num = 0, weight = 0}
-    --local ret = mysql_client:insert_not_check("tory_info_index", insert_dict)
+    --local ret = mysql_client:insert_not_check("troy_info_index", insert_dict)
 	local query_dict = {word="我想听刻舟求剑xxxx"}
-    local ret = mysql_client:read_condition_not_check("tory_info_index", query_dict)
+    local ret = mysql_client:read_condition_not_check("troy_info_index", query_dict)
 	--local ret = cjson.encode(ret)
 	ss(ret)
 	--]]
@@ -218,13 +217,14 @@ function person_handler.get_baike_info_one(_word)
 	if not body_data then 
 		return nil
 	end
+	local desc = body_data.desc	--可以根据这个来判断是否是是歌曲,但喜羊羊这些的没有"歌曲"这关键字
 	if body_data.abstract then
 		return body_data.abstract
 	end
 	return nil
 end
 
-function person_handler.get_baidu_music(_word)
+function person_handler.get_baidu_music_one(_word)
 	local url = string.format("http://tingapi.ting.baidu.com/v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=%s", _word)
 	local httpc = http.new()
 	local res, err = httpc:request_uri(url,{
@@ -245,6 +245,7 @@ function person_handler.get_baidu_music(_word)
 		return nil
 	end
 	local songid = body_data.song[1].songid
+	local artist = body_data.song[1].artistname
 
 	local url = string.format("http://tingapi.ting.baidu.com/v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=%d", songid)
 	local httpc = http.new()
@@ -267,8 +268,24 @@ function person_handler.get_baidu_music(_word)
 	return song_url
 end
 
+function person_handler.get_baidu_music(_word)
+	person_handler.get_baidu_token()
+	local len = utf8len(_word)
+	for i=1, len do
+		local word = utf8sub(_word, i, len)
+		local info = person_handler.get_baidu_music_one(word)
+		if info then
+			return word, info
+		end
+	end
+	return nil
+end
+
 function person_handler.download_music(_peer_ctx, _msg)
-	local url = _msg["text"] or "http://zhangmenshiting.baidu.com/data2/music/ebf299c153c9cfcc14a1d877daf58cba/64022196/64022196.mp3?xcode=43b5a8c7b760a89926d7084657a59bf4"
+	local url = _msg["text"]
+	if url == "" then
+		url = "http://zhangmenshiting.baidu.com/data2/music/ebf299c153c9cfcc14a1d877daf58cba/64022196/64022196.mp3?xcode=43b5a8c7b760a89926d7084657a59bf4"
+	end
 	local httpc = http.new()
 	local res, err = httpc:request_uri(url,{
 		ssl_verify = false,
@@ -278,66 +295,93 @@ function person_handler.download_music(_peer_ctx, _msg)
 	end
 
 	local ret_info = {}
+	--ret_info.voice_data = ngx.encode_base64(res.body)		--javascript解码后数据不一样!!!
 	ret_info.voice_data = res.body
     person_handler.send_data(_peer_ctx, ret_info)
 end
 
-function person_handler.get_key_word(_word)
-	local len = utf8len(_word)
-	--先逐字在index库里找
-	for i=1, len do
-		local word = utf8sub(_word, i, len)
-		local query_dict = {word = word}
-    	local ret = mysql_client:read_condition_not_check("tory_info_index", query_dict)
-		if ret and ret[1] then
-			local find = ret[1]
-			return find.key_word
-		end
-	end
-	--再在info库里找
-	for i=1, len do
-		local word = utf8sub(_word, i, len)
-		local query_dict = {key_word = word}
-    	local ret = mysql_client:read_condition_not_check("tory_info", query_dict)
-		if ret and ret[1] then
-			local find = ret[1]
-			--插入到index库
-			local insert_dict = {word = _word, key_word = word}
-			ret = mysql_client:insert_not_check("tory_info_index", insert_dict)
-
-			return word
-		end
+function person_handler.get_self_info(_word)
+	local query_dict = {key_word = _word}
+	local ret = mysql_client:read_condition_not_check("troy_info", query_dict)
+	if ret and ret[1] then
+		local find = ret[1]
+		return find.info, find.type
 	end
 	return nil
 end
 
+function person_handler.search_info_one(_word)
+	local info, ty = person_handler.get_self_info(_word)
+
+	if not info then
+		info = person_handler.get_baidu_music_one(_word)
+		if info then
+			return info, "voice"
+		end
+	end
+
+	if not info then
+		local info = person_handler.get_baike_info_one(_word)
+		if info then
+			return info, "text"
+		end
+	end
+	return info, ty
+end
+
+function person_handler.insert_index(_key_word, _word)
+	--插入到index库
+	local query_dict = {word = _word, key_word = _key_word}
+	local ret = mysql_client:read_condition_not_check("troy_info_index", query_dict)
+	ret = ret or {}
+	if not ret[1] then
+		local insert_dict = {word = _word, key_word = _key_word, weight = 0}
+		ret = mysql_client:insert_not_check("troy_info_index", insert_dict)
+	end
+end
+
+function person_handler.insert_info(_key_word, _info, _type)
+	--入资源库
+	local query_dict = {key_word = _key_word}
+	local ret = mysql_client:read_condition_not_check("troy_info", query_dict)
+	if not ret[1] then
+		local insert_dict = {key_word = _key_word, info = _info, type = _type }
+		ret = mysql_client:insert_not_check("troy_info", insert_dict, {info="MediumBlob"})
+	end
+end
+
 function person_handler.search_info(_peer_ctx, _word)
-	--1, 先从库里找
-	local key_word = person_handler.get_key_word(_word)
+	--先从库里找
+	local key_word = nil
+	local query_dict = {word = _word}
+	local ret = mysql_client:read_condition_not_check("troy_info_index", query_dict)
+	if ret and ret[1] then
+		local find = ret[1]
+		key_word = find.key_word
+	end
 
 	local info = {}
 	if not key_word then
-		--2, 如果没条目, 查百科
-		local key_word = _word
-		local url_info = person_handler.get_baidu_music(_word)
-		local info_type = "voice"
-		if not url_info then
-			info_type = "text"
-			key_word, url_info = person_handler.get_baike_info(_word)
+		local len = utf8len(_word)
+		for i=1, len do
+			local word = utf8sub(_word, i, len)
+			local inf, ty = person_handler.search_info_one(word)
+			if inf then
+				key_word = word
+				info.info = inf
+				info.type = ty
+				break
+			end
 		end
-		ss(url_info)
-		if url_info then
-			--3, 入库
-			local info_insert_dict = {key_word=key_word, info = url_info, type = info_type }
-			ret = mysql_client:insert_not_check("tory_info", info_insert_dict, {info="MediumBlob"})
 
-			info = {info = url_info, type = info_type}
+		key_word = key_word or ""
+		person_handler.insert_index(key_word, _word)
+		if key_word ~= "" then
+			person_handler.insert_info(key_word, info.info, info.type)
 		end
-		local insert_dict = {word = _word, key_word=key_word, categroy = "百科", search_num = search_num, weight = 0}
-		local ret = mysql_client:insert_not_check("tory_info_index", insert_dict)
 	else
 		local query_dict = {key_word = key_word}
-    	local ret = mysql_client:read_condition_not_check("tory_info", query_dict)
+    	local ret = mysql_client:read_condition_not_check("troy_info", query_dict)
 		if ret and ret[1] then
 			info = ret[1]
 		end
@@ -345,13 +389,14 @@ function person_handler.search_info(_peer_ctx, _word)
 
 	--对该词的搜索次数加1
 	local query_dict = {word = _word}
-    local ret = mysql_client:read_condition_not_check("tory_info_index", query_dict)
+    local ret = mysql_client:read_condition_not_check("troy_info_index", query_dict)
 	if ret and ret[1] then
 		local find = ret[1]
-		find.search_num = find.search_num or ""
-		find.search_num = tonumber(find.search_num) or 0
-		local insert_data = {search_num = find.search_num+1}
-		ret = mysql_client:insert_not_check("tory_info_index", insert_data, nil, query_dict)
+		local search_num = find.search_num or ""
+		search_num = tonumber(search_num) or 0
+		local insert_data = {search_num = search_num+1}
+		ss(query_dict)
+		ret = mysql_client:insert_not_check("troy_info_index", insert_data, nil, query_dict)
 	end
 
 	-- 终端输出
