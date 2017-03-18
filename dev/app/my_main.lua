@@ -21,6 +21,7 @@ function app_main()
     peer_ctx:register_func("login", person_handler.login)
     peer_ctx:register_func("upload_voice", person_handler.upload_voice)
     peer_ctx:register_func("down_voice", person_handler.down_voice)
+    peer_ctx:register_func("add_info", person_handler.add_info)
 
     peer_ctx:start()
     ngx.log(ngx.INFO, peer_ctx.last_error_)

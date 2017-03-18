@@ -120,6 +120,10 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 
 end
 
+function person_handler.add_info(_peer_ctx, _msg)
+	person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
+end
+
 function person_handler.down_voice(_peer_ctx, _msg)
 	--person_handler.download_music(_peer_ctx, _msg)
 	--local song = person_handler.get_baidu_music(_msg["text"])
@@ -344,6 +348,7 @@ function person_handler.insert_info(_key_word, _info, _type)
 	--入资源库
 	local query_dict = {key_word = _key_word}
 	local ret = mysql_client:read_condition_not_check("troy_info", query_dict)
+	ret = ret or {}
 	if not ret[1] then
 		local insert_dict = {key_word = _key_word, info = _info, type = _type }
 		ret = mysql_client:insert_not_check("troy_info", insert_dict, {info="MediumBlob"})
