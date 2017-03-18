@@ -327,6 +327,7 @@ end
 
 function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct, _update_key)
 	local create_sql = string.format("create table if not exists %s (id bigint primary key auto_increment,", _tbl_name)
+	local update_sql = string.format("update %s set ", _tbl_name)
 
 	local _data_struct = _data_struct or {}
 	local str_name, str_value = "", ""
@@ -359,11 +360,10 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 
 	--是否是更新数据
 	_update_key = _update_key or {}
-	local update_sql = string.format("update %s set ", _tbl_name)
 	update_sql = string.format("%s where", update_sql)
 	local is_empty = true
 	for field_name, field_value in pairs(_update_key) do
-		update_sql = string.format("%s %s=%s", update_sql, field_name, tostring(field_value))
+		update_sql = string.format("%s %s=%q", update_sql, field_name, tostring(field_value))
 		is_empty = false
 	end
 	update_sql = update_sql..";"
