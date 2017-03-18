@@ -207,7 +207,8 @@ function recv(str)
 		}
 		else if(obj.voice_data)
 		{
-			download_file("temp.mp3", voice_data)
+			//download_file("temp.mp3", base64decode(obj.voice_data))
+			download_file("temp.mp3", obj.voice_data)
 		}
 		else
 		{
@@ -315,9 +316,12 @@ function upload_voice()
 		return log('please connect first');
 	var str = '{ "websocket_cmd":"upload_voice",'
 
-	str += '"' + "file" + '":"' + voice_content + '",'
+	var text = document.getElementById("voice_rate");
+
 	str += '"' + "file_ext" + '":"' + voice_ext + '",'
+	str += '"' + "file_rate" + '":"' + text.value + '",'
 	str += '"' + "file_len" + '":' + voice_len + ','
+	str += '"' + "file" + '":"' + voice_content + '",'
 
 	str = str.substring(0, str.length-1)
 	str += "}"
@@ -434,7 +438,8 @@ function download_file(fileName, content){
 	if(!fileName)
 		fileName = "temp.txt"
 	if(!content)
-		content = "hello world"
+		//content = "hello world"
+		content = base64decode(voice_content)
     var aLink = document.createElement('a');
     var blob = new Blob([content]);
     var evt = document.createEvent("HTMLEvents");
@@ -495,13 +500,6 @@ function create_my_element(str)
 	}
 	else if(strs[0] == "v")
 	{
-		/*
-		<audio controls="controls" autoplay>
-		  <!--<source src="trust you.ogg" type="audio/ogg">-->
-		  <source src="trust you.mp3" type="audio/mpeg">
-		Your browser does not support the audio element.
-		</audio>
-		*/
 		var kao = "http://tsn.baidu.com/text2audio?lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747&tex=你好啊"
   		//var kao="http://tsn.baidu.com/text2audio?tex=%E4%BD%A0%E5%A5%BD%E5%95%8A&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747"
 		var au = document.createElement("audio")
@@ -660,12 +658,14 @@ function create_voice_form(parent_id)
 {
 	var text_ar = [
 		["b,上传,upload_voice"],
+		["i,voice_rate"],
 		["vf,打开,read_voice_file"],
 		["i,voice_text"],
 		["b,播放,down_voice"],
 		["b,保存,download_file"],
 		//["v,http://yinyueshiting.baidu.com/data2/music/42822293/42822293.mp3?xcode=eebbad91d880eee286c86b4d2d72cc37"],
 		//["v,http://zhangmenshiting.baidu.com/data2/music/43099977/43099977.mp3?xcode=43797767930a4416aca186416cbdae39"],
+		//["v,trust you.mp3"],
 	]
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")
