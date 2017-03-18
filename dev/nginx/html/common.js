@@ -329,6 +329,25 @@ function upload_voice()
 	websocket_channel.send(str);
 	window.event.returnValue=false;  
 }
+
+function add_info()
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"upload_voice",'
+
+	var key_word = document.getElementById("info_key_word");
+	var info = document.getElementById("info_info");
+
+	str += '"' + "key_word" + '":"' + key_word.value+ '",'
+	str += '"' + "info" + '":"' + info.value + '",'
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('add_info ' + websocket_channel_addr + ", str: " + str);
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
 function down_voice()
 {
 	if (websocket_channel === null) 
@@ -662,7 +681,8 @@ function create_voice_form(parent_id)
 		["vf,打开,read_voice_file"],
 		["i,voice_text"],
 		["b,播放,down_voice"],
-		["b,保存,download_file"],
+		["i,info_key_word", "i,info_info"],
+		["b,添加,add_info"],
 		//["v,http://yinyueshiting.baidu.com/data2/music/42822293/42822293.mp3?xcode=eebbad91d880eee286c86b4d2d72cc37"],
 		//["v,http://zhangmenshiting.baidu.com/data2/music/43099977/43099977.mp3?xcode=43797767930a4416aca186416cbdae39"],
 		//["v,trust you.mp3"],
