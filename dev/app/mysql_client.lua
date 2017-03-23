@@ -325,7 +325,13 @@ function mysql_client.insert(self, _tbl_name, _data_dict)
     return insert_res
 end
 
-function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct, _update_key)
+function mysql_client.insert_not_check(self, _db_name, _tbl_name, _data_dict, _data_struct, _update_key)
+	local create_db = string.format("create database %s default character set utf8;", _db_name)
+    local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_db, _db_name)
+    if not insert_res or insert_res.affected_rows ~= 1 then
+        self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
+    end
+
 	local create_sql = string.format("create table if not exists %s (id bigint primary key auto_increment,", _tbl_name)
 	local update_sql = string.format("update %s set ", _tbl_name)
 
@@ -346,7 +352,7 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 	local insert_sql = string.format("insert into %s(%s) value(%s);", _tbl_name, str_name, str_value)
 
 	--如果没表, 先创建
-    local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_sql, "person")
+    local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_sql, _db_name)
     if not insert_res or insert_res.affected_rows ~= 1 then
         self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
     end
@@ -354,7 +360,7 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 	--插入新字段
 	for field_name, field_value in pairs(_data_dict) do
 		local alter_sql = string.format("alter table %s add %s %s;", _tbl_name, field_name, _data_struct[field_name] or "varchar(255) default ''")
-    	local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(alter_sql, "person")
+    	local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(alter_sql, _db_name)
         self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
 	end
 
@@ -369,9 +375,9 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
 	update_sql = update_sql..";"
 	local insert_res, insert_err, insert_errno, insert_state
 	if not is_empty then
-		insert_res, insert_err, insert_errno, insert_state = self:query_mysql(update_sql, "person")
+		insert_res, insert_err, insert_errno, insert_state = self:query_mysql(update_sql, _db_name)
 	else
-    	insert_res, insert_err, insert_errno, insert_state = self:query_mysql(insert_sql, "person")
+    	insert_res, insert_err, insert_errno, insert_state = self:query_mysql(insert_sql, _db_name)
 	end
 
     if not insert_res or insert_res.affected_rows ~= 1 then
@@ -381,14 +387,14 @@ function mysql_client.insert_not_check(self, _tbl_name, _data_dict, _data_struct
     return insert_res
 end
 
-function mysql_client.read_condition_not_check(self, _tbl_name, _condition_dict)
+function mysql_client.read_condition_not_check(self, _db_name, _tbl_name, _condition_dict)
     self.last_error_ = ""
     local condition_sql = ""
     for field_name, field_value in pairs(_condition_dict) do
         condition_sql = string.format("%s %s=%q", condition_sql, field_name, field_value)
     end
     local read_sql = string.format("select * from %s where %s;", _tbl_name, condition_sql)
-    local get_res, get_err, get_errno, get_state = self:query_mysql(read_sql, "person")
+    local get_res, get_err, get_errno, get_state = self:query_mysql(read_sql, _db_name)
     if not get_res then
         self.last_error_ = string.format("[read] mysql query err: %s, sql: %s", get_err, read_sql)
         return
