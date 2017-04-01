@@ -318,14 +318,14 @@ function upload_voice()
 
 	var text = document.getElementById("voice_rate");
 
-	str += '"' + "file_ext" + '":"' + voice_ext + '",'
-	str += '"' + "file_rate" + '":"' + text.value + '",'
-	str += '"' + "file_len" + '":' + voice_len + ','
 	str += '"' + "file" + '":"' + voice_content + '",'
+	str += '"' + "file_ext" + '":"' + voice_ext + '",'
+	//str += '"' + "file_rate" + '":"' + text.value + '",'
+	//str += '"' + "file_len" + '":' + voice_len + ','
 
 	str = str.substring(0, str.length-1)
 	str += "}"
-	log('upload_voice: ' + websocket_channel_addr + ", str: " + str);
+	console.log('upload_voice: ' + websocket_channel_addr + ", str: " + str);
 	websocket_channel.send(str);
 	window.event.returnValue=false;  
 }
