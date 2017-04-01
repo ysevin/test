@@ -87,6 +87,7 @@ function person_handler.login(_peer_ctx, _msg)
 end
 
 function person_handler.upload_voice(_peer_ctx, _msg)
+	--[[
 	local httpc = http.new()
 	local url = person_handler.baide_get_token_url
 	local res, err = httpc:request_uri(url,{
@@ -115,10 +116,12 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 		body = request_body, --需要用json格式
 	})
 	print(res.body)
+	--]]
 
     local ack_upload_dict = { }
     ack_upload_dict.user_result = -1
     ack_upload_dict.user_error = "request error"
+	local res = {body = "上传完毕"}
     if res.body then
         ack_upload_dict.user_result = 0
         ack_upload_dict.text_info_list = res.body
@@ -401,7 +404,6 @@ function person_handler.search_info(_peer_ctx, _word)
 				key_word = word
 				info.info = inf
 				info.type = ty
-				break
 			end
 		--end
 

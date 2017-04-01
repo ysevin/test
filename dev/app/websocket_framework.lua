@@ -10,8 +10,8 @@ function websocket_framework.new(self)
     local peer = { }
     setmetatable(peer, websocket_framework_mt)
     local websocket_res, websocket_err = server:new({
-        timeout = 1000, -- ms
-        max_payload_len = 104857600
+        timeout = 10000, -- ms
+        max_payload_len = 1024*1024*1024	--104857600
     })
     if not websocket_res then
         ngx.log(ngx.ERR, string.format("failed to new websocket peer: %s", websocket_err))
