@@ -10,8 +10,8 @@ function websocket_framework.new(self)
     local peer = { }
     setmetatable(peer, websocket_framework_mt)
     local websocket_res, websocket_err = server:new({
-        timeout = 10000, -- ms
-        max_payload_len = 1024*1024*1024	--104857600
+        timeout = 1000, -- ms
+        max_payload_len = 104857600
     })
     if not websocket_res then
         ngx.log(ngx.ERR, string.format("failed to new websocket peer: %s", websocket_err))
@@ -30,6 +30,7 @@ end
 function websocket_framework.start(self)
     self.last_error_ = ""
     local websocket_peer = self.websocket_peer_
+	local all_data = ""
     while websocket_peer and not websocket_peer.fatal do
         -- 获取websocket 数据
         local websocket_peer_data, websocket_peer_type, websocket_peer_err = websocket_peer:recv_frame()
@@ -54,26 +55,30 @@ function websocket_framework.start(self)
             end
         elseif websocket_peer_type == "pong" then
             --ngx.log(ngx.ERR, "client ponged")
-        elseif websocket_peer_type == "text" then
-            local json_data = cjson.decode(websocket_peer_data)
-            if not json_data then
-                self.last_error_ = string.format("cjson decode websocket_peer_data: %s", websocket_peer_data)
-                break
-            end
-            local func_cmd = json_data.websocket_cmd
-            if not func_cmd then
-                self.last_error_ = string.format("not exist func_cmd websocket_peer_data: %s", websocket_peer_data)
-                break
-            end
-            local cmd_func = self.cmd_func_[func_cmd]
-            if cmd_func then
-                if not cmd_func(self, json_data) then
-                    self.last_error_ = string.format("cmd_func run failed websocket_peer_data: %s", websocket_peer_data)
-                    break
-                end
-            else
-                ngx.log(ngx.WARN, string.format("not exist cmd_func(%s) websocket_peer_data: %s", func_cmd, websocket_peer_data))
-            end
+        elseif websocket_peer_type == "text" or websocket_peer_type == "continuation" then
+			all_data = all_data..websocket_peer_data
+			if websocket_peer_err ~= "again" then
+				local json_data = cjson.decode(all_data)
+				if not json_data then
+					self.last_error_ = string.format("cjson decode websocket_peer_data: %s", websocket_peer_data)
+					break
+				end
+				local func_cmd = json_data.websocket_cmd
+				if not func_cmd then
+					self.last_error_ = string.format("not exist func_cmd websocket_peer_data: %s", websocket_peer_data)
+					break
+				end
+				local cmd_func = self.cmd_func_[func_cmd]
+				if cmd_func then
+					if not cmd_func(self, json_data) then
+						self.last_error_ = string.format("cmd_func run failed websocket_peer_data: %s", websocket_peer_data)
+						break
+					end
+				else
+					ngx.log(ngx.WARN, string.format("not exist cmd_func(%s) websocket_peer_data: %s", func_cmd, websocket_peer_data))
+				end
+				continue_data = ""
+			end
         else
             ngx.log(ngx.ERR, string.format("unkown websocket_peer_type: %s, websocket_peer_data: %s", websocket_peer_type, websocket_peer_data))
             break

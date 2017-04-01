@@ -112,3 +112,24 @@ function ss(o)
 	print(s(o))
 end
 
+--[[
+local fun=function ( ... )
+	local a=1;
+	print(a+1);
+	return a+1;
+end
+--]]
+
+tryCatch=function(fun)
+	local ret,errMessage=pcall(fun);
+	print("ret:" .. (ret and "true" or "false" )  .. " \nerrMessage:" .. (errMessage or "null"));
+end
+
+xTryCatchGetErrorInfo=function()
+	print(debug.traceback());
+end
+
+xTryCatch=function(fun)
+	local ret,errMessage=xpcall(fun,xTryCatchGetErrorInfo);
+	print("ret:" .. (ret and "true" or "false" )  .. " \nerrMessage:" .. (errMessage or "null"));
+end

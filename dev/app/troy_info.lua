@@ -117,6 +117,12 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 	})
 	print(res.body)
 	--]]
+	
+	local file = io.open("/home/sevin/dev/test.mp3", "wb")
+	---- 在文件最后一行添加 Lua 注释
+	file:write(_msg["file"])
+	---- 关闭打开的文件
+	file:close()
 
     local ack_upload_dict = { }
     ack_upload_dict.user_result = -1
