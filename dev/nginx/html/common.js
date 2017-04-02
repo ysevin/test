@@ -1,21 +1,10 @@
-var websocket_channel_addr = "ws://localhost:8080/my_main";
+var websocket_channel_addr = "ws://localhost:8080/toy_info_main";
 var websocket_channel = null;
-var text_controls ={
-	nationality:"国籍",
-	area:"所在地区",
-	birthday:"出生日期",
-	gender:"性别", 
-	entry:"入境时间", 
-	company:"就业单位", 
-	phone:"联系方式", 
-	remark:"备注"};
-var image_controls = {
-	photo:"照片",
-	fingerprint:"指纹"};
-var structure_num = 1;
+
 var voice_content = "xxx"
 var voice_len = 0
 var voice_ext = "mp3"
+var voice_name = "mp3"
 
 var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 var base64DecodeChars = new Array(
@@ -196,31 +185,25 @@ function recv(str)
 		window.event.returnValue=false;  
 		return
 	}
-	fo = document.getElementById("voice_form")
+	fo = document.getElementById("toy_test_form")
 	if(fo)
 	{
-		if(obj.text_info_list)
-		{
-			var jv = JSON.parse(obj.text_info_list)
-			var te = document.getElementById("voice_text")
-			te.value = jv.result[0]
-		}
-		else if(obj.voice_data)
-		{
-			//download_file("temp.mp3", base64decode(obj.voice_data))
-			download_file("temp.mp3", obj.voice_data)
-		}
-		else
-		{
-			var voice = obj.voice_info_list
-			var text_ar = [
-				["v,"+voice],
-			]
-			create_text_control("voice_form", text_ar)
-		}
+		var text_ar = [
+			["v,"+obj.voice_url],
+		]
+		create_text_control("toy_test_form", text_ar)
+
 		window.event.returnValue=false;  
 		return
 	}
+	fo = document.getElementById("toy_info_form")
+	if(fo)
+	{
+		toy_info_form_recv(str)
+		window.event.returnValue=false;  
+		return
+	}
+
 	for(var idx in obj.person_info_list)
 	{
 		var info = obj.person_info_list[idx]
@@ -310,23 +293,32 @@ function log(text)
 	document.getElementById('log').appendChild(li)
 	return false;
 }
-function upload_voice()
+function upload_voice(file_name, insert_db)
 {
 	if (websocket_channel === null) 
 		return log('please connect first');
 	var str = '{ "websocket_cmd":"upload_voice",'
 
-	var text = document.getElementById("voice_rate");
-
-	str += '"' + "file" + '":"' + voice_content + '",'
-	str += '"' + "file_ext" + '":"' + voice_ext + '",'
+	//var text = document.getElementById("voice_rate");
 	//str += '"' + "file_rate" + '":"' + text.value + '",'
-	//str += '"' + "file_len" + '":' + voice_len + ','
+	if(file_name == null)
+		file_name = voice_name
+
+	str += '"' + "file_content" + '":"' + voice_content + '",'
+	str += '"' + "file_ext" + '":"' + voice_ext + '",'
+	str += '"' + "file_len" + '":' + voice_len + ','
+	str += '"' + "file_name" + '":"' + file_name + '",'
+
+	if(insert_db)
+		str += '"insert_db":1,'
 
 	str = str.substring(0, str.length-1)
 	str += "}"
-	console.log('upload_voice: ' + websocket_channel_addr + ", str: " + str);
+	console.log('upload_voice: ' + websocket_channel_addr + ", str: " + str + "len:" + str.length);
 	websocket_channel.send(str);
+
+	voice_content = ""
+
 	window.event.returnValue=false;  
 }
 
@@ -348,18 +340,18 @@ function add_info()
 	websocket_channel.send(str);
 	window.event.returnValue=false;  
 }
-function down_voice()
+function voice_test()
 {
 	if (websocket_channel === null) 
 		return log('please connect first');
-	var str = '{ "websocket_cmd":"down_voice",'
+	var str = '{ "websocket_cmd":"voice_test",'
 
 	var in_text = document.getElementById("voice_text");
 	str += '"' + "text" + '":"' + in_text.value + '",'
 
 	str = str.substring(0, str.length-1)
 	str += "}"
-	log('down_voice: ' + websocket_channel_addr + ", str: " + str);
+	log('voice_test: ' + websocket_channel_addr + ", str: " + str);
 	websocket_channel.send(str);
 	window.event.returnValue=false;  
 	//http://tsn.baidu.com/text2audio?tex=你好啊&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747
@@ -386,6 +378,7 @@ function read_voice_file(file_id)
 	var file = files[0];
     var reader = new FileReader();
 	var strs = file.name.split(".");
+	voice_name = file.name
 	voice_ext = strs[strs.length - 1]
     reader.readAsBinaryString(file);
     reader.onload = function() {
@@ -489,7 +482,7 @@ function create_my_element(str)
 		ele = document.createElement("button")
 		var t = document.createTextNode(strs[1]);
 		ele.appendChild(t);  
-		ele.onclick = function(){eval(strs[2]+"()")}
+		ele.onclick = function(){eval(strs[2])}
 	}
 	else if(strs[0] == "p")
 	{
@@ -519,16 +512,21 @@ function create_my_element(str)
 	}
 	else if(strs[0] == "v")
 	{
-		var kao = "http://tsn.baidu.com/text2audio?lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747&tex=你好啊"
-  		//var kao="http://tsn.baidu.com/text2audio?tex=%E4%BD%A0%E5%A5%BD%E5%95%8A&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.f603c9a942fcf1f73aa5663a96fafc58.2592000.1491805308.282335-9361747"
 		var au = document.createElement("audio")
 		au.controls = "controls"		//是否显示播放器
 		au.autoplay = 1
 		var so = document.createElement("source")
-		so.src = encodeURI(strs[1])
+		so.id = strs[1]
+		so.src = encodeURI(strs[2])
 		so.type = "audio/mpeg"
 		au.appendChild(so)
 		ele = au
+	}
+	else if(strs[0] == "a")
+	{
+		ele = document.createElement("a")
+		ele.innerHTML = strs[1]
+		ele.href = strs[2]
 	}
 	else
 	{
@@ -676,20 +674,176 @@ function create_person_form(parent_id)
 function create_voice_form(parent_id)
 {
 	var text_ar = [
-		["b,上传,upload_voice"],
+		["b,上传,upload_voice()"],
 		["i,voice_rate"],
 		["vf,打开,read_voice_file"],
 		["i,voice_text"],
-		["b,播放,down_voice"],
+		["b,播放,down_voice()"],
 		["i,info_key_word", "i,info_info"],
-		["b,添加,add_info"],
-		//["v,http://yinyueshiting.baidu.com/data2/music/42822293/42822293.mp3?xcode=eebbad91d880eee286c86b4d2d72cc37"],
-		//["v,http://zhangmenshiting.baidu.com/data2/music/43099977/43099977.mp3?xcode=43797767930a4416aca186416cbdae39"],
-		//["v,trust you.mp3"],
+		["b,添加,add_info()"],
+		["v,audio,music/光辉岁月.mp3"],
 	]
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")
 	lfo.id = "voice_form"
+	fo.appendChild(lfo)
+	create_table_control(lfo.id, null, text_ar)
+
+	connect()
+}
+function create_toy_test_form(parent_id)
+{
+	var text_ar = [
+		["i,voice_text"],
+		["b,播放,voice_test()"],
+		["a,过滤库,toy_filter.html"],
+		["a,索引库,toy_index.html"],
+		["a,信息库,toy_info.html"],
+	]
+	var fo = document.getElementById(parent_id)
+	var lfo = document.createElement("form")
+	lfo.id = "toy_test_form"
+	fo.appendChild(lfo)
+	create_table_control(lfo.id, null, text_ar)
+
+	connect()
+}
+
+function toy_info_del(id)
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"del_toy_info",'
+
+	str += '"id":' + id + ','
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('del_toy_info: ' + websocket_channel_addr + ", str: " + str);
+
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
+
+function toy_info_update_text(id)
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"update_toy_info",'
+
+	var text = document.getElementById("text_" + id);
+	str += '"id":' + id + ','
+	str += '"text":"' + text.value + '",'
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('update_toy_info: ' + websocket_channel_addr + ", str: " + str);
+
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
+
+function toy_info_update_music(name)
+{
+	upload_voice(name)
+
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
+
+function toy_info_add_text()
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"add_toy_info",'
+
+	var word = document.getElementById("text_word");
+	var info = document.getElementById("text_info");
+	str += '"key_word":"' + word.value + '",'
+	str += '"info":"' + info.value + '",'
+	str += '"type":"text",'
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('add_toy_info: ' + websocket_channel_addr + ", str: " + str);
+
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
+function toy_info_add_music()
+{
+	if(voice_content != "")
+	{
+		var word = document.getElementById("music_word");
+		upload_voice(word.value, true)
+	}
+	else
+	{
+		log('先占击打开按钮,选择音乐')
+	}
+	window.event.returnValue=false;  
+}
+
+function toy_info_search()
+{
+	if (websocket_channel === null) 
+		return log('please connect first');
+	var str = '{ "websocket_cmd":"search_toy_info",'
+
+	var word = document.getElementById("search_text");
+	str += '"key_word":"' + word.value + '",'
+
+	str = str.substring(0, str.length-1)
+	str += "}"
+	log('search_toy_info: ' + websocket_channel_addr + ", str: " + str);
+
+	websocket_channel.send(str);
+	window.event.returnValue=false;  
+}
+
+function toy_info_form_recv(str)
+{
+	var obj = JSON.parse(str);
+	if(obj.toy_info_update_ret)
+	{
+		log('更新成功')
+	}
+	else
+	{
+		var tb_ar = new Array()
+		for(var idx in obj.toy_info_list)
+		{
+			var ar = new Array()
+			var info = obj.toy_info_list[idx]
+			ar[0] = "l," + info["key_word"]
+			if(info["type"] == "voice")
+			{
+				ar[1] = 'v,audio_'+ info["id"] + ',' + info["info"]
+				ar[2] = "b,删除, toy_info_del(" + info["id"] + ")"
+				ar[3] = "b,更新, toy_info_update_music(" + info["key_word"] + ")"
+				ar[4] = "vf,打开,read_voice_file"
+			}
+			else
+			{
+				ar[1] = "i,text_"+ info["id"] + "," + info["info"]
+				ar[2] = "b,删除, toy_info_del(" + info["id"] + ")"
+				ar[3] = "b,更新, toy_info_update_text(" + info["id"] + ")"
+			}
+			tb_ar[idx] = ar
+		}
+		create_table_control("toy_info_form", null, tb_ar)
+	}
+}
+function create_toy_info_form(parent_id)
+{
+	var text_ar = [
+		["i,search_text","b,搜索,toy_info_search()"],
+		["i,text_word","i,text_info","b,添加文本,toy_info_add_text()"],
+		["i,music_word","v,music_info,","b,上传语音,toy_info_add_music()","vf,打开,read_voice_file"],
+	]
+	var fo = document.getElementById(parent_id)
+	var lfo = document.createElement("form")
+	lfo.id = "toy_info_form"
 	fo.appendChild(lfo)
 	create_table_control(lfo.id, null, text_ar)
 

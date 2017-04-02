@@ -14,7 +14,7 @@ function mysql_clientex.query_mysql(self, _sql, _db)
     query_res, query_err, query_errno, query_state = mysql_client:connect({
         host = "127.0.0.1",
         port = 3306,
-        database = _db or "troy",
+        database = _db or "toy",
         user = "root",
         password = "root",
         max_packet_size = 1024 * 1024 
@@ -30,11 +30,13 @@ function mysql_clientex.query_mysql(self, _sql, _db)
 end
 
 function mysql_clientex.insert_not_check(self, _db_name, _tbl_name, _data_dict, _data_struct, _update_key)
+	--[[
 	local create_db = string.format("create database %s default character set utf8;", _db_name)
     local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_db, _db_name)
     if not insert_res or insert_res.affected_rows ~= 1 then
         self.last_error_ = string.format("[create] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
     end
+	--]]
 
 	local create_sql = string.format("create table if not exists %s (id bigint primary key auto_increment,", _tbl_name)
 	local update_sql = string.format("update %s set ", _tbl_name)

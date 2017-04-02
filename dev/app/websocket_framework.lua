@@ -34,6 +34,7 @@ function websocket_framework.start(self)
     while websocket_peer and not websocket_peer.fatal do
         -- 获取websocket 数据
         local websocket_peer_data, websocket_peer_type, websocket_peer_err = websocket_peer:recv_frame()
+		--print(websocket_peer_type, string.len(websocket_peer_data or ""), websocket_peer_err)
         if not websocket_peer_data then
             local send_bytes, send_err = websocket_peer:send_ping()
             if not send_bytes then
