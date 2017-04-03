@@ -47,7 +47,7 @@ function mysql_clientex.insert_not_check(self, _db_name, _tbl_name, _data_dict, 
 		create_sql = string.format("%s %s %s,", create_sql, field_name, _data_struct[field_name] or "varchar(255) default ''")
 		str_name = string.format("%s%s,", str_name, field_name)
 		str_value = string.format("%s%q,", str_value, tostring(field_value))
-		update_sql = string.format("%s %s=%s", update_sql, field_name, tostring(field_value))
+		update_sql = string.format("%s %s=%q,", update_sql, field_name, tostring(field_value))
 	end
 
 	create_sql = string.sub(create_sql, 1, -2)
@@ -55,6 +55,7 @@ function mysql_clientex.insert_not_check(self, _db_name, _tbl_name, _data_dict, 
 
 	str_name = string.sub(str_name, 1, -2)
 	str_value = string.sub(str_value, 1, -2)
+	update_sql = string.sub(update_sql, 1, -2)
 	local insert_sql = string.format("insert into %s(%s) value(%s);", _tbl_name, str_name, str_value)
 
 	--如果没表, 先创建
@@ -87,7 +88,8 @@ function mysql_clientex.insert_not_check(self, _db_name, _tbl_name, _data_dict, 
 	end
 
     if not insert_res or insert_res.affected_rows ~= 1 then
-        self.last_error_ = string.format("[insert] mysql query err: %s, sql: %s, res: %s", insert_err, insert_sql, cjson.encode(insert_res))
+        self.last_error_ = string.format("[insert] mysql query err: %s, sql: %s, res: %s", insert_err, update_sql, cjson.encode(insert_res))
+		print(self.last_error_)
         return
     end
     return insert_res
@@ -107,7 +109,28 @@ function mysql_clientex.read_condition_not_check(self, _db_name, _tbl_name, _con
     local get_res, get_err, get_errno, get_state = self:query_mysql(read_sql, _db_name)
     if not get_res then
         self.last_error_ = string.format("[read] mysql query err: %s, sql: %s", get_err, read_sql)
-        return
+        return false
+    end
+    return get_res
+end
+
+function mysql_clientex.delete_condition(self, _db_name, _tbl_name, _condition_dict)
+    self.last_error_ = ""
+    local condition_sql = ""
+	_condition_dict = _condition_dict or {}
+    for field_name, field_value in pairs(_condition_dict) do
+        condition_sql = string.format("%s %s=%q", condition_sql, field_name, field_value)
+    end
+	if condition_sql ~= "" then
+		condition_sql = string.format("where %s", condition_sql)
+	end
+    local del_sql = string.format("delete from %s %s;", _tbl_name, condition_sql)
+    local get_res, get_err, get_errno, get_state = self:query_mysql(del_sql, _db_name)
+	ss(get_res)
+    if not get_res then
+        self.last_error_ = string.format("[read] mysql query err: %s, sql: %s", get_err, del_sql)
+		print(self.last_error_)
+        return false
     end
     return get_res
 end

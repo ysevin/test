@@ -60,6 +60,7 @@ function websocket_framework.start(self)
 			all_data = all_data..websocket_peer_data
 			if websocket_peer_err ~= "again" then
 				local json_data = cjson.decode(all_data)
+				all_data = ""
 				if not json_data then
 					self.last_error_ = string.format("cjson decode websocket_peer_data: %s", websocket_peer_data)
 					break
@@ -78,7 +79,6 @@ function websocket_framework.start(self)
 				else
 					ngx.log(ngx.WARN, string.format("not exist cmd_func(%s) websocket_peer_data: %s", func_cmd, websocket_peer_data))
 				end
-				continue_data = ""
 			end
         else
             ngx.log(ngx.ERR, string.format("unkown websocket_peer_type: %s, websocket_peer_data: %s", websocket_peer_type, websocket_peer_data))

@@ -89,34 +89,25 @@ end
 function person_handler.upload_voice(_peer_ctx, _msg)
 	local url = string.format("music/%s", _msg["file_name"])
 	local file_path = string.format("../nginx/html/%s", url)
-	local file = io.open(file_path, "w")
+	local file = io.open(file_path, "wb")
 	file:write(ngx.decode_base64(_msg["file_content"]))
 	file:close()
 
-    local ack_upload_dict = { }
-    ack_upload_dict.user_result = -1
-    ack_upload_dict.user_error = "request error"
-	local res = {body = "上传完毕"}
-    if res.body then
-        ack_upload_dict.user_result = 0
-        ack_upload_dict.text_info_list = res.body
-    end
+    local ret_info = {}
+    ret_info.toy_info_upload_ret = {}
 	if _msg["insert_db"] then
-		person_handler.insert_info(_msg["file_name"], url, "voice")
+		person_handler.insert_info(_msg["file_key"], url, "voice")
+
+		local query_dict = {key_word = _msg["file_key"]}
+    	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+        ret_info.toy_info_update_ret = ret[1]
 	end
 
-    person_handler.send_data(_peer_ctx, ack_upload_dict)
+    person_handler.send_data(_peer_ctx, ret_info)
     return true
 
 end
 
-function person_handler.add_info(_peer_ctx, _msg)
-	person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
-end
-
-function person_handler.voice_test(_peer_ctx, _msg)
-	person_handler.search_info(_peer_ctx, _msg["text"])
-end
 
 function person_handler.get_baidu_token()
 	person_handler.baidu_voice_token = nil
@@ -245,7 +236,7 @@ end
 function person_handler.save_music(_name, _data, _base64)
 	local url = string.format("music/%s", _name)
 	local file_path = string.format("../nginx/html/%s", url)
-	local file = io.open(file_path, "w")
+	local file = io.open(file_path, "wb")
 	if _base64 then
 		file:write(ngx.decode_base64(_data))
 	else
@@ -293,18 +284,21 @@ function person_handler.insert_index(_key_word, _word)
 		local insert_dict = {word = _word, key_word = _key_word, weight = 0}
 		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_index_tbl, insert_dict)
 	end
+	return ret
 end
 
 function person_handler.insert_info(_key_word, _info, _type)
 	--入资源库
 	local query_dict = {key_word = _key_word}
 	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	local insert_dict = {key_word = _key_word, info = _info, type = _type }
 	ret = ret or {}
-	ss(ret)
 	if not ret[1] then
-		local insert_dict = {key_word = _key_word, info = _info, type = _type }
 		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_info_tbl, insert_dict, {info="MediumBlob"})
+	else
+		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_info_tbl, insert_dict, nil, query_dict)
 	end
+	return ret
 end
 
 function person_handler.search_info(_peer_ctx, _word)
@@ -382,15 +376,56 @@ function person_handler.search_info(_peer_ctx, _word)
 		ret_info.voice_url = info.info
 	end
     person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.voice_test(_peer_ctx, _msg)
+	person_handler.search_info(_peer_ctx, _msg["text"])
+	return true
 end
 
 
 function person_handler.search_toy_info(_peer_ctx, _msg)
-	local query_dict = {key_word = _msg["key_word"]}
+	local query_dict = {}
+	if _msg["key_word"] ~= "" then
+		query_dict = {key_word = _msg["key_word"]}
+	end
 	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
 	local ret_info = {toy_info_list = ret}
     person_handler.send_data(_peer_ctx, ret_info)
+	return true
 end
 
+function person_handler.del_toy_info(_peer_ctx, _msg)
+	local query_dict = {id = _msg["id"]}
+	local ret = mysql_client:delete_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	local ret_info = {delete_info_ret = "删除失败"}
+	if ret then
+		ret_info = {delete_info_ret = "删除成功"}
+	end
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.add_toy_info(_peer_ctx, _msg)
+	local query_dict = {key_word = _msg["key_word"], info = _msg["info"]}
+	local ret = person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
+	local ret_info = {add_info_ret = "添加失败"}
+	if ret then
+		ret_info = {add_info_ret = "添加成功"}
+	end
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.update_toy_info(_peer_ctx, _msg)
+	local ret = person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
+	local ret_info = {update_info_ret = "更新失败"}
+	if ret then
+		ret_info = {update_info_ret = "更新成功"}
+	end
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
 
 return person_handler
