@@ -204,6 +204,22 @@ function recv(str)
 		window.event.returnValue=false;  
 		return
 	}
+	fo = document.getElementById("toy_index_form")
+	if(fo)
+	{
+		toy_index_form_recv(str)
+
+		window.event.returnValue=false;  
+		return
+	}
+	fo = document.getElementById("toy_filter_form")
+	if(fo)
+	{
+		toy_filter_form_recv(str)
+
+		window.event.returnValue=false;  
+		return
+	}
 
 	for(var idx in obj.person_info_list)
 	{
@@ -534,11 +550,7 @@ function create_my_element(str)
 		ele = document.createElement("button")
 		var t = document.createTextNode(strs[1]);
 		ele.appendChild(t);  
-		ele.onclick = function()
-		{
-			eval(strs[2]); 
-			window.event.returnValue=false;
-		}
+		ele.onclick = function(){eval(strs[2]); }
 	}
 	else if(strs[0] == "p")
 	{
@@ -571,11 +583,8 @@ function create_my_element(str)
 		var au = document.createElement("audio")
 		au.controls = "controls"		//是否显示播放器
 		au.autoplay = 0
-		var so = document.createElement("source")
-		so.id = strs[1]
-		so.src = encodeURI(strs[2])
-		so.type = "audio/mpeg"
-		au.appendChild(so)
+		au.id = strs[1]
+		au.src = encodeURI(strs[2])
 		ele = au
 	}
 	else if(strs[0] == "a")
@@ -583,6 +592,13 @@ function create_my_element(str)
 		ele = document.createElement("a")
 		ele.innerHTML = strs[1]
 		ele.href = strs[2]
+	}
+	else if(strs[0] == "c")
+	{
+		ele = document.createElement("input")
+		ele.type = "checkbox"
+		ele.id = strs[1]
+		ele.value = strs[2]
 	}
 	else
 	{
@@ -614,9 +630,17 @@ function create_table_control(form_id, title, text_ar)
 		for(var j=0; j<text_ar[i].length; j++)
 		{
 			var td = document.createElement("td")
-			var ele = create_my_element(text_ar[i][j])
 			td.align = "center"
-			td.appendChild(ele)
+			var newar = new Array()
+			if(Array.isArray(text_ar[i][j]))
+				newar = text_ar[i][j]
+			else
+				newar.push(text_ar[i][j])
+			for(var k=0; k<newar.length; k++)
+			{
+				var ele = create_my_element(newar[k])
+				td.appendChild(ele)
+			}
 			tr.appendChild(td)
 
 			if(text_ar[i].length == 1)
@@ -764,175 +788,3 @@ function create_toy_test_form(parent_id)
 
 	connect()
 }
-/*
-
-function toy_info_del(id)
-{
-	if (websocket_channel === null) 
-		return log('please connect first');
-	var str = '{ "websocket_cmd":"del_toy_info",'
-
-	str += '"id":' + id + ','
-
-	str = str.substring(0, str.length-1)
-	str += "}"
-	log('del_toy_info: ' + websocket_channel_addr + ", str: " + str);
-
-	websocket_channel.send(str);
-
-	window.event.returnValue=false;  
-}
-
-function toy_info_update_text(arg)
-{
-	var ar = arg.split("|");
-	console.log(ar[0], ar[1])
-	if (websocket_channel === null) 
-		return log('please connect first');
-	var str = '{ "websocket_cmd":"update_toy_info",'
-
-	var text = document.getElementById("text_" + ar[0]);
-	str += '"key_word":"' + ar[1] + '",'
-	str += '"info":"' + text.value + '",'
-
-	str = str.substring(0, str.length-1)
-	str += "}"
-	log('update_toy_info: ' + websocket_channel_addr + ", str: " + str);
-
-	websocket_channel.send(str);
-
-	window.event.returnValue=false;  
-}
-
-function toy_info_update_music(arg)
-{
-	var ar = arg.split("|");
-	upload_voice(ar[0], ar[1], true)
-}
-
-function toy_info_add_text()
-{
-	if (websocket_channel === null) 
-		return log('please connect first');
-	var str = '{ "websocket_cmd":"add_toy_info",'
-
-	var word = document.getElementById("text_word");
-	var info = document.getElementById("text_info");
-	str += '"key_word":"' + word.value + '",'
-	str += '"info":"' + info.value + '",'
-	str += '"type":"text",'
-
-	str = str.substring(0, str.length-1)
-	str += "}"
-	log('add_toy_info: ' + websocket_channel_addr + ", str: " + str);
-
-	websocket_channel.send(str);
-
-	window.event.returnValue=false;  
-}
-function toy_info_add_music(file_id)
-{
-	if(voice_file[file_id] != null)
-	{
-		var word = document.getElementById("music_word");
-		upload_voice(file_id, word.value, true)
-	}
-	else
-	{
-		log('先占击打开按钮,选择音乐')
-	}
-	window.event.returnValue=false;  
-}
-
-function toy_info_search()
-{
-	if (websocket_channel === null) 
-		return log('please connect first');
-	var str = '{ "websocket_cmd":"search_toy_info",'
-
-	var word = document.getElementById("search_text");
-	str += '"key_word":"' + word.value + '",'
-
-	str = str.substring(0, str.length-1)
-	str += "}"
-	log('search_toy_info: ' + websocket_channel_addr + ", str: " + str);
-
-	websocket_channel.send(str);
-	window.event.returnValue=false;  
-}
-
-function toy_info_form_recv(str)
-{
-	var obj = JSON.parse(str);
-	if(obj.toy_info_update_ret)
-	{
-		var info = obj.toy_info_update_ret
-		var au = document.getElementById("audio_" + info.id)
-	}
-	else if(obj.toy_info_list)
-	{
-		var tb_ar = new Array()
-		for(var idx in obj.toy_info_list)
-		{
-			var ar = new Array()
-			var info = obj.toy_info_list[idx]
-			ar[0] = "l," + info["key_word"]
-			if(info["type"] == "voice")
-			{
-				ar[1] = 'v,audio_'+ info["id"] + ',' + info["info"]
-				ar[2] = "b,删除,toy_info_del(" + info["id"] + ")"
-				var arg = 'voice_file_' + info["id"] + "|" + info["key_word"]
-				ar[3] = "b,更新,toy_info_update_music('" + arg + "')"
-				ar[4] = "vf,voice_file_" + info["id"]
-			}
-			else
-			{
-				ar[1] = "i,text_"+ info["id"] + "," + info["info"]
-				ar[2] = "b,删除,toy_info_del(" + info["id"] + ")"
-				var arg = info["id"] + "|" + info["key_word"]
-				ar[3] = "b,更新,toy_info_update_text('" + arg + "')"
-			}
-			tb_ar[idx] = ar
-			console.log(ar)
-		}
-		var di = document.getElementById("div_search")
-		if(di)
-			di.parentNode.removeChild(di)
-
-		var lfo = document.getElementById("toy_info_form")
-		di = document.createElement("div_search")
-		di.id = "div_search"
-		lfo.appendChild(di)
-		create_table_control(di.id, null, tb_ar)
-	}
-}
-function create_toy_info_form(parent_id)
-{
-	var fo = document.getElementById(parent_id)
-
-	var lfo = document.createElement("form")
-	lfo.id = "toy_info_form"
-	fo.appendChild(lfo)
-
-	var di = document.createElement("div")
-	di.id = "div1"
-	lfo.appendChild(di)
-	var text_ar = [
-		["i,text_word","i,text_info","b,添加文本,toy_info_add_text()"],
-		["i,music_word","v,music_info,","b,添加语音,toy_info_add_music('voice_file')","vf,voice_file"],
-	]
-	create_table_control(di.id, null, text_ar)
-
-	lfo.appendChild(document.createElement("br"))
-
-	di = document.createElement("div")
-	di.id = "div2"
-	lfo.appendChild(di)
-	var text_ar = [
-		["i,search_text","b,搜索,toy_info_search()"],
-	]
-	create_table_control(di.id, null, text_ar)
-
-	connect()
-}
-*/

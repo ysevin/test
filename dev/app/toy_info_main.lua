@@ -22,11 +22,22 @@ function app_main()
     --peer_ctx:register_func("login", person_handler.login)
 
     peer_ctx:register_func("voice_test", info_handler.voice_test)
+
     peer_ctx:register_func("upload_voice", info_handler.upload_voice)
     peer_ctx:register_func("add_toy_info", info_handler.add_toy_info)
     peer_ctx:register_func("del_toy_info", info_handler.del_toy_info)
     peer_ctx:register_func("update_toy_info", info_handler.update_toy_info)
     peer_ctx:register_func("search_toy_info", info_handler.search_toy_info)
+
+    peer_ctx:register_func("add_toy_index", info_handler.add_toy_index)
+    peer_ctx:register_func("del_toy_index", info_handler.del_toy_index)
+    peer_ctx:register_func("update_toy_index", info_handler.update_toy_index)
+    peer_ctx:register_func("search_toy_index", info_handler.search_toy_index)
+
+    peer_ctx:register_func("add_toy_filter", info_handler.add_toy_filter)
+    peer_ctx:register_func("del_toy_filter", info_handler.del_toy_filter)
+    peer_ctx:register_func("update_toy_filter", info_handler.update_toy_filter)
+    peer_ctx:register_func("search_toy_filter", info_handler.search_toy_filter)
 
     peer_ctx:start()
     ngx.log(ngx.INFO, peer_ctx.last_error_)

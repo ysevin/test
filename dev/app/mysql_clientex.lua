@@ -29,7 +29,7 @@ function mysql_clientex.query_mysql(self, _sql, _db)
     return query_res, query_err, query_errno, query_state
 end
 
-function mysql_clientex.insert_not_check(self, _db_name, _tbl_name, _data_dict, _data_struct, _update_key)
+function mysql_clientex.insert(self, _db_name, _tbl_name, _data_dict, _data_struct, _update_key)
 	--[[
 	local create_db = string.format("create database %s default character set utf8;", _db_name)
     local insert_res, insert_err, insert_errno, insert_state = self:query_mysql(create_db, _db_name)
@@ -95,7 +95,7 @@ function mysql_clientex.insert_not_check(self, _db_name, _tbl_name, _data_dict, 
     return insert_res
 end
 
-function mysql_clientex.read_condition_not_check(self, _db_name, _tbl_name, _condition_dict)
+function mysql_clientex.read_condition(self, _db_name, _tbl_name, _condition_dict)
     self.last_error_ = ""
     local condition_sql = ""
 	_condition_dict = _condition_dict or {}

@@ -5,6 +5,8 @@ function toy_info_del(id)
 	sd["id"] = id
 	send_data("del_toy_info", sd)
 
+	toy_info_list_del(id)
+
 	window.event.returnValue=false;  
 }
 
@@ -62,47 +64,71 @@ function toy_info_search()
 	window.event.returnValue=false;  
 }
 
+var toy_info_list = null
+function toy_info_list_del(id)
+{
+	for(var idx in toy_info_list)
+	{
+		var info = toy_info_list[idx]
+		if(info.id == id)
+		{
+			toy_info_list.splice(idx, 1)
+			break
+		}
+	}
+	toy_info_from_update()
+}
+
+function toy_info_from_update()
+{
+	var tb_ar = new Array()
+	for(var idx in toy_info_list)
+	{
+		var ar = new Array()
+		var info = toy_info_list[idx]
+		ar[0] = "l," + info.key_word
+		if(info.type == "voice")
+		{
+			ar[1] = 'v,audio_'+ info.id + ',' + info.info
+			ar[2] = "b,删除,toy_info_del(" + info.id + ")"
+			var arg = 'voice_file_' + info.id + "|" + info.key_word
+			ar[3] = "b,更新,toy_info_update_music('" + arg + "')"
+			ar[4] = "vf,voice_file_" + info.id
+		}
+		else
+		{
+			ar[1] = "i,text_"+ info.id + "," + info.info
+			ar[2] = "b,删除,toy_info_del(" + info.id + ")"
+			var arg = info.id + "|" + info.key_word
+			ar[3] = "b,更新,toy_info_update_text('" + arg + "')"
+		}
+		tb_ar[idx] = ar
+	}
+	var di = document.getElementById("div_search")
+	if(di)
+		di.parentNode.removeChild(di)
+
+	var lfo = document.getElementById("toy_info_form")
+	di = document.createElement("div")
+	di.id = "div_search"
+	lfo.appendChild(di)
+	create_table_control(di.id, null, tb_ar)
+}
+
 function toy_info_form_recv(str)
 {
 	var obj = JSON.parse(str);
 	if(obj.toy_info_update_ret)
 	{
 		var info = obj.toy_info_update_ret
+		var au = document.getElementById("audio_" + info.id)
+		if(au)
+			au.src = encodeURI(info.info)
 	}
 	else if(obj.toy_info_list)
 	{
-		var tb_ar = new Array()
-		for(var idx in obj.toy_info_list)
-		{
-			var ar = new Array()
-			var info = obj.toy_info_list[idx]
-			ar[0] = "l," + info.key_word
-			if(info.type == "voice")
-			{
-				ar[1] = 'v,audio_'+ info.id + ',' + info.info
-				ar[2] = "b,删除,toy_info_del(" + info.id + ")"
-				var arg = 'voice_file_' + info.id + "|" + info.key_word
-				ar[3] = "b,更新,toy_info_update_music('" + arg + "')"
-				ar[4] = "vf,voice_file_" + info.id
-			}
-			else
-			{
-				ar[1] = "i,text_"+ info.id + "," + info.info
-				ar[2] = "b,删除,toy_info_del(" + info.id + ")"
-				var arg = info.id + "|" + info.key_word
-				ar[3] = "b,更新,toy_info_update_text('" + arg + "')"
-			}
-			tb_ar[idx] = ar
-		}
-		var di = document.getElementById("div_search")
-		if(di)
-			di.parentNode.removeChild(di)
-
-		var lfo = document.getElementById("toy_info_form")
-		di = document.createElement("div")
-		di.id = "div_search"
-		lfo.appendChild(di)
-		create_table_control(di.id, null, tb_ar)
+		toy_info_list = obj.toy_info_list
+		toy_info_from_update()
 	}
 }
 function create_toy_info_form(parent_id)

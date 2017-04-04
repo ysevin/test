@@ -16,6 +16,7 @@ person_handler.baidu_music_search_url = "http://tingapi.ting.baidu.com/v1/restse
 person_handler.baidu_music_info_url = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=%d"
 person_handler.baidu_upload_voice_url = "http://vop.baidu.com/server_api"
 person_handler.baidu_voice_composition_url = "http://tsn.baidu.com/text2audio?tex=%s&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=%s"
+person_handler.toy_filter_tbl = "toy_filter"
 person_handler.toy_index_tbl = "toy_index"
 person_handler.toy_info_tbl = "toy_info"
 person_handler.toy_db = "toy"
@@ -45,7 +46,7 @@ function person_handler.upload_info(_peer_ctx, _msg)
 		end
 	end
     
-    local insert_res = mysql_client:insert_not_check("person", "person", insert_data, tb_struct)
+    local insert_res = mysql_client:insert("person", "person", insert_data, tb_struct)
     local ack_upload_info_dict = { }
     ack_upload_info_dict.user_result = -1
     ack_upload_info_dict.user_error = mysql_client.last_error_
@@ -59,7 +60,7 @@ function person_handler.upload_info(_peer_ctx, _msg)
 end
 
 function person_handler.query_info(_peer_ctx, _msg)
-    local get_res = mysql_client:read_condition_not_check("person", "person", _msg.query_dict)
+    local get_res = mysql_client:read_condition("person", "person", _msg.query_dict)
     local ack_get_info_dict = { }
     ack_get_info_dict.user_result = -1
     ack_get_info_dict.user_error = mysql_client.last_error_
@@ -73,7 +74,7 @@ function person_handler.query_info(_peer_ctx, _msg)
 end
 
 function person_handler.login(_peer_ctx, _msg)
-    local get_res = mysql_client:read_condition_not_check("person", "user", _msg.query_dict)
+    local get_res = mysql_client:read_condition("person", "user", _msg.query_dict)
     local ack_get_info_dict = { }
     ack_get_info_dict.user_result = -1
     ack_get_info_dict.user_error = mysql_client.last_error_
@@ -99,7 +100,7 @@ function person_handler.upload_voice(_peer_ctx, _msg)
 		person_handler.insert_info(_msg["file_key"], url, "voice")
 
 		local query_dict = {key_word = _msg["file_key"]}
-    	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+    	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
         ret_info.toy_info_update_ret = ret[1]
 	end
 
@@ -201,7 +202,8 @@ function person_handler.get_baidu_music_one(_word)
 		return nil
 	end
 
-	local music_url = person_handler.download_music(_word, body_data.bitrate.show_link)
+	local music_name = string.format("%s.%s", _word, body_data.bitrate.file_extension)
+	local music_url = person_handler.download_music(music_name, body_data.bitrate.file_link)
 	return music_url
 end
 
@@ -248,7 +250,7 @@ end
 
 function person_handler.get_self_info(_word)
 	local query_dict = {key_word = _word}
-	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
 	if ret and ret[1] then
 		local find = ret[1]
 		return find.info, find.type
@@ -275,14 +277,43 @@ function person_handler.search_info_one(_word)
 	return info, ty
 end
 
-function person_handler.insert_index(_key_word, _word)
+function person_handler.insert_filter(_word, _id)
 	--插入到index库
-	local query_dict = {word = _word, key_word = _key_word}
-	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+	local query_dict = {word = _word}
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_filter_tbl, query_dict)
+	local insert_dict = {word = _word}
 	ret = ret or {}
 	if not ret[1] then
-		local insert_dict = {word = _word, key_word = _key_word, weight = 0}
-		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_index_tbl, insert_dict)
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_filter_tbl, insert_dict)
+	else
+		local query_dict = {id = _id}
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_filter_tbl, insert_dict, nil, query_dict)
+	end
+	return ret
+end
+
+function person_handler.insert_index(_key_word, _word, _weight)
+	--插入到index库
+	_weight = _weight or 0
+	local query_dict = {word = _word, key_word = _key_word}
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+	local insert_dict = {word = _word, key_word = _key_word, weight = _weight, search_num = 0}
+	ret = ret or {}
+	if not ret[1] then
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_index_tbl, insert_dict)
+	end
+	return ret
+end
+
+function person_handler.update_index(_key_word, _word, _weight, _id)
+	--插入到index库
+	_weight = _weight or 0
+	local query_dict = {id = _id}
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+	local insert_dict = {word = _word, key_word = _key_word, weight = _weight}
+	ret = ret or {}
+	if ret[1] then
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_index_tbl, insert_dict, nil, query_dict)
 	end
 	return ret
 end
@@ -290,22 +321,38 @@ end
 function person_handler.insert_info(_key_word, _info, _type)
 	--入资源库
 	local query_dict = {key_word = _key_word}
-	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
 	local insert_dict = {key_word = _key_word, info = _info, type = _type }
 	ret = ret or {}
 	if not ret[1] then
-		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_info_tbl, insert_dict, {info="MediumBlob"})
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_info_tbl, insert_dict, {info="MediumBlob"})
 	else
-		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_info_tbl, insert_dict, nil, query_dict)
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_info_tbl, insert_dict, nil, query_dict)
 	end
 	return ret
+end
+
+function person_handler.word_filter(_word)
+	local key_words = {}
+	table.insert(key_words, _word)
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_filter_tbl)
+	if ret then
+		for k, v in pairs(ret) do
+			local word = string.gsub(_word, v.word, "")
+			if word ~= _word then
+				table.insert(key_words, word)
+			end
+		end
+	end
+	table.sort(key_words, function(str1, str2) return string.len(str1) > string.len(str2) end )
+	return key_words
 end
 
 function person_handler.search_info(_peer_ctx, _word)
 	--先从库里找
 	local key_word = nil
 	local query_dict = {word = _word}
-	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
 	--根据权重随机一个
 	if ret and #ret > 0 then
 		local count = 0
@@ -329,41 +376,47 @@ function person_handler.search_info(_peer_ctx, _word)
 
 	local info = {}
 	if not key_word then
-		local len = utf8len(_word)
-		local i = 1
-		--for i=1, len do
-			local word = utf8sub(_word, i, len)
+		local words = person_handler.word_filter(_word)
+		local len = #words
+		ss(words)
+		for i=1, len do
+			local word = words[i]
 			local inf, ty = person_handler.search_info_one(word)
 			if inf then
 				key_word = word
 				info.info = inf
 				info.type = ty
+				break
 			end
-		--end
+		end
 
-		key_word = key_word or ""
-		person_handler.insert_index(key_word, _word)
-		if key_word ~= "" then
+		if key_word then
 			person_handler.insert_info(key_word, info.info, info.type)
 		end
-	else
-		local query_dict = {key_word = key_word}
-    	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
-		if ret and ret[1] then
-			info = ret[1]
+
+		key_word = key_word or "日常回答"
+		if key_word ~= _word then
+			person_handler.insert_index(key_word, _word)		--关键词和用户词相等就没有必要写进去了.
 		end
+	end
+
+	local query_dict = {key_word = key_word}
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	if ret and ret[1] then
+		info = ret[1]
 	end
 
 	--对该词的搜索次数加1
 	local query_dict = {word = _word}
-    local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+    local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
 	if ret and ret[1] then
 		local find = ret[1]
 		local search_num = find.search_num or ""
 		search_num = tonumber(search_num) or 0
 		local insert_data = {search_num = search_num+1}
-		ret = mysql_client:insert_not_check(person_handler.toy_db, person_handler.toy_index_tbl, insert_data, nil, query_dict)
+		ret = mysql_client:insert(person_handler.toy_db, person_handler.toy_index_tbl, insert_data, nil, query_dict)
 	end
+	ss(info)
 
 	-- 终端输出
 	local ret_info = {}
@@ -390,7 +443,7 @@ function person_handler.search_toy_info(_peer_ctx, _msg)
 	if _msg["key_word"] ~= "" then
 		query_dict = {key_word = _msg["key_word"]}
 	end
-	local ret = mysql_client:read_condition_not_check(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
 	local ret_info = {toy_info_list = ret}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
@@ -399,10 +452,7 @@ end
 function person_handler.del_toy_info(_peer_ctx, _msg)
 	local query_dict = {id = _msg["id"]}
 	local ret = mysql_client:delete_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
-	local ret_info = {delete_info_ret = "删除失败"}
-	if ret then
-		ret_info = {delete_info_ret = "删除成功"}
-	end
+	local ret_info = {delete_info_ret = ret and "删除成功" or "删除失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
@@ -410,20 +460,80 @@ end
 function person_handler.add_toy_info(_peer_ctx, _msg)
 	local query_dict = {key_word = _msg["key_word"], info = _msg["info"]}
 	local ret = person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
-	local ret_info = {add_info_ret = "添加失败"}
-	if ret then
-		ret_info = {add_info_ret = "添加成功"}
-	end
+	local ret_info = {add_info_ret = ret and "添加成功", "添加失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
 
 function person_handler.update_toy_info(_peer_ctx, _msg)
 	local ret = person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
-	local ret_info = {update_info_ret = "更新失败"}
-	if ret then
-		ret_info = {update_info_ret = "更新成功"}
+	local ret_info = {update_info_ret = ret and "更新成功", "更新失败"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.search_toy_index(_peer_ctx, _msg)
+	local query_dict = {}
+	if _msg["word"] ~= "" then
+		query_dict = {key_word = _msg["word"]}
 	end
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+	local ret_info = {toy_index_list = ret}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.del_toy_index(_peer_ctx, _msg)
+	local query_dict = {id = _msg["id"]}
+	local ret = mysql_client:delete_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
+	local ret_info = {delete_index_ret = ret and "删除成功", "删除失败"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.add_toy_index(_peer_ctx, _msg)
+	local ret = person_handler.insert_index(_msg["word"], _msg["key_word"], _msg["weight"])
+	local ret_info = {add_index_ret = ret and "添加成功", "添加失败"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.update_toy_index(_peer_ctx, _msg)
+	local ret = person_handler.update_index(_msg["word"], _msg["key_word"], _msg["weight"], _msg["id"])
+	local ret_info = {update_index_ret = ret and "更新成功", "更新失败"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.search_toy_filter(_peer_ctx, _msg)
+	local query_dict = {}
+	if _msg["word"] ~= "" then
+		query_dict = {key_word = _msg["word"]}
+	end
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_filter_tbl, query_dict)
+	local ret_info = {toy_filter_list = ret}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.del_toy_filter(_peer_ctx, _msg)
+	local query_dict = {id = _msg["id"]}
+	local ret = mysql_client:delete_condition(person_handler.toy_db, person_handler.toy_filter_tbl, query_dict)
+	local ret_info = {delete_filter_ret = ret and "删除成功", "删除失败"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.add_toy_filter(_peer_ctx, _msg)
+	local ret = person_handler.insert_filter(_msg["word"])
+	local ret_info = {add_filter_ret = ret and "添加成功", "添加失败"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.update_toy_filter(_peer_ctx, _msg)
+	local ret = person_handler.insert_filter(_msg["word"], _msg["id"])
+	local ret_info = {update_filter_ret = ret and "更新成功", "更新失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end

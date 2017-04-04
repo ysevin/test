@@ -4334,3 +4334,1050 @@ coroutine 0:
 2017/04/02 20:47:38 [info] 2115#0: *34 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
 2017/04/02 20:47:40 [info] 2115#0: *38 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"search_toy_info","key_word":"红尘客栈"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
 2017/04/02 20:48:41 [info] 2115#0: *40 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 14:19:00 [alert] 1498#0: lua_code_cache is off; this will hurt performance in /home/putty/gains/intelligent_toys/dev/nginx/conf/../../app.conf:12
+2017/04/03 14:19:00 [alert] 1498#0: lua_code_cache is off; this will hurt performance in /home/putty/gains/intelligent_toys/dev/nginx/conf/../../app.conf:19
+2017/04/03 14:19:00 [alert] 1498#0: lua_code_cache is off; this will hurt performance in /home/putty/gains/intelligent_toys/dev/nginx/conf/../../app.conf:26
+2017/04/03 14:19:00 [notice] 1498#0: using the "epoll" event method
+2017/04/03 14:19:00 [notice] 1498#0: openresty/1.11.2.1
+2017/04/03 14:19:00 [notice] 1498#0: built by gcc 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04) 
+2017/04/03 14:19:00 [notice] 1498#0: OS: Linux 4.4.0-31-generic
+2017/04/03 14:19:00 [notice] 1498#0: getrlimit(RLIMIT_NOFILE): 1024:4096
+2017/04/03 14:19:00 [notice] 1499#0: start worker processes
+2017/04/03 14:19:00 [notice] 1499#0: start worker process 1500
+2017/04/03 14:19:01 [error] 1500#0: *2 [lua] app_init.lua:10: [app_init] get_err = %s[mysql_client] connect mysql err: Unknown database 'troy', errno: 1049, state: 42000, context: ngx.timer
+2017/04/03 14:20:51 [error] 1500#0: *7 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/favicon.ico" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /favicon.ico HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:20:51 [error] 1500#0: *8 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/favicon.ico" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /favicon.ico HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:20:53 [info] 1500#0: *6 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:21:10 [info] 1500#0: *10 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:21:28 [info] 1500#0: *13 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 14:21:28 [info] 1500#0: *14 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 14:21:54 [info] 1500#0: *15 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:22:01 [info] 1500#0: *19 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"search_toy_info","key_word":"单车"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:24:49 [info] 1500#0: *24 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"search_toy_info","key_word":"单车"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:24:55 [info] 1500#0: *23 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 14:28:18 [info] 1500#0: *28 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:29:17 [info] 1500#0: *31 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:33:51 [info] 1500#0: *34 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:34:03 [info] 1500#0: *37 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:39:31 [info] 1500#0: *40 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:39:45 [info] 1500#0: *44 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:40:16 [info] 1500#0: *47 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:40:43 [info] 1500#0: *50 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:40:46 [info] 1500#0: *53 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:40:47 [info] 1500#0: *56 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:41:02 [info] 1500#0: *59 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:42:38 [info] 1500#0: *62 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:42:53 [info] 1500#0: *66 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:43:15 [info] 1500#0: *69 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:44:13 [info] 1500#0: *72 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:44:30 [info] 1500#0: *75 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:45:40 [info] 1500#0: *78 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:46:28 [info] 1500#0: *81 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:47:23 [info] 1500#0: *87 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:47:49 [info] 1500#0: *90 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:48:00 [info] 1500#0: *93 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:50:00 [info] 1500#0: *96 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:51:07 [info] 1500#0: *99 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:51:18 [warn] 1500#0: *102 [lua] websocket_framework.lua:79: start(): not exist cmd_func(add_toy_info) websocket_peer_data: { "websocket_cmd":"add_toy_info","key_word":"考拉","info":"一种动物","type":"text"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:53:53 [info] 1500#0: *102 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:54:04 [info] 1500#0: *105 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:56:37 [info] 1500#0: *108 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:57:00 [info] 1500#0: *111 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:57:23 [info] 1500#0: *114 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 14:57:27 [error] 1500#0: *117 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:05:16 [error] 1500#0: *121 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:05:44 [error] 1500#0: *125 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 51
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:06:02 [error] 1500#0: *129 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:08:40 [error] 1500#0: *133 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:17:15 [error] 1500#0: *137 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:18:40 [notice] 1500#0: *141 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:21:05 [error] 1500#0: *141 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 5584306
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:21:40 [info] 1500#0: *145 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:22:08 [error] 1500#0: *148 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:24:23 [error] 1500#0: *152 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 57
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:26:03 [notice] 1500#0: *156 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:26:36 [error] 1500#0: *156 lua entry thread aborted: runtime error: ../app/websocket_framework.lua:62: Expected the end but found T_OBJ_BEGIN at character 5488298
+stack traceback:
+coroutine 0:
+	[C]: in function 'decode'
+	../app/websocket_framework.lua:62: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:29:22 [info] 1500#0: *160 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:40:40 [info] 1500#0: *164 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:41:12 [info] 1500#0: *168 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:43:30 [info] 1500#0: *172 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 15:43:46 [info] 1500#0: *178 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:17:45 [info] 1500#0: *179 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:18:24 [info] 1500#0: *185 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:19:01 [info] 1500#0: *186 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:19:21 [info] 1500#0: *189 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:20:32 [info] 1500#0: *190 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:20:52 [info] 1500#0: *193 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:21:55 [info] 1500#0: *194 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:22:11 [info] 1500#0: *197 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:22:48 [info] 1500#0: *198 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:23:08 [info] 1500#0: *201 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:23:10 [info] 1500#0: *202 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:23:20 [info] 1500#0: *205 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:23:26 [notice] 1500#0: *206 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:25:32 [info] 1500#0: *206 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:25:39 [notice] 1500#0: *211 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:25:42 [info] 1500#0: *210 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:27:12 [info] 1500#0: *211 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:27:22 [notice] 1500#0: *216 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:27:32 [info] 1500#0: *215 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:30:16 [info] 1500#0: *218 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 16:32:38 [info] 1500#0: *216 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:33:47 [info] 1500#0: *224 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 16:44:42 [info] 1500#0: *221 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:45:46 [info] 1500#0: *227 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:45:56 [info] 1500#0: *232 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:46:00 [error] 1500#0: *233 lua entry thread aborted: runtime error: ../app/mysql_clientex.lua:46: bad argument #1 to 'pairs' (table expected, got nil)
+stack traceback:
+coroutine 0:
+	[C]: in function 'pairs'
+	../app/mysql_clientex.lua:46: in function 'insert_not_check'
+	../app/toy_info.lua:308: in function 'insert_info'
+	../app/toy_info.lua:105: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:49:12 [info] 1500#0: *238 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:49:22 [info] 1500#0: *242 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 16:49:26 [notice] 1500#0: *243 [lua] mysql_clientex.lua:91: insert_not_check(): [insert] mysql query err: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'info=music/红尘客栈.mp3 type=voice where key_word="明明就"' at line 1, sql: insert into toy_info(key_word,info,type) value("明明就","music/红尘客栈.mp3","voice");, res: null, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:53:24 [info] 1500#0: *177 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:53:37 [notice] 1500#0: *248 [lua] mysql_clientex.lua:91: insert_not_check(): [insert] mysql query err: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'info=music/红尘客栈.mp3 type=voice where key_word="明明就"' at line 1, sql: update toy_info set  key_word=明明就 info=music/红尘客栈.mp3 type=voice where key_word="明明就";, res: null, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:54:31 [info] 1500#0: *247 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 16:54:53 [info] 1500#0: *248 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:55:09 [notice] 1500#0: *252 [lua] mysql_clientex.lua:91: insert_not_check(): [insert] mysql query err: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'info="music/红尘客栈.mp3" type="voice" where key_word="明明就"' at line 1, sql: update toy_info set  key_word="明明就" info="music/红尘客栈.mp3" type="voice" where key_word="明明就";, res: null, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:56:00 [info] 1500#0: *254 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 16:57:17 [info] 1500#0: *252 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:57:35 [notice] 1500#0: *257 [lua] mysql_clientex.lua:91: insert_not_check(): [insert] mysql query err: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where key_word="明明就"' at line 1, sql: update toy_info set  key_word="明明就", info="music/红尘客栈.mp3", type="voice", where key_word="明明就";, res: null, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 16:58:27 [info] 1500#0: *259 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 16:58:27 [info] 1500#0: *257 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:00:06 [warn] 1500#0: *262 [lua] websocket_framework.lua:80: start(): not exist cmd_func(del_toy_info) websocket_peer_data: { "websocket_cmd":"del_toy_info","id":9}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:09:23 [info] 1500#0: *262 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:11:23 [info] 1500#0: *268 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:15:02 [info] 1500#0: *272 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:17:43 [info] 1500#0: *276 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:18:23 [info] 1500#0: *283 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:18:23 [info] 1500#0: *281 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:19:32 [info] 1500#0: *286 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:19:58 [info] 1500#0: *293 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:19:58 [info] 1500#0: *291 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:20:15 [info] 1500#0: *296 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:20:47 [info] 1500#0: *302 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:20:47 [info] 1500#0: *300 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:21:44 [info] 1500#0: *307 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:21:44 [info] 1500#0: *305 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:22:45 [info] 1500#0: *312 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:22:47 [info] 1500#0: *313 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:38:20 [info] 1500#0: *310 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:38:46 [error] 1500#0: *316 lua entry thread aborted: runtime error: ../app/toy_info.lua:97: attempt to index global 'res' (a nil value)
+stack traceback:
+coroutine 0:
+	../app/toy_info.lua: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:31: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:35: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:41:50 [info] 1500#0: *321 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:43:56 [info] 1500#0: *325 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:44:02 [info] 1500#0: *332 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:46:21 [info] 1500#0: *330 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:46:27 [info] 1500#0: *338 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 17:57:20 [info] 1500#0: *336 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 17:57:29 [info] 1500#0: *344 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%8D%95%E8%BD%A6 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:00:56 [info] 1500#0: *342 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:02:03 [info] 1500#0: *350 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:05:10 [info] 1500#0: *348 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:06:54 [info] 1500#0: *353 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:06:59 [info] 1500#0: *360 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:39:28 [info] 1500#0: *362 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:41:03 [info] 1500#0: *358 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:41:03 [info] 1500#0: *367 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:42:04 [info] 1500#0: *369 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:52:46 [info] 1500#0: *365 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:52:46 [error] 1500#0: *372 lua entry thread aborted: runtime error: error loading module 'toy_info' from file '../app/toy_info.lua':
+	../app/toy_info.lua:404: unexpected symbol near '{'
+stack traceback:
+coroutine 0:
+	[C]: in function 'require'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:10: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:52:51 [error] 1500#0: *375 lua entry thread aborted: runtime error: error loading module 'toy_info' from file '../app/toy_info.lua':
+	../app/toy_info.lua:404: unexpected symbol near '{'
+stack traceback:
+coroutine 0:
+	[C]: in function 'require'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:10: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:53:11 [error] 1500#0: *378 lua entry thread aborted: runtime error: ../app/mysql_clientex.lua:117: attempt to index global 'mysql_client' (a nil value)
+stack traceback:
+coroutine 0:
+	[C]: in function 'require'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:10: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:54:40 [info] 1500#0: *383 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:54:47 [info] 1500#0: *385 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:57:01 [info] 1500#0: *386 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:57:22 [info] 1500#0: *381 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:58:48 [info] 1500#0: *389 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:59:55 [info] 1500#0: *393 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 18:59:56 [info] 1500#0: *399 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:59:56 [info] 1500#0: *400 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 18:59:58 [notice] 1500#0: *397 [lua] mysql_clientex.lua:129: delete_condition(): =============delete from toy_info where  id="12";, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:00:56 [info] 1500#0: *402 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:01:42 [notice] 1500#0: *397 [lua] mysql_clientex.lua:129: delete_condition(): =============delete from toy_info where  id="15";, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:01:50 [info] 1500#0: *397 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:02:06 [notice] 1500#0: *408 [lua] mysql_clientex.lua:129: delete_condition(): =============delete from toy_info where  id="14";, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:02:18 [notice] 1500#0: *408 [lua] mysql_clientex.lua:129: delete_condition(): =============delete from toy_info where  id="14";, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:03:09 [warn] 1500#0: *408 [lua] websocket_framework.lua:80: start(): not exist cmd_func(add_toy_info) websocket_peer_data: { "websocket_cmd":"add_toy_info","key_word":"女朋友","info":"我没有发朋友","type":"text"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:03:32 [info] 1500#0: *411 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:04:11 [info] 1500#0: *412 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:06:23 [info] 1500#0: *408 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:06:46 [info] 1500#0: *243 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:06:52 [debug] 1500#0: *419 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:06:53 [info] 1500#0: *419 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:06:53 [error] 1500#0: *423 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/03 19:08:21 [debug] 1500#0: *428 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:08:21 [info] 1500#0: *428 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:08:21 [error] 1500#0: *426 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/03 19:08:28 [info] 1500#0: *427 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 19:09:30 [debug] 1500#0: *435 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:09:30 [info] 1500#0: *435 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:09:36 [info] 1500#0: *433 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 19:09:36 [info] 1500#0: *434 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 19:10:40 [info] 1500#0: *441 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"单车"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:10:40 [error] 1500#0: *440 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/03 19:12:30 [debug] 1500#0: *446 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:12:30 [info] 1500#0: *446 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:12:38 [info] 1500#0: *445 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 19:15:03 [debug] 1500#0: *452 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:15:03 [info] 1500#0: *452 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:15:18 [info] 1500#0: *451 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 19:17:17 [info] 1500#0: *415 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:17:37 [info] 1500#0: *457 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/03 19:18:02 [info] 1500#0: *458 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:20:02 [debug] 1500#0: *464 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:20:02 [info] 1500#0: *464 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:20:37 [debug] 1500#0: *469 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:20:38 [info] 1500#0: *469 [lua] toy_info_main.lua:32: app_main(): cmd_func run failed websocket_peer_data: { "websocket_cmd":"voice_test","text":"女朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:23:01 [debug] 1500#0: *475 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:23:09 [debug] 1500#0: *475 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/03 19:24:40 [info] 1500#0: *461 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:24:52 [info] 1500#0: *481 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:25:58 [warn] 1500#0: *486 [lua] websocket_framework.lua:80: start(): not exist cmd_func(update_toy_info) websocket_peer_data: { "websocket_cmd":"update_toy_info","id":17,"text":"我也没有男朋友"}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:28:11 [info] 1500#0: *486 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:34:04 [info] 1500#0: *490 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:34:11 [info] 1500#0: *495 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:34:30 [info] 1500#0: *499 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:36:41 [info] 1500#0: *502 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:36:50 [info] 1500#0: *505 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:37:25 [info] 1500#0: *508 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:37:29 [info] 1500#0: *511 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:37:45 [info] 1500#0: *513 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:37:49 [info] 1500#0: *516 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:39:46 [info] 1500#0: *519 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:39:48 [info] 1500#0: *525 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:39:51 [info] 1500#0: *523 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:40:42 [info] 1500#0: *528 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:40:48 [info] 1500#0: *531 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:41:38 [info] 1500#0: *535 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:41:43 [info] 1500#0: *538 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:42:15 [info] 1500#0: *541 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:42:18 [info] 1500#0: *544 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:42:27 [info] 1500#0: *548 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:42:55 [info] 1500#0: *551 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:43:01 [info] 1500#0: *554 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:43:17 [info] 1500#0: *558 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:44:20 [info] 1500#0: *561 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:44:24 [info] 1500#0: *564 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:45:20 [notice] 1500#0: *568 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:46:28 [notice] 1500#0: *568 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:47:19 [info] 1500#0: *571 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:51:26 [info] 1500#0: *568 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:52:09 [info] 1500#0: *577 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:52:10 [info] 1500#0: *583 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:52:14 [info] 1500#0: *584 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:52:14 [info] 1500#0: *581 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:53:21 [info] 1500#0: *586 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:54:22 [info] 1500#0: *591 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:55:11 [info] 1500#0: *589 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:56:07 [info] 1500#0: *597 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 19:56:07 [info] 1500#0: *594 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:56:18 [info] 1500#0: *600 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:57:25 [info] 1500#0: *604 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:57:36 [info] 1500#0: *607 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:58:43 [info] 1500#0: *611 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:58:49 [info] 1500#0: *615 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:59:11 [info] 1500#0: *619 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:59:14 [info] 1500#0: *622 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:59:51 [info] 1500#0: *626 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 19:59:55 [notice] 1500#0: *629 [lua] toy_info.lua:422: cmd_func(): =======================, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:06:01 [info] 1500#0: *629 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:06:06 [info] 1500#0: *634 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:06:16 [info] 1500#0: *638 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:06:20 [info] 1500#0: *641 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:06:50 [info] 1500#0: *644 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:07:03 [info] 1500#0: *647 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:07:04 [info] 1500#0: *650 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:17:43 [info] 1500#0: *653 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:20:28 [info] 1500#0: *659 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:27:09 [info] 1500#0: *665 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:29:00 [info] 1500#0: *671 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:29:15 [info] 1500#0: *676 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:36:45 [info] 1500#0: *680 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:37:13 [info] 1500#0: *684 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:37:31 [notice] 1500#0: *690 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:38:45 [notice] 1500#0: *690 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:40:40 [info] 1500#0: *690 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:41:39 [info] 1500#0: *695 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:43:34 [info] 1500#0: *701 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:43:59 [info] 1500#0: *706 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:44:02 [notice] 1500#0: *711 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:49:01 [info] 1500#0: *711 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:49:09 [info] 1500#0: *716 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:49:42 [info] 1500#0: *720 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:51:10 [info] 1500#0: *724 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:51:23 [info] 1500#0: *730 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 20:57:41 [info] 1500#0: *728 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 20:58:42 [info] 1500#0: *737 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/03 21:00:13 [info] 1500#0: *735 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/03 21:01:15 [info] 1500#0: *745 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 10:07:44 [alert] 1509#0: lua_code_cache is off; this will hurt performance in /home/putty/gains/intelligent_toys/dev/nginx/conf/../../app.conf:12
+2017/04/04 10:07:44 [alert] 1509#0: lua_code_cache is off; this will hurt performance in /home/putty/gains/intelligent_toys/dev/nginx/conf/../../app.conf:19
+2017/04/04 10:07:44 [alert] 1509#0: lua_code_cache is off; this will hurt performance in /home/putty/gains/intelligent_toys/dev/nginx/conf/../../app.conf:26
+2017/04/04 10:07:44 [notice] 1509#0: using the "epoll" event method
+2017/04/04 10:07:44 [notice] 1509#0: openresty/1.11.2.1
+2017/04/04 10:07:44 [notice] 1509#0: built by gcc 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04) 
+2017/04/04 10:07:44 [notice] 1509#0: OS: Linux 4.4.0-31-generic
+2017/04/04 10:07:44 [notice] 1509#0: getrlimit(RLIMIT_NOFILE): 1024:4096
+2017/04/04 10:07:44 [notice] 1510#0: start worker processes
+2017/04/04 10:07:44 [notice] 1510#0: start worker process 1511
+2017/04/04 10:07:45 [error] 1511#0: *2 [lua] app_init.lua:10: [app_init] get_err = %s[mysql_client] connect mysql err: Unknown database 'troy', errno: 1049, state: 42000, context: ngx.timer
+2017/04/04 10:08:12 [error] 1511#0: *7 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/favicon.ico" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /favicon.ico HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:08:12 [error] 1511#0: *8 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/favicon.ico" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /favicon.ico HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:08:15 [info] 1511#0: *6 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:09:48 [info] 1511#0: *11 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:10:50 [info] 1511#0: *19 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E7%BA%A2%E5%B0%98%E5%AE%A2%E6%A0%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:13:24 [info] 1511#0: *16 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:14:42 [info] 1511#0: *23 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:16:06 [info] 1511#0: *31 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:17:15 [info] 1511#0: *37 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:17:16 [info] 1511#0: *44 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:28:27 [info] 1511#0: *42 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:35:45 [info] 1511#0: *49 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:37:16 [info] 1511#0: *54 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:38:24 [info] 1511#0: *60 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:38:46 [info] 1511#0: *66 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:38:48 [info] 1511#0: *73 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:40:36 [info] 1511#0: *71 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:43:22 [info] 1511#0: *78 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:43:50 [info] 1511#0: *84 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:43:52 [info] 1511#0: *91 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:45:30 [info] 1511#0: *89 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:45:58 [info] 1511#0: *100 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:46:49 [info] 1511#0: *97 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 10:47:11 [info] 1511#0: *108 client prematurely closed connection while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:48:12 [info] 1511#0: *109 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 10:48:48 [debug] 1511#0: *111 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 10:51:17 [info] 1511#0: *105 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:17:06 [info] 1511#0: *111 [lua] toy_info_main.lua:32: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:17:08 [info] 1511#0: *123 [lua] toy_info_main.lua:33: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:40:37 [info] 1511#0: *126 [lua] toy_info_main.lua:33: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:41:04 [info] 1511#0: *130 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:41:22 [info] 1511#0: *135 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:43:40 [info] 1511#0: *140 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:45:10 [info] 1511#0: *145 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:45:42 [info] 1511#0: *150 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:47:44 [info] 1511#0: *155 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:51:00 [info] 1511#0: *160 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:51:25 [info] 1511#0: *165 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:51:56 [info] 1511#0: *170 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:53:51 [info] 1511#0: *175 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:54:14 [info] 1511#0: *180 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:54:18 [info] 1511#0: *183 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:54:20 [info] 1511#0: *184 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:54:21 [info] 1511#0: *186 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:55:22 [notice] 1511#0: *187 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:55:39 [info] 1511#0: *187 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:58:14 [info] 1511#0: *191 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:58:24 [info] 1511#0: *195 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:58:35 [info] 1511#0: *199 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:59:22 [info] 1511#0: *202 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 11:59:28 [error] 1511#0: *206 lua entry thread aborted: runtime error: ../app/toy_info.lua:454: attempt to call local 'ret' (a table value)
+stack traceback:
+coroutine 0:
+	../app/toy_info.lua: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:37: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:41: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 12:00:18 [error] 1511#0: *211 lua entry thread aborted: runtime error: ../app/toy_info.lua:454: attempt to call local 'ret' (a table value)
+stack traceback:
+coroutine 0:
+	../app/toy_info.lua: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:37: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:41: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 12:03:45 [error] 1511#0: *216 lua entry thread aborted: runtime error: ../app/toy_info.lua:464: attempt to call local 'ret' (a table value)
+stack traceback:
+coroutine 0:
+	../app/toy_info.lua: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:37: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:41: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 12:04:59 [error] 1511#0: *221 lua entry thread aborted: runtime error: ../app/toy_info.lua:464: attempt to call local 'ret' (a table value)
+stack traceback:
+coroutine 0:
+	../app/toy_info.lua: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:37: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:41: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:00:18 [info] 1511#0: *226 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:00:37 [info] 1511#0: *231 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:01:13 [info] 1511#0: *234 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:02:20 [info] 1511#0: *239 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:02:42 [info] 1511#0: *244 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:03:00 [info] 1511#0: *249 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:03:14 [info] 1511#0: *254 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:04:01 [info] 1511#0: *259 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:04:14 [info] 1511#0: *264 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:04:29 [info] 1511#0: *269 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:05:48 [info] 1511#0: *274 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:06:52 [info] 1511#0: *279 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:07:46 [info] 1511#0: *284 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:08:19 [info] 1511#0: *289 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:09:20 [info] 1511#0: *294 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:09:28 [info] 1511#0: *299 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:09:51 [info] 1511#0: *302 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:09:55 [info] 1511#0: *306 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:10:50 [info] 1511#0: *309 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:11:12 [info] 1511#0: *313 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:11:47 [info] 1511#0: *316 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:13:04 [info] 1511#0: *320 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 13:13:59 [info] 1511#0: *325 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:03:07 [info] 1511#0: *330 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:05:18 [info] 1511#0: *334 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:07:07 [info] 1511#0: *338 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:21:41 [info] 1511#0: *342 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:22:29 [info] 1511#0: *346 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:22:55 [info] 1511#0: *351 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:23:53 [info] 1511#0: *356 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:24:31 [info] 1511#0: *361 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:33:53 [info] 1511#0: *365 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:34:10 [info] 1511#0: *369 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:36:34 [info] 1511#0: *373 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:39:27 [info] 1511#0: *380 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:40:11 [info] 1511#0: *384 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:40:41 [info] 1511#0: *388 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 14:41:24 [info] 1511#0: *392 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:10:15 [error] 1511#0: *400 lua entry thread aborted: runtime error: error loading module 'toy_info' from file '../app/toy_info.lua':
+	../app/toy_info.lua:344: unexpected symbol near '{'
+stack traceback:
+coroutine 0:
+	[C]: in function 'require'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:10: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:10:39 [error] 1511#0: *407 lua entry thread aborted: runtime error: error loading module 'toy_info' from file '../app/toy_info.lua':
+	../app/toy_info.lua:344: unexpected symbol near '{'
+stack traceback:
+coroutine 0:
+	[C]: in function 'require'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:10: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:10:50 [info] 1511#0: *405 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/04 15:10:50 [info] 1511#0: *406 client closed connection while waiting for request, client: 10.251.121.65, server: 0.0.0.0:8080
+2017/04/04 15:11:40 [error] 1511#0: *411 lua entry thread aborted: runtime error: error loading module 'toy_info' from file '../app/toy_info.lua':
+	../app/toy_info.lua:344: unexpected symbol near '{'
+stack traceback:
+coroutine 0:
+	[C]: in function 'require'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:10: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:16:37 [info] 1511#0: *415 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:16:58 [info] 1511#0: *420 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:17:16 [info] 1511#0: *425 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:19:04 [info] 1511#0: *433 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:19:15 [error] 1511#0: *436 lua entry thread aborted: runtime error: ../app/toy_info.lua:344: attempt to call global 'sort' (a nil value)
+stack traceback:
+coroutine 0:
+	../app/toy_info.lua: in function 'word_filter'
+	../app/toy_info.lua:377: in function 'search_info'
+	../app/toy_info.lua:430: in function 'cmd_func'
+	../app/websocket_framework.lua:75: in function 'start'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:42: in function 'app_main'
+	...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:46: in function <...ains/intelligent_toys/dev/nginx/../app/toy_info_main.lua:1>, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:19:54 [notice] 1511#0: *440 [lua] util.lua:112: ss(): {
+  [1] = "想听冷雨夜",
+  [2] = "我冷雨夜",
+  [3] = "冷雨夜",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:19:54 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=想听冷雨夜 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:19:54 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=想听冷雨夜&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:19:56 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=我冷雨夜 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:19:56 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=我冷雨夜&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:19:56 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=冷雨夜 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:19:56 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=118774252 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:19:56 [debug] 1511#0: *440 [lua] http.lua:579: send_request(): 
+GET /data2/music/132488874/132488874.mp3?xcode=8606265f930170330c486914f0acd7b6 HTTP/1.1
+Host: zhangmenshiting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:28:40 [info] 1511#0: *440 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:28:49 [notice] 1511#0: *451 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:28:49 [error] 1511#0: *453 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:29:21 [notice] 1511#0: *451 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:29:21 [error] 1511#0: *454 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:29:51 [notice] 1511#0: *451 [lua] util.lua:112: ss(): {
+  [1] = "想听童年",
+  [2] = "我童年",
+  [3] = "童年",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:29:51 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=想听童年 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:29:51 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=想听童年&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:29:51 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=我童年 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:29:51 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=我童年&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:29:51 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=童年 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:29:52 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=7678274 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:29:52 [debug] 1511#0: *451 [lua] http.lua:579: send_request(): 
+GET /data2/music/123909134/123909134.mp3?xcode=f1e510d85b26bf74ed47f60d337fa3fd HTTP/1.1
+Host: yinyueshiting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:34:02 [info] 1511#0: *451 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:34:06 [error] 1511#0: *461 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:34:34 [info] 1511#0: *462 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:34:38 [error] 1511#0: *466 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:36:37 [info] 1511#0: *467 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:36:41 [error] 1511#0: *471 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:41:50 [info] 1511#0: *472 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:41:54 [notice] 1511#0: *477 [lua] util.lua:112: ss(): {
+  [1] = "春天里",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:41:54 [debug] 1511#0: *477 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=春天里 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:41:54 [debug] 1511#0: *477 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=64424214 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:41:54 [debug] 1511#0: *477 [lua] http.lua:579: send_request(): 
+GET /data2/music/123899375/123899375.mp3?xcode=a4fa26d7c8fa1cc952d17b2d9b423fd1 HTTP/1.1
+Host: yinyueshiting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:42:30 [notice] 1511#0: *477 [lua] util.lua:112: ss(): {
+  [1] = "有没有这样的一首歌",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:42:30 [debug] 1511#0: *477 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=有没有这样的一首歌 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:42:30 [debug] 1511#0: *477 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=有没有这样的一首歌&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:42:30 [error] 1511#0: *482 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:44:44 [notice] 1511#0: *430 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:45:22 [info] 1511#0: *396 [lua] toy_info_main.lua:38: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:45:51 [notice] 1511#0: *477 [lua] util.lua:112: ss(): {
+  [1] = "女朋友",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:45:51 [error] 1511#0: *488 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/男朋友" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /%E7%94%B7%E6%9C%8B%E5%8F%8B HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:48:39 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:49:19 [notice] 1511#0: *119 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:49:36 [error] 1511#0: *495 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/男朋友" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /%E7%94%B7%E6%9C%8B%E5%8F%8B HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:49:47 [info] 1511#0: *493 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 15:50:20 [info] 1511#0: *477 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:50:21 [info] 1511#0: *494 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 15:50:26 [notice] 1511#0: *498 [lua] util.lua:112: ss(): {
+  key_word = "女朋友",
+  type = "0",
+  info = "男朋友",
+  id = "21",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:50:26 [error] 1511#0: *500 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/男朋友" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /%E7%94%B7%E6%9C%8B%E5%8F%8B HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 15:52:07 [notice] 1511#0: *119 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:52:37 [notice] 1511#0: *498 [lua] util.lua:112: ss(): {
+  key_word = "男朋友",
+  type = "text",
+  info = "伙操",
+  id = "23",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:52:37 [debug] 1511#0: *498 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:53:09 [info] 1511#0: *503 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 15:53:12 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:54:12 [notice] 1511#0: *498 [lua] util.lua:112: ss(): {
+  [1] = "天为什么是蓝",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:54:12 [notice] 1511#0: *498 [lua] util.lua:112: ss(): {
+  info = "我怎么知道",
+  type = "text",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:54:12 [debug] 1511#0: *498 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 15:54:29 [info] 1511#0: *506 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 15:55:03 [info] 1511#0: *508 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html"
+2017/04/04 15:57:46 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:57:47 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:57:49 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:57:50 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:57:54 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 15:58:15 [notice] 1511#0: *486 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:05:27 [info] 1511#0: *119 [lua] toy_info_main.lua:33: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:05:43 [info] 1511#0: *513 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:12:03 [info] 1511#0: *518 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:12:11 [notice] 1511#0: *527 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:12:11 [info] 1511#0: *527 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:15:00 [info] 1511#0: *534 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:15:05 [notice] 1511#0: *539 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:15:05 [info] 1511#0: *539 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:15:23 [info] 1511#0: *542 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:15:26 [notice] 1511#0: *546 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:16:04 [info] 1511#0: *546 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:16:15 [notice] 1511#0: *551 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:16:53 [info] 1511#0: *554 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:16:53 [info] 1511#0: *553 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:16:53 [info] 1511#0: *555 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:16:53 [info] 1511#0: *551 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:16:56 [notice] 1511#0: *559 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:17:19 [notice] 1511#0: *559 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:17:27 [info] 1511#0: *564 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:17:27 [info] 1511#0: *563 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:17:27 [info] 1511#0: *562 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:17:57 [info] 1511#0: *565 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:17:57 [info] 1511#0: *559 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:00 [notice] 1511#0: *570 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:16 [info] 1511#0: *572 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:18:16 [info] 1511#0: *570 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:17 [info] 1511#0: *576 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:22 [info] 1511#0: *579 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:31 [info] 1511#0: *583 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:39 [info] 1511#0: *586 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:54 [notice] 1511#0: *590 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:18:55 [notice] 1511#0: *590 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:19:02 [info] 1511#0: *593 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:19:02 [info] 1511#0: *592 client prematurely closed connection (32: Broken pipe) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:19:55 [info] 1511#0: *594 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:20:14 [info] 1511#0: *486 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:20:28 [notice] 1511#0: *598 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:21:32 [info] 1511#0: *430 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:21:41 [notice] 1511#0: *603 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:22:15 [notice] 1511#0: *498 [lua] util.lua:112: ss(): {
+  [1] = "天为什么是蓝色",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:22:15 [debug] 1511#0: *498 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=天为什么是蓝色 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:22:15 [debug] 1511#0: *498 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=天为什么是蓝色&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:22:16 [notice] 1511#0: *498 [lua] util.lua:112: ss(): {
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:22:16 [error] 1511#0: *607 open() "/home/putty/gains/intelligent_toys/dev/nginx/html/undefined" failed (2: No such file or directory), client: 10.251.121.65, server: gains_svr, request: "GET /undefined HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/"
+2017/04/04 16:30:26 [info] 1511#0: *498 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:30:30 [info] 1511#0: *598 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:30:33 [notice] 1511#0: *614 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:30:34 [notice] 1511#0: *614 [lua] util.lua:112: ss(): {
+  insert_id = 0,
+  server_status = 2,
+  warning_count = 0,
+  affected_rows = 1,
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:30:35 [info] 1511#0: *614 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:30:37 [info] 1511#0: *590 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:31:10 [info] 1511#0: *610 [lua] toy_info_main.lua:43: app_main(): close websocket peer, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:31:18 [notice] 1511#0: *632 [lua] util.lua:112: ss(): {
+  [1] = "天为什么是蓝色",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:31:18 [debug] 1511#0: *632 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=天为什么是蓝色 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:31:18 [debug] 1511#0: *632 [lua] http.lua:579: send_request(): 
+GET /api/openapi/BaikeLemmaCardApi?scope=103&format=json&appid=379020&bk_key=天为什么是蓝色&bk_length=600 HTTP/1.1
+Host: baike.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:31:18 [notice] 1511#0: *632 [lua] util.lua:112: ss(): {
+  key_word = "日常回答",
+  type = "text",
+  info = "你好啊",
+  id = "36",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:31:18 [debug] 1511#0: *632 [lua] http.lua:579: send_request(): 
+GET /oauth/2.0/token?grant_type=client_credentials&client_id=Hbk9mhQpnDtCfNCBx82DZvh4&client_secret=cac9e8e002b4d8212426be3b511e5ee6 HTTP/1.1
+Host: openapi.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:32:01 [info] 1511#0: *628 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
+2017/04/04 16:32:17 [notice] 1511#0: *632 [lua] util.lua:112: ss(): {
+  [1] = "喜欢你",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:32:17 [debug] 1511#0: *632 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.search.catalogSug&format=json&query=喜欢你 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:32:18 [debug] 1511#0: *632 [lua] http.lua:579: send_request(): 
+GET /v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=122674119 HTTP/1.1
+Host: tingapi.ting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:32:18 [debug] 1511#0: *632 [lua] http.lua:579: send_request(): 
+GET /data2/music/122674130/122674130.mp3?xcode=afa43f807c27da368c3c42cb27c397d9 HTTP/1.1
+Host: yinyueshiting.baidu.com
+User-Agent: lua-resty-http/0.09 (Lua) ngx_lua/10006
+
+
+2017/04/04 16:32:18 [notice] 1511#0: *632 [lua] util.lua:112: ss(): {
+  key_word = "喜欢你",
+  type = "voice",
+  info = "music/喜欢你.mp3",
+  id = "37",
+}, client: 10.251.121.65, server: gains_svr, request: "GET /toy_info_main HTTP/1.1", host: "10.251.120.192:8080"
+2017/04/04 16:33:27 [info] 1511#0: *639 client timed out (110: Connection timed out) while sending response to client, client: 10.251.121.65, server: gains_svr, request: "GET /music/%E6%98%8E%E6%98%8E%E5%B0%B1.mp3 HTTP/1.1", host: "10.251.120.192:8080", referrer: "http://10.251.120.192:8080/toy_info.html?"
