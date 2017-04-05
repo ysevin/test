@@ -87,6 +87,51 @@ function person_handler.login(_peer_ctx, _msg)
     return true
 end
 
+function person_handler.translate_voice(_peer_ctx, _msg)
+	local httpc = http.new()
+	local url = person_handler.baide_get_token_url
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,		--https的要写这个
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return false 
+	end
+	person_handler.baidu_voice_token = body_data.access_token
+	ss(person_handler.baidu_voice_token)
+
+
+	_msg["file_rate"] = 8000
+	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s", "len":%d}',
+	 _msg["file_ext"],tonumber(_msg["file_rate"]), 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
+
+    local httpc = http.new()
+	local res, err = httpc:request_uri(person_handler.baidu_upload_voice_url,{
+		method = "POST",
+		headers = {
+			["Content-Type"] = "application/json; charset=utf-8";
+			["Content-Length"] = #request_body;
+			},
+		body = request_body, --需要用json格式
+	})
+	print(res.body)
+
+    local ack_upload_dict = { }
+    ack_upload_dict.user_result = -1
+    ack_upload_dict.user_error = "request error"
+    if res.body then
+        ack_upload_dict.user_result = 0
+        ack_upload_dict.text_info_list = res.body
+    end
+
+    person_handler.send_data(_peer_ctx, ack_upload_dict)
+    return true
+
+end
+
 function person_handler.upload_voice(_peer_ctx, _msg)
 	local url = string.format("music/%s", _msg["file_name"])
 	local file_path = string.format("../nginx/html/%s", url)

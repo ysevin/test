@@ -20,6 +20,8 @@ function app_main()
     --peer_ctx:register_func("upload", person_handler.upload_info)
     --peer_ctx:register_func("query", person_handler.query_info)
     --peer_ctx:register_func("login", person_handler.login)
+    
+	peer_ctx:register_func("translate_voice", info_handler.translate_voice)
 
     peer_ctx:register_func("voice_test", info_handler.voice_test)
 
