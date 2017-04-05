@@ -1,0 +1,195 @@
+function Audio(song, playType, dom){
+    /*
+     * 播放器构造函数。
+     * dom:为audio元素，可以不传。
+     * song : 为歌曲列表，只支持数组形式，格式为[{}{}]
+     * playType 为播放方式： 1 顺序播放  2 随机播放  3 单曲循环  4 全部循环
+     */
+    if(!dom) {
+        this.media = document.createElement('audio');
+        document.body.appendChild(this.media);
+    }else {
+        this.media = typeof dom == 'string' ? document.getElementById(dom) : dom;
+    }
+    this.currentIndex = 0;
+    this.songList = song;
+    this.countTotal = this.songList.length;
+    this.playType = playType || 1;
+    this.MusicInfo = [];
+    this.playing = false;
+}
+/*
+ * 播放器启动主函数
+ */
+Audio.prototype.startPlay = function(){
+    this.media.src = this.songList[this.currentIndex].src;
+    this._play();
+}
+
+/*
+ * 播放器播放核心函数.
+ */
+Audio.prototype._play = function(){
+    var self = this;
+    this.media.play();
+    this.playing = true;
+    this.mediaEvent('ended' ,callback);
+    function callback(){
+        //单曲循环无需单独处理,只需直接调用startPlay()函数。
+ if(self.media.currentTime == self.media.duration){
+            switch(self.playType){
+                case 1:
+                    if(self.currentIndex == self.countTotal-1){
+                    return false;
+                    }else{
+                        self.currentIndex++;
+                    }
+                    break;
+                case 2:
+                    self.currentIndex = Math.floor(Math.random()*self.countTotal);
+                    break;
+                case 4: 
+                    self.currentIndex++;
+                    console.log("self.currentIndex==",self.currentIndex);
+                    self.currentIndex = (self.currentIndex > self.countTotal-1) ? 0 : self.currentIndex;
+                    break;
+            }
+            self.startPlay();
+        }
+    }
+}
+/*
+ *播放下一首如果当前已经是最后一首则播放第一首
+ */
+Audio.prototype.playNext = function(){
+    this.currentIndex++;
+    this.currentIndex = this.currentIndex > this.countTotal-1 ? 0 : this.currentIndex;
+    this.startPlay();
+}
+/*
+ *播放上一首如果当前已经是第一首则播放最后一首
+ */
+Audio.prototype.playPrevious = function(){
+    this.currentIndex++;
+    this.currentIndex = this.currentIndex < 0 ? this.countTotal-1 : this.currentIndex;
+    this.startPlay();
+    
+}
+
+/*
+ * 暂停当前播放，如果传回调函数，则暂停后执行回调。
+ */
+Audio.prototype.playPause = function(callback){
+    if(this.playing){
+        this.media.pause();
+        this.playing = false;
+    }else{
+        this.media.play();
+        this.playing = true;
+    }
+    if(!callbakc){callback();}
+}
+
+/*
+ *  获取当前播放位置
+ */
+ Audio.prototype.getCurrentTime = function(){
+    return this.media.currentTime;
+}
+
+/*
+ * 播放器各种事件监听.
+ * tip 类型必须是正确的类型
+ */
+Audio.prototype.mediaEvent = function(eventType, callback){
+    
+    Event.add(this.media,eventType,callback);
+}
+
+/*
+ * 播放用户自定义时间，即拖动进度条。
+ */
+Audio.prototype.playUserTime = function(time){
+    
+    this.media.currentTime = time;
+}
+/*
+ * 获取当前媒体信息
+ * src 当前媒体路径
+ * size 当前媒体总时长.
+ */
+Audio.prototype.getMusicInfo = function(){
+    this.MusicInfo.src = this.media.currentSrc;
+    this.MusicInfo.size = this.media.duration;
+    this.MusicInfo.name = this.songList[this.currentIndex].name;
+    return this.MusicInfo;
+}
+/*
+ * 设置或者获取当前音量
+ * voluems的值需大于0 小于等于 1
+ */
+Audio.prototype.setVolume = function(volumes){
+    if(volumes) {
+        this.media.volume = volumes;
+    }else{
+        return this.media.volume;
+    }
+}
+/*
+ * 设置或者取消静音.
+ * flag的值为true是静音，false时正常
+ */
+Audio.prototype.muted = function(flag){
+    if(flag){
+        this.media.muted = 1;
+    }else{
+        this.media.muted = 0;
+    }
+}
+/*
+ * 向播放列表添加新歌曲
+ * song为所需要添加的歌曲，可以多首，格式如构造函数中song.
+ */
+ Audio.prototype.addSongToList = function(song){
+    this.songList.push(song);
+    this.countTotal = this.songList.length;
+ }
+ 
+Audio.prototype.getBuffered = function(){
+    return this.media.buffered;
+}
+/*全局事件监听封装函数*/
+var Event = {
+    add : function(node, eventType, callback){
+        var node = typeof node == 'string' ? document.getElementById(node) : node;
+        if(document.addEventListener){
+            node.addEventListener(eventType, callback, false);
+        }else{
+            node.attachEvent('on' + eventType, callback);
+        }
+    },
+    remove : function(node, eventType, callback){
+        var node = typeof node == 'string' ? document.getElementById(node) : node;
+        if(document.removeEventListener){
+            node.removeEventListener(eventType, callback, false);
+        }else{
+            node.detachEvent('on' + eventType, callback);
+        }
+    }
+}
+
+var core = { 
+    formatPlayTime : function(tempTime){
+        var temp = tempTime.toString().split(".")[0];
+        if(tempTime<=60){
+            temp = temp>=10? temp : "0"+temp;
+            return "00 : " + temp;
+        }else{
+            var minute =Math.floor(temp/60); 
+            minute = (minute >= 10)? minute : "0"+ minute;
+            var second = temp%60; 
+            second = (second >= 10)? second : "0"+second;
+            return minute + " : " + second;
+        }
+    }        
+}

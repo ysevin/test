@@ -385,6 +385,22 @@ function upload_voice(file_id, file_key, insert_db)
 
 	window.event.returnValue=false;  
 }
+function translate_voice(file_id)
+{
+	if(voice_file[file_id] == null)
+		return log("选择上传文件")
+
+	var sd = new Array
+	sd["file_ext"] = voice_file[file_id]["voice_ext"]
+	sd["file_len"] = voice_file[file_id]["voice_len"]
+	sd["file_name"] = voice_file[file_id]["voice_name"]
+	sd["file_content"] = voice_file[file_id]["voice_content"]
+	send_data("translate_voice", sd)
+
+	voice_file[file_id] = null
+
+	window.event.returnValue=false;  
+}
 
 function add_info()
 {
@@ -766,6 +782,20 @@ function create_voice_form(parent_id)
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")
 	lfo.id = "voice_form"
+	fo.appendChild(lfo)
+	create_table_control(lfo.id, null, text_ar)
+
+	connect()
+}
+function create_voice_translate_form(parent_id)
+{
+	var text_ar = [
+		["b,上传,translate_voice('translate_voice_file')"],
+		["vf,translate_voice_file"],
+	]
+	var fo = document.getElementById(parent_id)
+	var lfo = document.createElement("form")
+	lfo.id = "voice_translate_form"
 	fo.appendChild(lfo)
 	create_table_control(lfo.id, null, text_ar)
 
