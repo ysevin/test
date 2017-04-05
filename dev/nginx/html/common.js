@@ -350,39 +350,6 @@ function upload_voice(file_id, file_key, insert_db)
 
 	voice_file[file_id] = null
 
-	/*
-	if (websocket_channel === null) 
-		return log('please connect first');
-
-	if(voice_file[file_id] == null)
-		return log("选择上传文件")
-
-	var str = '{ "websocket_cmd":"upload_voice",'
-
-	//var text = document.getElementById("voice_rate");
-	//str += '"' + "file_rate" + '":"' + text.value + '",'
-	if(file_key == null || file_key == "")
-	{
-		var strs = voice_file[file_id]["voice_name"].split(".");
-		file_key = strs[0]
-	}
-
-	str += '"' + "file_key" + '":"' + file_key + '",'
-	str += '"' + "file_ext" + '":"' + voice_file[file_id]["voice_ext"] + '",'
-	str += '"' + "file_len" + '":' + voice_file[file_id]["voice_len"] + ','
-	str += '"' + "file_name" + '":"' + voice_file[file_id]["voice_name"] + '",'
-	str += '"' + "file_content" + '":"' + voice_file[file_id]["voice_content"] + '",'
-
-	if(insert_db)
-		str += '"insert_db":1,'
-
-	str = str.substring(0, str.length-1)
-	str += "}"
-	websocket_channel.send(str);
-
-	voice_file[file_id] = null
-	*/
-
 	window.event.returnValue=false;  
 }
 function translate_voice(file_id)
@@ -402,24 +369,6 @@ function translate_voice(file_id)
 	window.event.returnValue=false;  
 }
 
-function add_info()
-{
-	if (websocket_channel === null) 
-		return log('please connect first');
-	var str = '{ "websocket_cmd":"upload_voice",'
-
-	var key_word = document.getElementById("info_key_word");
-	var info = document.getElementById("info_info");
-
-	str += '"' + "key_word" + '":"' + key_word.value+ '",'
-	str += '"' + "info" + '":"' + info.value + '",'
-
-	str = str.substring(0, str.length-1)
-	str += "}"
-	log('add_info ' + websocket_channel_addr + ", str: " + str);
-	websocket_channel.send(str);
-	window.event.returnValue=false;  
-}
 function voice_test()
 {
 	if (websocket_channel === null) 
@@ -633,6 +582,7 @@ function create_table_control(form_id, title, text_ar)
 	for(var i=0; i<text_ar.length; i++)
 	{
 		var tr = document.createElement("tr")
+		tr.id = "tr_" + i
 		if(la == null && title)
 		{
 			var th = document.createElement("th")
@@ -647,6 +597,7 @@ function create_table_control(form_id, title, text_ar)
 		{
 			var td = document.createElement("td")
 			td.align = "center"
+			td.id = "td_" + i + "_" + j
 			var newar = new Array()
 			if(Array.isArray(text_ar[i][j]))
 				newar = text_ar[i][j]
