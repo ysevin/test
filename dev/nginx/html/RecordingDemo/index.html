@@ -1,10 +1,5 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<httpProtocol>
-    <customHeaders>
-        <add name="Access-Control-Allow-Origin" value="*" />
-    </customHeaders>
-</httpProtocol>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
@@ -39,6 +34,7 @@
 
         function stopRecording() {
             recorder.stop();
+			createDownloadLink()
         }
 
         function playRecording() {
@@ -64,6 +60,19 @@
                 }
             });
         }
+
+	  function createDownloadLink() {
+		  var blob = recorder.getBlob()
+		  var url = URL.createObjectURL(blob);
+		  var li = document.createElement('li');
+		  var hf = document.createElement('a');
+		  
+		  hf.href = url;
+		  hf.download = new Date().toISOString() + '.wav';
+		  hf.innerHTML = hf.download;
+		  li.appendChild(hf);
+		  recordingslist.appendChild(li);
+		}
 
         function uploadAudio2() {
             recorder.upload2(baidu_token, "http://vop.baidu.com/server_api", function (state, e) {

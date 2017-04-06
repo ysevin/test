@@ -101,12 +101,12 @@ function person_handler.translate_voice(_peer_ctx, _msg)
 		return false 
 	end
 	person_handler.baidu_voice_token = body_data.access_token
-	ss(person_handler.baidu_voice_token)
+	--ss(person_handler.baidu_voice_token)
 
 
 	_msg["file_rate"] = 8000
 	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s", "len":%d}',
-	 _msg["file_ext"],tonumber(_msg["file_rate"]), 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file"], _msg["file_len"])
+	 _msg["file_ext"],tonumber(_msg["file_rate"]), 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file_content"], _msg["file_len"])
 
     local httpc = http.new()
 	local res, err = httpc:request_uri(person_handler.baidu_upload_voice_url,{
