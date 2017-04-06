@@ -127,6 +127,14 @@ function person_handler.translate_voice(_peer_ctx, _msg)
         ack_upload_dict.text_info_list = res.body
     end
 
+
+	--[[
+	报错误码:3301，主要原因可能有：
+	1、语音格式不正确。
+	2、语音质量有问题，模糊不清或者静音。
+	请检查语音格式是否正确和语音质量是否有问题。
+	--]]
+
     person_handler.send_data(_peer_ctx, ack_upload_dict)
     return true
 
