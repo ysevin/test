@@ -10,9 +10,17 @@
         <input onclick="startRecording()" type="button" value="录音" />
         <input onclick="stopRecording()" type="button" value="停止" />
         <input onclick="playRecording()" type="button" value="播放" />
-        <input onclick="uploadAudio2()" type="button" value="提交" />
+        <input onclick="uploadAudio3()" type="button" value="提交" />
         <input onclick="get_baidu_token()" type="button" value="token" />
     </div>
+  	<ul id="recordingslist"></ul>
+	<ol id="log"></ol>
+
+	<script type="text/javascript" src="../translate_voice.js"></script>
+	<script>
+		var websocket_channel_addr = "ws://10.251.120.192:8080/toy_info_main";
+		connect()
+	</script>
 
     <script type="text/javascript" src="HZRecorder.js"></script>
 
@@ -92,6 +100,12 @@
                         break;
                 }
             });
+        }
+
+        function uploadAudio3() {
+		  	var blob = recorder.getBlob()
+		  	var name = new Date().toISOString() + '.wav';
+			set_voice_file(name, blob, 8000)
         }
 
 		function get_baidu_token(){
