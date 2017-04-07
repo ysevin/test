@@ -26,6 +26,11 @@
 
 
     <script>
+		/*
+		Chrome 47以后，getUserMedia API只能允许来自“安全可信”的客户端的视频音频请求，如HTTPS和本地的Localhost。 例如：https://192.168.1.2:8080…
+		localhost是唯一不用https的域名。
+		因此，解决这个问题一个方法是让自己的Web支持HTTPS，还有一个方法使用旧版本的Chrome。如Chrome 46等。
+		*/
 
         var recorder;
         var audio = document.querySelector('audio');
