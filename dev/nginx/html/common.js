@@ -344,25 +344,8 @@ function upload_voice(file_id, file_key, insert_db)
 	sd["file_len"] = voice_file[file_id]["voice_len"]
 	sd["file_name"] = voice_file[file_id]["voice_name"]
 	sd["file_content"] = voice_file[file_id]["voice_content"]
-	if(insert_db)
-		sd["insert_db"] = "1"
+	if(insert_db) sd["insert_db"] = "1"
 	send_data("upload_voice", sd)
-
-	voice_file[file_id] = null
-
-	window.event.returnValue=false;  
-}
-function translate_voice(file_id)
-{
-	if(voice_file[file_id] == null)
-		return log("选择上传文件")
-
-	var sd = new Array
-	sd["file_ext"] = voice_file[file_id]["voice_ext"]
-	sd["file_len"] = voice_file[file_id]["voice_len"]
-	sd["file_name"] = voice_file[file_id]["voice_name"]
-	sd["file_content"] = voice_file[file_id]["voice_content"]
-	send_data("translate_voice", sd)
 
 	voice_file[file_id] = null
 
