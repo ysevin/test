@@ -1,4 +1,4 @@
-document.write("<script src=common.js></script>") 
+document.write("<script src=toy_info/common.js></script>") 
 
 function set_voice_file(file_name, blob, file_rate)
 {

@@ -1,13 +1,6 @@
-require "global_define"
-local websocket_framework = require "websocket_framework"
-local user_handler = require "user"
-local group_handler = require "group"
-local content_handler = require "content"
-local classify_handler = require "classify"
-local fashion_handler = require "fashion"
-local recommend_handler = require "recommend"
---local person_handler = require "person"
-local info_handler = require "toy_info"
+--require "global_define"
+local websocket_framework = require "toy_info/websocket_framework"
+local info_handler = require "toy_info/toy_info"
 
 
 function app_main()

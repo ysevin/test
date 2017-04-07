@@ -1,4 +1,4 @@
-document.write("<script src=common.js></script>") 
+document.write("<script src=toy_info/common.js></script>") 
 function toy_info_del(id)
 {
 	var sd = new Array

@@ -1,8 +1,7 @@
 local cjson = require "cjson"
 local http = require "resty.http"
-local mysql_client = require "mysql_clientex"
-local cache_client = require "cache_client"
-require "util"
+local mysql_client = require "toy_info/mysql_clientex"
+require "toy_info/util"
 
 local person_handler = { }
 person_handler._VERSION = '1.0'
@@ -118,10 +117,10 @@ function person_handler.translate_voice(_peer_ctx, _msg)
 		body = request_body, --需要用json格式
 	})
 
-	print(res.body)
-
-    if res.body then
-		return res.body.result
+	local body_data = cjson.decode(res.body)
+	ss(body_data)
+    if body_data and body_data.result then
+		return body_data.result[1]
     end
 
 	--[[
@@ -479,6 +478,7 @@ end
 
 function person_handler.voice_test(_peer_ctx, _msg)
 	local text = person_handler.translate_voice(_peer_ctx, _msg)
+	print("=====", text)
 	if text then
 		person_handler.search_info(_peer_ctx, text)
 	end
