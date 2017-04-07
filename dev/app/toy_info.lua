@@ -117,16 +117,12 @@ function person_handler.translate_voice(_peer_ctx, _msg)
 			},
 		body = request_body, --需要用json格式
 	})
+
 	print(res.body)
 
-    local ack_upload_dict = { }
-    ack_upload_dict.user_result = -1
-    ack_upload_dict.user_error = "request error"
     if res.body then
-        ack_upload_dict.user_result = 0
-        ack_upload_dict.text_info_list = res.body
+		return res.body.result
     end
-
 
 	--[[
 	报错误码:3301，主要原因可能有：
@@ -134,10 +130,6 @@ function person_handler.translate_voice(_peer_ctx, _msg)
 	2、语音质量有问题，模糊不清或者静音。
 	请检查语音格式是否正确和语音质量是否有问题。
 	--]]
-
-    person_handler.send_data(_peer_ctx, ack_upload_dict)
-    return true
-
 end
 
 function person_handler.upload_voice(_peer_ctx, _msg)
@@ -486,7 +478,10 @@ function person_handler.search_info(_peer_ctx, _word)
 end
 
 function person_handler.voice_test(_peer_ctx, _msg)
-	person_handler.search_info(_peer_ctx, _msg["text"])
+	local text = person_handler.translate_voice(_peer_ctx, _msg)
+	if text then
+		person_handler.search_info(_peer_ctx, text)
+	end
 	return true
 end
 
