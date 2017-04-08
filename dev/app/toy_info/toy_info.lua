@@ -477,8 +477,12 @@ function person_handler.search_info(_peer_ctx, _word)
 end
 
 function person_handler.voice_test(_peer_ctx, _msg)
+	person_handler.search_info(_peer_ctx, _msg["text"])
+	return true
+end
+
+function person_handler.toy_test(_peer_ctx, _msg)
 	local text = person_handler.translate_voice(_peer_ctx, _msg)
-	print("=====", text)
 	if text then
 		person_handler.search_info(_peer_ctx, text)
 	end

@@ -17,6 +17,7 @@ function app_main()
 	peer_ctx:register_func("translate_voice", info_handler.translate_voice)
 
     peer_ctx:register_func("voice_test", info_handler.voice_test)
+    peer_ctx:register_func("toy_test", info_handler.toy_test)
 
     peer_ctx:register_func("upload_voice", info_handler.upload_voice)
     peer_ctx:register_func("add_toy_info", info_handler.add_toy_info)
