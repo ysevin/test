@@ -89,7 +89,7 @@ function toy_info_from_update()
 		ar[0] = "l," + info.key_word
 		if(info.type == "voice")
 		{
-			ar[1] = 'v,audio_'+ info.id + ',' + info.info
+			ar[1] = 'v,audio_'+ info.id + ',../' + info.info
 			ar[2] = "b,删除,toy_info_del(" + info.id + ")"
 			var arg = 'voice_file_' + info.id + "|" + info.key_word
 			ar[3] = "b,更新,toy_info_update_music('" + arg + "')"
