@@ -1,4 +1,4 @@
-var websocket_channel_addr = "ws://localhost:8080/toy_info_main";
+var websocket_channel_addr = "ws://10.251.120.192:8080/toy_info_main";
 var websocket_channel = null;
 
 var voice_file = new Array()

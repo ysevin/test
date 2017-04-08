@@ -1,4 +1,4 @@
-document.write("<script src=toy_info/common.js></script>") 
+document.write("<script src=common.js></script>") 
 
 function set_voice_file(file_name, blob, file_rate)
 {
@@ -46,9 +46,9 @@ function toy_test(file_id)
 function create_toy_test_form(parent_id)
 {
 	var text_ar = [
-		["a,过滤库,toy_info/toy_filter.html"],
-		["a,索引库,toy_info/toy_index.html"],
-		["a,信息库,toy_info/toy_info.html"],
+		["a,过滤库,toy_filter.html"],
+		["a,索引库,toy_index.html"],
+		["a,信息库,toy_info.html"],
 	]
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")
