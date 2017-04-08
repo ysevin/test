@@ -1,4 +1,4 @@
-document.write("<script src=toy_info/common.js></script>") 
+document.write("<script src=common.js></script>") 
 function toy_filter_del(id)
 {
 	var sd = new Array
@@ -59,14 +59,14 @@ function toy_filter_list_del(id)
 function toy_filter_from_update()
 {
 	var tb_ar = new Array()
-	tb_ar.push(["l,¹ı¶É´Ê","l,²Ù×÷"])
+	tb_ar.push(["l,è¿‡æ¸¡è¯","l,æ“ä½œ"])
 	for(var idx in toy_filter_list)
 	{
 		var info = toy_filter_list[idx]
 		var ar = new Array()
 		var i = 0
 		ar[i++] = "i,text_word_"+ info.id + "," + info.word
-		ar[i++] = ["b,É¾³ı,toy_filter_del(" + info.id + ")","b,¸üĞÂ,toy_filter_update(" + info.id + ")"]
+		ar[i++] = ["b,åˆ é™¤,toy_filter_del(" + info.id + ")","b,æ›´æ–°,toy_filter_update(" + info.id + ")"]
 		tb_ar.push(ar)
 	}
 	var di = document.getElementById("div_search")
@@ -103,8 +103,8 @@ function create_toy_filter_form(parent_id)
 	di.id = "div1"
 	lfo.appendChild(di)
 	var text_ar = [
-		["l,¹ıÂË´Ê"],
-		["i,text_word","b,Ìí¼Ó,toy_filter_add()"],
+		["l,è¿‡æ»¤è¯"],
+		["i,text_word","b,æ·»åŠ ,toy_filter_add()"],
 	]
 	create_table_control(di.id, null, text_ar)
 
@@ -114,7 +114,7 @@ function create_toy_filter_form(parent_id)
 	di.id = "div2"
 	lfo.appendChild(di)
 	var text_ar = [
-		["i,search_text","b,ËÑË÷,toy_filter_search()"],
+		["i,search_text","b,æœç´¢,toy_filter_search()"],
 	]
 	create_table_control(di.id, null, text_ar)
 	register_recv_func("toy_filter_form", toy_filter_form_recv)

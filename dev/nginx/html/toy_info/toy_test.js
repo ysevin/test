@@ -46,9 +46,9 @@ function toy_test(file_id)
 function create_toy_test_form(parent_id)
 {
 	var text_ar = [
-		["a,¹ıÂË¿â,toy_filter.html"],
-		["a,Ë÷Òı¿â,toy_index.html"],
-		["a,ĞÅÏ¢¿â,toy_info.html"],
+		["a,è¿‡æ»¤åº“,toy_info/toy_filter.html"],
+		["a,ç´¢å¼•åº“,toy_info/toy_index.html"],
+		["a,ä¿¡æ¯åº“,toy_info/toy_info.html"],
 	]
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")

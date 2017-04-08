@@ -1,4 +1,4 @@
-document.write("<script src=toy_info/common.js></script>") 
+document.write("<script src=common.js></script>") 
 function toy_index_del(id)
 {
 	var sd = new Array
@@ -75,7 +75,7 @@ function toy_index_from_update()
 		num = 0
 	
 	var tb_ar = new Array()
-	tb_ar.push(["l,ÓÃ»§´Ê","l,¹Ø¼ü´Ê","l,È¨ÖØ","l,ËÑË÷´ÎÊı","l,²Ù×÷"])
+	tb_ar.push(["l,ç”¨æˆ·è¯","l,å…³é”®è¯","l,æƒé‡","l,æœç´¢æ¬¡æ•°","l,æ“ä½œ"])
 	for(var idx in toy_index_list)
 	{
 		var info = toy_index_list[idx]
@@ -87,7 +87,7 @@ function toy_index_from_update()
 			ar[i++] = "i,text_key_word_"+ info.id + "," + info.key_word
 			ar[i++] = "i,text_weight_"+ info.id + "," + info.weight
 			ar[i++] = "l," + info.search_num
-			ar[i++] = ["b,É¾³ı,toy_index_del(" + info.id + ")","b,¸üĞÂ,toy_index_update(" + info.id + ")"]
+			ar[i++] = ["b,åˆ é™¤,toy_index_del(" + info.id + ")","b,æ›´æ–°,toy_index_update(" + info.id + ")"]
 			tb_ar.push(ar)
 		}
 	}
@@ -125,8 +125,8 @@ function create_toy_index_form(parent_id)
 	di.id = "div1"
 	lfo.appendChild(di)
 	var text_ar = [
-		["l,ÓÃ»§´Ê","l,¹Ø¼ü´Ê","l,È¨ÖØ"],
-		["i,text_word","i,text_key_word","i,text_weight","b,Ìí¼Ó,toy_index_add()"],
+		["l,ç”¨æˆ·è¯","l,å…³é”®è¯","l,æƒé‡"],
+		["i,text_word","i,text_key_word","i,text_weight","b,æ·»åŠ ,toy_index_add()"],
 	]
 	create_table_control(di.id, null, text_ar)
 
@@ -136,11 +136,11 @@ function create_toy_index_form(parent_id)
 	di.id = "div2"
 	lfo.appendChild(di)
 	var text_ar = [
-		["i,search_text","b,ËÑË÷,toy_index_search()",["c,filter_checkbox", "i,filter_text"]],
+		["i,search_text","b,æœç´¢,toy_index_search()",["c,filter_checkbox", "i,filter_text"]],
 	]
 	create_table_control(di.id, null, text_ar)
 	var ip = document.getElementById("filter_text")
-	ip.placeholder = "¹ıÂËËÑË÷´ÎÊı´óÓÚ"
+	ip.placeholder = "è¿‡æ»¤æœç´¢æ¬¡æ•°å¤§äº"
 
 	register_recv_func("toy_index_form", toy_index_form_recv)
 

@@ -1,4 +1,4 @@
-document.write("<script src=toy_info/common.js></script>") 
+document.write("<script src=common.js></script>") 
 function toy_info_del(id)
 {
 	var sd = new Array
@@ -49,7 +49,7 @@ function toy_info_add_music(file_id)
 	}
 	else
 	{
-		log('先占击打开按钮,选择音乐')
+		log('鍏堝崰鍑绘墦寮�鎸夐挳,閫夋嫨闊充箰')
 	}
 	window.event.returnValue=false;  
 }
@@ -90,17 +90,17 @@ function toy_info_from_update()
 		if(info.type == "voice")
 		{
 			ar[1] = 'v,audio_'+ info.id + ',' + info.info
-			ar[2] = "b,删除,toy_info_del(" + info.id + ")"
+			ar[2] = "b,鍒犻櫎,toy_info_del(" + info.id + ")"
 			var arg = 'voice_file_' + info.id + "|" + info.key_word
-			ar[3] = "b,更新,toy_info_update_music('" + arg + "')"
+			ar[3] = "b,鏇存柊,toy_info_update_music('" + arg + "')"
 			ar[4] = "vf,voice_file_" + info.id
 		}
 		else
 		{
 			ar[1] = "i,text_"+ info.id + "," + info.info
-			ar[2] = "b,删除,toy_info_del(" + info.id + ")"
+			ar[2] = "b,鍒犻櫎,toy_info_del(" + info.id + ")"
 			var arg = info.id + "|" + info.key_word
-			ar[3] = "b,更新,toy_info_update_text('" + arg + "')"
+			ar[3] = "b,鏇存柊,toy_info_update_text('" + arg + "')"
 		}
 		tb_ar[idx] = ar
 	}
@@ -143,8 +143,8 @@ function create_toy_info_form(parent_id)
 	di.id = "div1"
 	lfo.appendChild(di)
 	var text_ar = [
-		["i,text_word","i,text_info","b,添加文本,toy_info_add_text()"],
-		["i,music_word","vf,voice_file","b,添加语音,toy_info_add_music('voice_file')"],
+		["i,text_word","i,text_info","b,娣诲姞鏂囨湰,toy_info_add_text()"],
+		["i,music_word","vf,voice_file","b,娣诲姞璇煶,toy_info_add_music('voice_file')"],
 	]
 	create_table_control(di.id, null, text_ar)
 
@@ -154,7 +154,7 @@ function create_toy_info_form(parent_id)
 	di.id = "div2"
 	lfo.appendChild(di)
 	var text_ar = [
-		["i,search_text","b,搜索,toy_info_search()"],
+		["i,search_text","b,鎼滅储,toy_info_search()"],
 	]
 	create_table_control(di.id, null, text_ar)
 
