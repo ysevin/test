@@ -22,12 +22,23 @@ function toy_test_form_recv(str)
 {
 	var obj = JSON.parse(str);
 	var ar = [
-		["v,,"+obj.voice_url],
+		["v,,../"+obj.voice_url],
 	]
 	create_text_control("toy_test_form", ar)
 
 	//window.event.returnValue=false;  
 	//return
+}
+
+function voice_test()
+{
+	var in_text = document.getElementById("voice_text");
+
+	var sd = new Array;
+	sd["text"] = in_text.value
+	send("voice_test", sd)
+
+	window.event.returnValue=false;  
 }
 
 function toy_test(file_id)
@@ -38,7 +49,7 @@ function toy_test(file_id)
 	sd["file_name"] = voice_file[file_id]["voice_name"]
 	sd["file_content"] = voice_file[file_id]["voice_content"]
 	sd["file_rate"] = voice_file[file_id]["voice_rate"]
-	send("voice_test", sd)
+	send("toy_test", sd)
 
 	window.event.returnValue=false;  
 }
@@ -46,6 +57,8 @@ function toy_test(file_id)
 function create_toy_test_form(parent_id)
 {
 	var text_ar = [
+		["i,voice_text"],
+		["b,播放,voice_test()"],
 		["a,过滤库,toy_filter.html"],
 		["a,索引库,toy_index.html"],
 		["a,信息库,toy_info.html"],
