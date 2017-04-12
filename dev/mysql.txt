@@ -1,0 +1,98 @@
+﻿1, 解压下载文件(http://dev.mysql.com/downloads/mysql/5.6.html)
+2, 在bin目录下打开cmd
+3, 创建服务: mysqld --install mysql
+4, 启动服务: net start mysql
+5, 停止, 卸载服务: net stop mysql, sc delete mysql
+
+
+ubuntu安装mysql
+sudo apt-get install mysql-server
+
+osx下的先启动:
+mysql.server start
+然后才能输入mysql指令
+
+数据库的配置文件是my-default.ini, 可在里面配置数据库的存取路径.
+
+
+不能直接物理删除库的表文件*.idb, *.frm, 这样在创建表时, 还是会提示表已存在, 需要用指令删除, 或者物理删除整个库
+
+
+sql:
+mysql -u root 连接sql服务器(如题不行用 mysql -u root -p)
+mysql -u root < xxx.sql 执行xxx.sql文件
+
+mysql> show databases 查看表
+mysql> create database xxx default character set utf8 创建数据库,用utf8格式保存
+mysql> exit 退出mysql
+mysql> use xxx	访问数据库
+mysql> show tables 查看数据里的某个表
+mysql> describe xxx 查看表描述
+mysql> update TABEL set xxx = xx where xxx = xxx
+mysql> select * from xxx \G 查看表数据,\G表示用非格式框的方式显示
+mysql> select a,b,c from xxx 查表结果只显示a,b,c项
+mysql> drop table xxx 删除表
+mysql> alter table MyClass add passtest int(4) default '0'; 增加字段
+mysql> delete from MyClass where id=1 LIMIT 6;
+mysql> drop database xhkdb;
+
+中文乱码问题
+打开/etc/mysql/my.cnf
+
+在[client]字段里加入default-character-set=utf8，如下：
+[client]
+port = 3306
+socket = /var/lib/mysql/mysql.sock
+default-character-set=utf8
+
+在[mysqld]字段里加入character-set-server=utf8，如下：
+[mysqld]
+port = 3306
+socket = /var/lib/mysql/mysql.sock
+character-set-server=utf8
+
+在[mysql]字段里加入default-character-set=utf8，如下：
+[mysql]
+no-auto-rehash
+collation-server = utf8_unicode_ci
+init-connect='SET NAMES utf8'
+default-character-set=utf8
+
+创建数据库时要加上"default character set utf8", 如下:
+create database test default character set utf8;
+
+
+osx mysql 密码修改
+mysql.server stop
+在开始下面的步骤之前必须先停止mysql服务！！！！
+
+打开终端
+1、cd /usr/local/mysql/bin/		(我的目录在usr/local/Celler/mysql)
+2、sudo su
+输入之后会要求输入你的计算机密码，输入的时候是什么都不显示的，输完后回车
+3、 ./mysqld_safe --skip-grant-tables &
+这一步的作用是跨过权限验证, &好像可以不用
+4、./mysql -uroot 
+已root身份登录，因为第三步的原因不需要密码了。这之后的命令就不需要在前面加./mysql 了；
+5、use mysql;
+6、 update user set authentication_string=‘root123’ where User='root'; 
+这一步绝对是最坑爹的！网上流传的版本全部是set password ＝‘’ ，这样写 特么一直报错说 ‘password’列不存在！！！
+7, FLUSH PRIVILEGES;
+
+最终用sql命令查出来只有authentication_string字段，并没有password字段。
+
+上一步执行之后本来以为已经可以登录了，可是navicat连接测试时出现了：
+
+ERROR 1862 (HY000): Your password has expired. To log in you must
+change it using a client that supports expired passwords.
+
+所以还需要下面两步（我不用下面的步骤也可以用客户端登录了）
+
+打开新的终端：
+1、cd /usr/local/mysql/bin/
+2、sudo su
+3、./mysql -uroot  -proot123
+4、SET PASSWORD = PASSWORD('root123');
+
+至此，密码修改 成功！ 用户名：root  密码：root123
+
