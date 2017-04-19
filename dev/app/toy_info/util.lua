@@ -112,6 +112,24 @@ function ss(o)
 	print(s(o))
 end
 
+function decodeURI(s)
+	s = string.gsub(s, '%%(%x%x)', function(h) return string.char(tonumber(h, 16)) end)
+	return s
+end
+
+function encodeURI(s)
+	--s = string.gsub(s, "([^%w%.%- ])", function(c) return string.format("%%%02X", string.byte(c)) end)
+	s = string.gsub(s, "([ ])", function(c) return string.format("%%%02X", string.byte(c)) end)
+	return string.gsub(s, " ", "+")
+end
+
+function string:split(sep)  
+	local sep, fields = sep or "\t", {}  
+	local pattern = string.format("([^%s]+)", sep)  
+	self:gsub(pattern, function(c) fields[#fields+1] = c end)  
+	return fields  
+end
+
 --[[
 local fun=function ( ... )
 	local a=1;

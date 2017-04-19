@@ -22,7 +22,7 @@ function toy_test_form_recv(str)
 {
 	var obj = JSON.parse(str);
 	var ar = [
-		["v,,../"+obj.voice_url],
+		["v,,../"+obj.voice_html_url],
 	]
 	create_text_control("toy_test_form", ar)
 
@@ -54,6 +54,27 @@ function toy_test(file_id)
 	window.event.returnValue=false;  
 }
 
+function baidu_upload_voice(file_id)
+{
+	var sd = new Array
+		/*
+	sd["file_ext"] = voice_file[file_id]["voice_ext"]
+	sd["file_len"] = voice_file[file_id]["voice_len"]
+	sd["file_name"] = voice_file[file_id]["voice_name"]
+	sd["file_content"] = voice_file[file_id]["voice_content"]
+	sd["file_rate"] = 8000
+	sd["file_channel"] = 1
+	send("translate_voice", sd)
+	*/
+	if(voice_file[file_id])
+		sd["file_content"] = voice_file[file_id]["voice_content"]
+	else
+		sd["file_content"] = ""
+	send("server_voice_send_start", sd)
+
+	window.event.returnValue=false;  
+}
+
 function create_toy_test_form(parent_id)
 {
 	var text_ar = [
@@ -62,6 +83,8 @@ function create_toy_test_form(parent_id)
 		["a,过滤库,toy_filter.html"],
 		["a,索引库,toy_index.html"],
 		["a,信息库,toy_info.html"],
+		["b,voice_test,baidu_upload_voice('baidu_upload_voice_file')"],
+		["vf,baidu_upload_voice_file"],
 	]
 	var fo = document.getElementById(parent_id)
 	var lfo = document.createElement("form")

@@ -1,4 +1,4 @@
-var websocket_channel_addr = "ws://10.251.120.192:8080/toy_info_main";
+var websocket_channel_addr = "ws://120.24.245.27:8080/toy_info_main";
 var websocket_channel = null;
 
 var voice_file = new Array()
@@ -168,7 +168,9 @@ function send(cmd, data_dict)
 function upload_voice(file_id, file_key, insert_db)
 {
 	if(voice_file[file_id] == null)
+	{
 		return log("选择上传文件")
+	}
 
 	if(file_key == null || file_key == "")
 	{
@@ -183,11 +185,9 @@ function upload_voice(file_id, file_key, insert_db)
 	sd["file_name"] = voice_file[file_id]["voice_name"]
 	sd["file_content"] = voice_file[file_id]["voice_content"]
 	if(insert_db) sd["insert_db"] = "1"
-	send_data("upload_voice", sd)
+	send("upload_voice", sd)
 
 	voice_file[file_id] = null
-
-	window.event.returnValue=false;  
 }
 
 function read_voice_file(file_id)

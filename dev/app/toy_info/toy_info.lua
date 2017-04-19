@@ -15,6 +15,7 @@ person_handler.baidu_music_search_url = "http://tingapi.ting.baidu.com/v1/restse
 person_handler.baidu_music_info_url = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=web&version=5.6.5.0&method=baidu.ting.song.play&format=json&songid=%d"
 person_handler.baidu_upload_voice_url = "http://vop.baidu.com/server_api"
 person_handler.baidu_voice_composition_url = "http://tsn.baidu.com/text2audio?tex=%s&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=%s"
+person_handler.ximalaya_music_search_url = "http://search.ximalaya.com/front/v1?condition=relation&core=track&device=android&kw=%s&live=true&page=1&paidFilter=false&rows=1&spellchecker=true&version=5.4.93"
 person_handler.toy_filter_tbl = "toy_filter"
 person_handler.toy_index_tbl = "toy_index"
 person_handler.toy_info_tbl = "toy_info"
@@ -87,6 +88,7 @@ function person_handler.login(_peer_ctx, _msg)
 end
 
 function person_handler.translate_voice(_peer_ctx, _msg)
+	--[[
 	local httpc = http.new()
 	local url = person_handler.baide_get_token_url
 	local res, err = httpc:request_uri(url,{
@@ -101,11 +103,14 @@ function person_handler.translate_voice(_peer_ctx, _msg)
 	end
 	person_handler.baidu_voice_token = body_data.access_token
 	--ss(person_handler.baidu_voice_token)
+	--]]
+	person_handler.get_baidu_token()
 
 
-	_msg["file_rate"] = 8000
+	_msg["file_rate"] = _msg["file_rate"] or 8000
+	_msg["file_channel"] = _msg["file_channel"] or 1
 	local request_body = string.format('{"format":"%s","rate":%d,"channel":%d,"token":"%s","cuid":"%s","speech":"%s", "len":%d}',
-	 _msg["file_ext"],tonumber(_msg["file_rate"]), 1, person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file_content"], _msg["file_len"])
+	 _msg["file_ext"],tonumber(_msg["file_rate"]), _msg["file_channel"], person_handler.baidu_voice_token, "00:0c:29:5c:c9:56", _msg["file_content"], _msg["file_len"])
 
     local httpc = http.new()
 	local res, err = httpc:request_uri(person_handler.baidu_upload_voice_url,{
@@ -132,21 +137,26 @@ function person_handler.translate_voice(_peer_ctx, _msg)
 end
 
 function person_handler.upload_voice(_peer_ctx, _msg)
+	--[[
 	local url = string.format("music/%s", _msg["file_name"])
 	local file_path = string.format("../nginx/html/%s", url)
 	local file = io.open(file_path, "wb")
 	file:write(ngx.decode_base64(_msg["file_content"]))
 	file:close()
+	--]]
+	print(_msg["file_key"], _msg["file_ext"])
+
+	local url = person_handler.save_music(_msg["file_key"],_msg["file_ext"], _msg["file_content"], true)
 
     local ret_info = {}
     ret_info.toy_info_upload_ret = {}
 	if _msg["insert_db"] then
 		person_handler.insert_info(_msg["file_key"], url, "voice")
-
-		local query_dict = {key_word = _msg["file_key"]}
-    	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
-        ret_info.toy_info_update_ret = ret[1]
 	end
+
+	local query_dict = {key_word = _msg["file_key"]}
+	local ret = mysql_client:read_condition(person_handler.toy_db, person_handler.toy_info_tbl, query_dict)
+	ret_info.toy_info_update_ret = ret[1]
 
     person_handler.send_data(_peer_ctx, ret_info)
     return true
@@ -158,9 +168,10 @@ function person_handler.get_baidu_token()
 	person_handler.baidu_voice_token = nil
 	if not person_handler.baidu_voice_token then
 		local httpc = http.new()
-		local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
-		local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
-		local url = string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret)
+		--local client_id="Hbk9mhQpnDtCfNCBx82DZvh4"
+		--local client_secret= "cac9e8e002b4d8212426be3b511e5ee6"
+		--local url = string.format("https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", client_id, client_secret)
+		local url = person_handler.baide_get_token_url
 		local res, err = httpc:request_uri(url,{
 			ssl_verify = false,		--https的要写这个
 			})
@@ -192,7 +203,7 @@ function person_handler.get_baike_info_one(_word)
 	local res, err = httpc:request_uri(url,{
 		ssl_verify = false,
 		})
-	if res.status ~= ngx.HTTP_OK then 
+	if res and res.status ~= ngx.HTTP_OK then 
 		return nil
 	end
 	local body_data = cjson.decode(res.body)
@@ -246,8 +257,35 @@ function person_handler.get_baidu_music_one(_word)
 		return nil
 	end
 
-	local music_name = string.format("%s.%s", _word, body_data.bitrate.file_extension)
-	local music_url = person_handler.download_music(music_name, body_data.bitrate.file_link)
+	local music_url = person_handler.download_music(_word, body_data.bitrate.file_extension, body_data.bitrate.file_link)
+	return music_url
+end
+
+function person_handler.get_ximalaya_music_one(_word)
+	local url = string.format(person_handler.ximalaya_music_search_url , _word)
+	local httpc = http.new()
+	local res, err = httpc:request_uri(url,{
+		ssl_verify = false,
+		})
+	if res.status ~= ngx.HTTP_OK then 
+		return nil
+	end
+	local body_data = cjson.decode(res.body)
+	if not body_data then 
+		return nil
+	end
+	if not body_data.response.docs then
+		return nil
+	end
+
+	if not body_data.response.docs[1]then
+		return nil
+	end
+	local doc = body_data.response.docs[1]
+	--ss(doc)
+
+	local tb = string.split(doc.play_path, ".")
+	local music_url = person_handler.download_music(_word, tb[#tb], doc.play_path)
 	return music_url
 end
 
@@ -264,24 +302,25 @@ function person_handler.get_baidu_music(_word)
 	return nil
 end
 
-function person_handler.download_music(_name, _url)
+function person_handler.download_music(_name, _ext, _url)
 	local url = _url
 	local httpc = http.new()
 	local res, err = httpc:request_uri(url,{
 		ssl_verify = false,
 		})
-	if res.status ~= ngx.HTTP_OK then 
+	if (not res) or res.status ~= ngx.HTTP_OK then 
 		return nil
 	end
 
 	local ret_info = {}
 	--ret_info.voice_data = ngx.encode_base64(res.body)		--javascript解码后数据不一样!!!
-	return person_handler.save_music(_name, res.body)
+	return person_handler.save_music(_name, _ext, res.body)
 end
 
-function person_handler.save_music(_name, _data, _base64)
-	local url = string.format("music/%s", _name)
-	local file_path = string.format("../nginx/html/%s", url)
+function person_handler.save_music(_name, _ext, _data, _base64)
+	local name = ngx.encode_base64(_name)
+	local local_url = string.format("music/%s.%s", name, _ext)
+	local file_path = string.format("../nginx/html/%s", local_url)
 	local file = io.open(file_path, "wb")
 	if _base64 then
 		file:write(ngx.decode_base64(_data))
@@ -289,7 +328,7 @@ function person_handler.save_music(_name, _data, _base64)
 		file:write(_data)
 	end
 	file:close()
-	return url
+	return local_url
 end
 
 function person_handler.get_self_info(_word)
@@ -306,7 +345,8 @@ function person_handler.search_info_one(_word)
 	local info, ty = person_handler.get_self_info(_word)
 
 	if not info then
-		info = person_handler.get_baidu_music_one(_word)
+		--info = person_handler.get_baidu_music_one(_word)
+		info = person_handler.get_ximalaya_music_one(_word)
 		if info then
 			return info, "voice"
 		end
@@ -463,14 +503,19 @@ function person_handler.search_info(_peer_ctx, _word)
 	ss(info)
 
 	-- 终端输出
-	local ret_info = {}
+	local ret_info = {msg_type = "download_mp3"}
 	if info.type == "text" then
 		--返回语音合成url
 		person_handler.get_baidu_token()
-		ret_info.voice_url = string.format(person_handler.baidu_voice_composition_url, info.info, person_handler.baidu_voice_token)
+		local url = string.format(person_handler.baidu_voice_composition_url, info.info, person_handler.baidu_voice_token)
+		local name = "voice_test"
+		local music_url = person_handler.download_music(name, "mp3", encodeURI(url))
+		ret_info.voice_url = string.format("http://120.24.245.27:8080/%s", music_url)
+		ret_info.voice_html_url = music_url
 	else
 		--直接返回语音链接
-		ret_info.voice_url = info.info
+		ret_info.voice_url = string.format("http://120.24.245.27:8080/%s", info.info)
+		ret_info.voice_html_url = info.info
 	end
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
@@ -483,12 +528,108 @@ end
 
 function person_handler.toy_test(_peer_ctx, _msg)
 	local text = person_handler.translate_voice(_peer_ctx, _msg)
-	if text then
-		person_handler.search_info(_peer_ctx, text)
-	end
+	text = text or "语音无法识别"
+	person_handler.search_info(_peer_ctx, text)
 	return true
 end
 
+local hardware_voice_data = {}
+
+function person_handler.hardware_voice_send_start(_peer_ctx, _msg)
+	hardware_voice_data = {}
+	hardware_voice_data.ext = _msg["ext"] or "pcm"
+	hardware_voice_data.rate = _msg["rate"] or "8000"
+	hardware_voice_data.channel = _msg["channel"] or 1
+	hardware_voice_data.content = _msg["content"] or ""
+
+	ss(hardware_voice_data)
+
+	local ret_info = {msg_type = "upload_record", ["upload ack"] = "server_recv_start_end"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.hardware_voice_send_data(_peer_ctx, _msg)
+	ss(_msg)
+	--print(_msg["content"])
+	--hardware_voice_data.content = hardware_voice_data.content + _msg["content"]
+	hardware_voice_data.content = string.format("%s%s", hardware_voice_data.content, _msg["content"])
+
+	local ret_info = {msg_type = "upload_record", ["upload ack"] = "server_recv_data_end"}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
+
+function person_handler.hardware_voice_send_end(_peer_ctx, _msg)
+	ss(_msg)
+	local head = _msg["content"]
+	local raw_head = ngx.decode_base64(head)
+	local raw_body = ngx.decode_base64(hardware_voice_data.content)
+	local wav = raw_head..raw_body
+	--local wav = head..hardware_voice_data.content
+
+	local len = string.len(wav)
+
+	local msg = {}
+	msg["file_ext"] = hardware_voice_data.ext
+	msg["file_len"] = len
+	msg["file_name"] = "hardward_voice"
+	msg["file_content"] = ngx.encode_base64(wav)	--hardware_voice_data.content
+	msg["file_rate"] = hardware_voice_data.rate
+	msg["file_channel"] = hardware_voice_data.channel
+
+	person_handler.save_music("abc", "pcm", hardware_voice_data.content, true)
+	person_handler.save_music("abc_no", "pcm", hardware_voice_data.content)
+	person_handler.save_music("abc", "wav", wav)
+	print(msg.file_ext, msg.file_len, msg.file_name, msg.file_rate, msg.file_channel, msg.file_content)
+
+	local ret_info = {msg_type = "upload_record",["upload ack"] = "server_recv_end_end"}
+    person_handler.send_data(_peer_ctx, ret_info)
+
+	local text = person_handler.translate_voice(_peer_ctx, msg)
+	text = text or "语音无法识别"
+	person_handler.search_info(_peer_ctx, text)
+	return true
+end
+
+local send_data = nil
+local send_data_len = 0
+local send_buff_pos = 1
+local SEND_BUFF_MAX = 1024 * 4
+function person_handler.server_voice_send_start(_peer_ctx, _msg)
+	--[[
+	send_data = _msg["file_content"]
+	if send_data == nil or send_data == "" then
+		local file_path = string.format("../nginx/html/music/%s.mp3", _msg["file_name"] or "光辉岁月")
+		local file = io.open(file_path, "rb")
+		local buff = file:read("*a")
+		file:close()
+		send_data = ngx.encode_base64(buff)
+	end
+	send_buff_pos = 1
+	send_data_len = string.len(send_data)
+	person_handler.server_voice_send_data(_peer_ctx, _msg)
+	--清华大学（Tsinghua University），简称“清华”，由中华人民共和国教育部直属，中央直管副部级建制，位列“211工程”、“985工程”，入选”珠峰计划“、”2011计划“、”111计划“、”卓越工程师教育培养计划“、”卓越法律人才教育培养计划“、”卓越医生教育培养计划“，为九校联盟、东亚研究型大学协会、环太平洋大学联盟、亚洲大学联盟、清华大学—剑桥大学—麻省理工学院低碳能源大学联盟成员。清华大学诞生于1911年，
+	local url = "http://tsn.baidu.com/text2audio?tex=清华大学（Tsinghua University），简称“清华”，由中华人民共和国教育部直属，中央直管副部级建制，位列“211工程”、“985工程”，入选”珠峰计划“、”2011计划“、”111计划“、”卓越工程师教育培养计划“、”卓越法律人才教育培养计划“、”卓越医生教育培养计划“，为九校联盟、东亚研究型大学协会、环太平洋大学联盟、亚洲大学联盟、清华大学—剑桥大学—麻省理工学院低碳能源大学联盟成员。清华大学诞&lan=zh&cuid=00:0c:29:5c:c9:56&ctp=1&tok=24.e31018576bb7b71a1ec28d5e3f584383.2592000.1494818877.282335-9361747"
+	local name = "voice_test.mp3"
+	print(encodeURI(url))
+	local music_url = person_handler.download_music(name, "mp3", encodeURI(url))
+	--]]
+	local url = person_handler.get_ximalaya_music_one("好久不见")
+	return true
+end
+
+function person_handler.server_voice_send_data(_peer_ctx, _msg)
+	local end_pos = send_buff_pos + SEND_BUFF_MAX
+	if end_pos >= send_data_len then
+		end_pos = -1
+	end
+	local buff = string.sub(send_data, send_buff_pos, end_pos)
+	send_buff_pos = send_buff_pos + SEND_BUFF_MAX + 1
+	local ret_info = {server_voice_send_data = buff, server_voice_send_end = (end_pos == -1 and 1 or 0)}
+    person_handler.send_data(_peer_ctx, ret_info)
+	return true
+end
 
 function person_handler.search_toy_info(_peer_ctx, _msg)
 	local query_dict = {}
@@ -512,14 +653,14 @@ end
 function person_handler.add_toy_info(_peer_ctx, _msg)
 	local query_dict = {key_word = _msg["key_word"], info = _msg["info"]}
 	local ret = person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
-	local ret_info = {add_info_ret = ret and "添加成功", "添加失败"}
+	local ret_info = {add_info_ret = ret and "添加成功" or "添加失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
 
 function person_handler.update_toy_info(_peer_ctx, _msg)
 	local ret = person_handler.insert_info(_msg["key_word"], _msg["info"], "text")
-	local ret_info = {update_info_ret = ret and "更新成功", "更新失败"}
+	local ret_info = {update_info_ret = ret and "更新成功" or "更新失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
@@ -538,21 +679,21 @@ end
 function person_handler.del_toy_index(_peer_ctx, _msg)
 	local query_dict = {id = _msg["id"]}
 	local ret = mysql_client:delete_condition(person_handler.toy_db, person_handler.toy_index_tbl, query_dict)
-	local ret_info = {delete_index_ret = ret and "删除成功", "删除失败"}
+	local ret_info = {delete_index_ret = ret and "删除成功" or "删除失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
 
 function person_handler.add_toy_index(_peer_ctx, _msg)
-	local ret = person_handler.insert_index(_msg["word"], _msg["key_word"], _msg["weight"])
-	local ret_info = {add_index_ret = ret and "添加成功", "添加失败"}
+	local ret = person_handler.insert_index(_msg["key_word"], _msg["word"], _msg["weight"])
+	local ret_info = {add_index_ret = ret and "添加成功" or "添加失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
 
 function person_handler.update_toy_index(_peer_ctx, _msg)
 	local ret = person_handler.update_index(_msg["word"], _msg["key_word"], _msg["weight"], _msg["id"])
-	local ret_info = {update_index_ret = ret and "更新成功", "更新失败"}
+	local ret_info = {update_index_ret = ret and "更新成功" or "更新失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
@@ -571,21 +712,21 @@ end
 function person_handler.del_toy_filter(_peer_ctx, _msg)
 	local query_dict = {id = _msg["id"]}
 	local ret = mysql_client:delete_condition(person_handler.toy_db, person_handler.toy_filter_tbl, query_dict)
-	local ret_info = {delete_filter_ret = ret and "删除成功", "删除失败"}
+	local ret_info = {delete_filter_ret = ret and "删除成功" or "删除失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
 
 function person_handler.add_toy_filter(_peer_ctx, _msg)
 	local ret = person_handler.insert_filter(_msg["word"])
-	local ret_info = {add_filter_ret = ret and "添加成功", "添加失败"}
+	local ret_info = {add_filter_ret = ret and "添加成功" or "添加失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end
 
 function person_handler.update_toy_filter(_peer_ctx, _msg)
 	local ret = person_handler.insert_filter(_msg["word"], _msg["id"])
-	local ret_info = {update_filter_ret = ret and "更新成功", "更新失败"}
+	local ret_info = {update_filter_ret = ret and "更新成功" or "更新失败"}
     person_handler.send_data(_peer_ctx, ret_info)
 	return true
 end

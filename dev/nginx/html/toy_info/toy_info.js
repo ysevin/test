@@ -25,7 +25,9 @@ function toy_info_update_text(arg)
 function toy_info_update_music(arg)
 {
 	var ar = arg.split("|");
-	upload_voice(ar[0], ar[1], true)
+	upload_voice(ar[0], ar[1])
+
+	window.event.returnValue=false;  
 }
 
 function toy_info_add_text()
@@ -123,7 +125,7 @@ function toy_info_form_recv(str)
 		var info = obj.toy_info_update_ret
 		var au = document.getElementById("audio_" + info.id)
 		if(au)
-			au.src = encodeURI(info.info)
+			au.src = encodeURI("../" + info.info)
 	}
 	else if(obj.toy_info_list)
 	{

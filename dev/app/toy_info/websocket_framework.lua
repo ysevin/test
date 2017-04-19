@@ -10,7 +10,7 @@ function websocket_framework.new(self)
     local peer = { }
     setmetatable(peer, websocket_framework_mt)
     local websocket_res, websocket_err = server:new({
-        timeout = 1000, -- ms
+        timeout = 30000, -- ms
         max_payload_len = 104857600
     })
     if not websocket_res then
@@ -59,6 +59,7 @@ function websocket_framework.start(self)
         elseif websocket_peer_type == "text" or websocket_peer_type == "continuation" then
 			all_data = all_data..websocket_peer_data
 			if websocket_peer_err ~= "again" then
+				print(all_data)
 				local json_data = cjson.decode(all_data)
 				all_data = ""
 				if not json_data then
