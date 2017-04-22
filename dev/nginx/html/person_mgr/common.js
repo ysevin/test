@@ -186,7 +186,7 @@ function read_file(file_id, img_id)
 	var file = files[0];
 	var maxsize = 64 * 1024;
 
-	// ½ÓÊÜ jpeg, jpg, png ÀàĞÍµÄÍ¼Æ¬
+	// æ¥å— jpeg, jpg, png ç±»å‹çš„å›¾ç‰‡
 	if (!/\/(?:jpeg|jpg|png)/i.test(file.type)) return;
 
 	var reader = new FileReader();
@@ -194,7 +194,7 @@ function read_file(file_id, img_id)
 		var result = this.result;
 		var img = new Image();
 
-		// Èç¹ûÍ¼Æ¬Ğ¡ÓÚ 64kb£¬²»Ñ¹Ëõ
+		// å¦‚æœå›¾ç‰‡å°äº 64kbï¼Œä¸å‹ç¼©
 		if (result.length <= maxsize) {
 			to_previewer(file_id, img_id, result)
 			return;
@@ -233,7 +233,7 @@ function compress(img, fileType) {
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.drawImage(img, 0, 0, width, height);
 
-	// Ñ¹Ëõ
+	// å‹ç¼©
 	var base64data = canvas.toDataURL(fileType, 0.1);
 	canvas = ctx = null;
 
@@ -249,7 +249,7 @@ function download_file(fileName, content){
     var aLink = document.createElement('a');
     var blob = new Blob([content]);
     var evt = document.createEvent("HTMLEvents");
-    evt.initEvent("click", false, false);//initEvent ²»¼ÓºóÁ½¸ö²ÎÊıÔÚFFÏÂ»á±¨´í
+    evt.initEvent("click", false, false);//initEvent ä¸åŠ åä¸¤ä¸ªå‚æ•°åœ¨FFä¸‹ä¼šæŠ¥é”™
     aLink.download = fileName;
     aLink.href = URL.createObjectURL(blob);
     aLink.dispatchEvent(evt);
@@ -311,7 +311,7 @@ function create_my_element(str)
 	else if(strs[0] == "v")
 	{
 		var au = document.createElement("audio")
-		au.controls = "controls"		//ÊÇ·ñÏÔÊ¾²¥·ÅÆ÷
+		au.controls = "controls"		//æ˜¯å¦æ˜¾ç¤ºæ’­æ”¾å™¨
 		au.autoplay = 0
 		au.id = strs[1]
 		au.src = encodeURI(strs[2])
@@ -346,7 +346,7 @@ function create_table_control(form_id, ar)
 	{
 		var tr = document.createElement("tr")
 		tr.id = "tr_" + i
-		//th.rowSpan = ar.length		//ÔÚjavascriptÖĞ·ÃÎÊÊôĞÔÊÇ´óĞ¡Ğ´Çø·ÖµÄ¡£
+		//th.rowSpan = ar.length		//åœ¨javascriptä¸­è®¿é—®å±æ€§æ˜¯å¤§å°å†™åŒºåˆ†çš„ã€‚
 		for(var j=0; j<ar[i].length; j++)
 		{
 			var td = document.createElement("td")
@@ -381,4 +381,125 @@ function create_text_control(parent_id, ar)
 		}
 		fo.appendChild(document.createElement("br"))
 	}
+}
+
+function create_input_element(ar, div_id)
+{
+	/*
+	<div class="col-sm-4 placeholder">
+		<div class="input-group">
+			<span class="input-group-addon">ä¸­æ–‡å§“å</span>
+			<input type="text" class="form-control" placeholder="twitterhandle">
+		</div>
+	</div>
+	*/
+	var d = document.getElementById(div_id || "div_123")
+	var d1 = document.createElement("div")
+	d1.className = "col-sm-5 placeholder"
+	var d2 = document.createElement("div")
+	d2.className = "input-group"
+	for(var i=0; i<ar.length; i++)
+	{
+		if(ar[i] == "input")
+		{
+			var input = document.createElement("input")
+			input.type = "text"
+			input.className = "form-control"
+			input.placeholder = "twitterhandle"
+			d2.appendChild(input)
+		}
+		else
+		{
+			var s = document.createElement("span")
+			s.className = "input-group-addon"
+			s.innerHTML = ar[i]
+			d2.appendChild(s)
+		}
+	}
+	d1.appendChild(d2)
+	d.appendChild(d1)
+}
+
+function create_table_line_element(ar)
+{
+	var tb = document.getElementById("tbody_123")
+	var tr = document.createElement("tr")
+
+	var td = document.createElement("td")
+	var a = document.createElement("a")
+	a.className = "btn btn-default"
+	a.innerHTML = "æŸ¥çœ‹"
+	td.appendChild(a)
+	tr.appendChild(td)
+
+	ar = ar || ["1,002", "amet", "consectetur", "adipiscing", "elit","1,002", "amet", "consectetur", "adipiscing", "elit","1,002", "amet", "consectetur", "adipiscing", "elit", "elit"]
+	for(var i=0; i<ar.length; i++)
+	{
+		var td = document.createElement("td")
+		td.innerHTML = ar[i]
+		tr.appendChild(td)
+	}
+
+	tb.appendChild(tr)
+}
+
+function create_table_element(ar, div_id)
+{
+	/*
+  <table class="table table-bordered">
+	<thead>
+	  <tr>
+		<th></th>
+		<th>å§“å</th>
+		<th>å±…ç•™è¯å·ç </th>
+		<th>è”ç³»æ–¹å¼</th>
+		<th>å…³ç³»</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+		<td rowspan="4" width="10">åŒè¡Œäººå‘˜</td>
+		<td width="100">
+			<input type="text" class="form-control" placeholder="twitterhandle">
+		</td>
+		*/
+	var div = document.getElementById(div_id || "div_456")
+	var tb = document.createElement("table")
+	tb.className = "table table-bordered"
+	var tbody = document.createElement("tbody")
+	for(var i=0; i < ar.length; i++)
+	{
+		var tr = document.createElement("tr")
+		for(var j=0; j<ar[i].length; j++)
+		{
+			var td = document.createElement("td")
+			var strs = new Array();
+			strs = ar[i][j].split("|");
+			var strss = strs[0].split(",")
+			if(strss && strss[0])
+				td.colSpan = strss[0]
+			if(strss && strss[1])
+				td.rowSpan = strss[1]
+			if(strss && strss[2])
+				td.width = strss[2]
+
+			strs[1] = strs[1] || strs[0]
+			if(strs[1] == "i")
+			{
+				var input = document.createElement("input")
+				input.type = "text"
+				input.className = "form-control"
+				input.placeholder = "twitterhandle"
+				td.appendChild(input)
+			}
+			else
+			{
+				td.innerHTML = strs[1]
+			}
+			tr.appendChild(td)
+		}
+		tbody.appendChild(tr)
+	}
+	tb.appendChild(tbody)
+	div.appendChild(tb)
 }

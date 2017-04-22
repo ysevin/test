@@ -97,13 +97,23 @@ body {
   margin-bottom: 0;
 }
 .placeholder {
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 .placeholder img {
+  margin-bottom: 10px;
   display: inline-block;
   border-radius: 50%;
 }
 
 .buttongap {
   margin-bottom: 10px;
+}
+
+.pre-scrollable {
+  max-height: 340px;
+  overflow-y: scroll;
+}
+.pre-scrollable_x {
+  max-width: 1600px;
+  overflow-x: scroll;
 }
